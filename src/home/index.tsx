@@ -1,3 +1,4 @@
+import React,{useState} from 'react'
 import {
   View,
   Text,
@@ -12,14 +13,29 @@ import {
 } from "react-native";
 
 import { useContext } from "react";
-
+import Feather from  '@expo/vector-icons/Feather'
 import { AuthContext } from "../contextApi";
 
 import RenderReceita from "../components/renderReceita";
 import RenderGastos from "../components/renderGastos";
 
 export default function Home() {
-  const { user, receita, gastos } = useContext(AuthContext);
+  const { user, receita, gastos,LogOut,AddReceita, AddGastos } = useContext(AuthContext);
+  const [addValor,setAddValor] = useState('')
+
+  async function Sair(){
+    LogOut()
+  }
+
+  async function Add(){
+    AddReceita({addValor})
+    setAddValor('')
+  }
+
+  async function AddvalorGastos(){
+    AddGastos({addValor})
+    setAddValor('')
+  }
 
   return (
     <SafeAreaView style={s.conteiner}>
@@ -31,21 +47,21 @@ export default function Home() {
           <View>
             <Text style={s.textEmail}>Email: {user.email}</Text>
           </View>
-          <View style={s.areaSair}>
-            <Text>Sair</Text>
-          </View>
+          <TouchableOpacity style={s.areaSair} onPress={Sair}>
+            <Feather color="black" name="log-out" size={20}/>
+          </TouchableOpacity>
         </View>
       </View>
 
       <View style={s.areaAdd}>
-        <TextInput placeholder="Receita/Gastos" style={s.inputAdd} />
+        <TextInput placeholder="Receita/Gastos" value={addValor} onChangeText={setAddValor}  style={s.inputAdd} />
 
         <View style={s.areaBntAdd}>
-          <TouchableOpacity style={s.bnt}>
+          <TouchableOpacity style={s.bnt} onPress={Add}>
             <Text style={s.textbntAdd}>Receita</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={s.bnt}>
+          <TouchableOpacity style={s.bnt} onPress={AddvalorGastos}>
             <Text style={s.textbntAdd}>Gastos</Text>
           </TouchableOpacity>
         </View>

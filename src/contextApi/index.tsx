@@ -7,6 +7,7 @@ import {
 import { collection, query, where } from "firebase/firestore";
 import { db } from "../firebase/firebaseConextion";
 import { getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { signOut } from "firebase/auth";
 
 export const AuthContext = createContext({} as States);
 
@@ -18,7 +19,10 @@ type States = {
   receita: TypesReceita[] | undefined;
   gastos: TypesGastos[] | undefined;
   Deletar: (info: DeletarProp) => Promise<void>;
-  DeletarGastos: (info: DeletarProp) => Promise<void>;
+  DeletarGastos: (info: DeletarGastos) => Promise<void>;
+  LogOut: () => Promise<void>
+  AddReceita: (info: {addValor: string|number})=> Promise<void>
+  AddGastos: (info: {addValor: string|number})=> Promise<void>
 };
 
 type stateUser = {
@@ -32,7 +36,7 @@ type ChildrenProp = {
 
 export interface TypesReceita {
   receita: string;
-  uid: string | undefined;
+  uid: string;
 }
 
 export interface TypesGastos {
@@ -43,6 +47,12 @@ export interface TypesGastos {
 export type DeletarProp = {
   uid: string;
 };
+
+
+export type DeletarGastos = {
+  uid: string;
+}
+
 
 export function AuthProvider({ children }: ChildrenProp) {
   const [user, setUser] = useState<stateUser>({
@@ -150,6 +160,45 @@ export function AuthProvider({ children }: ChildrenProp) {
       });
   }
 
+  async function AddReceita({addValor}: {addValor: string|number}){
+    try{
+      const data = await addDoc(collection(db, 'receita'), {
+        uid: user.uid,
+        valor: addValor,
+    })
+    }
+    catch{
+      alert('erro ao add')
+    }
+  }
+
+  async function AddGastos({addValor}: {addValor: string|number}){
+    try{
+      const data = await addDoc(collection(db, 'gastos'), {
+        uid: user.uid,
+        valor: addValor,
+    })
+    }
+    catch{
+      alert('erro ao add')
+    }
+  }
+
+  async function LogOut(){
+    await signOut(auth)
+    
+    .then(()=>{
+      setUser({
+        email: '',
+        uid: '',
+      })
+      alert('voce saiu da conta')
+    })
+    .catch(()=>{
+      alert('errppp')
+    })
+  } 
+
   const logado = !!user?.email && !!user?.uid;
   return (
     <AuthContext.Provider
@@ -162,6 +211,9 @@ export function AuthProvider({ children }: ChildrenProp) {
         gastos,
         Deletar,
         DeletarGastos,
+        LogOut,
+        AddReceita,
+        AddGastos
       }}
     >
       {children}

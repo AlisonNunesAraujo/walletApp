@@ -1,15 +1,15 @@
 import { View,Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { TypesGastos } from '../../contextApi';
-
 import { useContext } from 'react';
 
 import { AuthContext } from '../../contextApi';
+import Feather from '@expo/vector-icons/Feather'
 
-export default function RenderGastos({data}: {data: TypesGastos}) {
+export default function RenderGastos({data}: {data:TypesGastos}){ 
 
     const {DeletarGastos} = useContext(AuthContext)
 
-    function Deletar(uid){
+    function Deletar(uid: string){
         DeletarGastos({uid})
     }
 
@@ -19,7 +19,7 @@ export default function RenderGastos({data}: {data: TypesGastos}) {
     <Text style={s.textValor}>R$ {data.gastos}</Text>
 
     <TouchableOpacity onPress={() => Deletar(data.uid)}>
-        <Text style={s.textbnt}>Apagar</Text>
+        <Feather color='red' size={20} name='trash'/>
     </TouchableOpacity>
    </View>
   );
@@ -34,6 +34,7 @@ const s = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10,
         borderRadius: 5,
+        gap: 10,
 
     },
     textValor:{

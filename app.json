@@ -19,10 +19,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/app.jpg",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.alisonaraujo.Wallet"
     },
     "web": {
       "favicon": "./assets/app.jpg"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c62bd382-120c-468d-a728-0f616658f046"
+      }
     }
   }
 }

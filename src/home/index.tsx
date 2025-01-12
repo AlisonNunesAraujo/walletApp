@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -13,28 +13,29 @@ import {
 } from "react-native";
 
 import { useContext } from "react";
-import Feather from  '@expo/vector-icons/Feather'
+import Feather from "@expo/vector-icons/Feather";
 import { AuthContext } from "../contextApi";
 
 import RenderReceita from "../components/renderReceita";
 import RenderGastos from "../components/renderGastos";
 
 export default function Home() {
-  const { user, receita, gastos,LogOut,AddReceita, AddGastos } = useContext(AuthContext);
-  const [addValor,setAddValor] = useState('')
+  const { user, receita, gastos, LogOut, AddReceita, AddGastos } =
+    useContext(AuthContext);
+  const [addValor, setAddValor] = useState("");
 
-  async function Sair(){
-    LogOut()
+  async function Sair() {
+    LogOut();
   }
 
-  async function Add(){
-    AddReceita({addValor})
-    setAddValor('')
+  async function Add() {
+    AddReceita({ addValor });
+    setAddValor("");
   }
 
-  async function AddvalorGastos(){
-    AddGastos({addValor})
-    setAddValor('')
+  async function AddvalorGastos() {
+    AddGastos({ addValor });
+    setAddValor("");
   }
 
   return (
@@ -48,13 +49,19 @@ export default function Home() {
             <Text style={s.textEmail}>Email: {user.email}</Text>
           </View>
           <TouchableOpacity style={s.areaSair} onPress={Sair}>
-            <Feather color="black" name="log-out" size={20}/>
+            <Feather color="black" name="log-out" size={20} />
           </TouchableOpacity>
         </View>
       </View>
 
       <View style={s.areaAdd}>
-        <TextInput placeholder="Receita/Gastos" value={addValor} onChangeText={setAddValor}  style={s.inputAdd} />
+        <TextInput
+          placeholder="Receita/Gastos"
+          keyboardType="numeric"
+          value={addValor}
+          onChangeText={setAddValor}
+          style={s.inputAdd}
+        />
 
         <View style={s.areaBntAdd}>
           <TouchableOpacity style={s.bnt} onPress={Add}>
@@ -85,14 +92,15 @@ export default function Home() {
 const s = StyleSheet.create({
   conteiner: {
     flex: 1,
-    backgroundColor: "white",
-    alignItems: 'center',
+    backgroundColor: "#fff4ff",
+    alignItems: "center",
   },
 
   header: {
     width: "100%",
     height: 150,
     backgroundColor: "#ccc",
+    boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
   },
   areaLogOut: {
     width: "100%",
@@ -102,7 +110,8 @@ const s = StyleSheet.create({
     flexDirection: "row",
   },
   title: {
-    fontSize: 25,
+    marginTop: 10,
+    fontSize: 30,
     fontFamily: "Arial",
     marginLeft: 20,
   },
@@ -111,6 +120,7 @@ const s = StyleSheet.create({
     fontSize: 15,
     fontFamily: "Arial",
     marginLeft: 20,
+    fontWeight: "700",
   },
 
   areaSair: {
@@ -131,13 +141,15 @@ const s = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
+    boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
   },
 
   inputAdd: {
     width: "90%",
-    padding: 20,
+    height: 50,
+    padding: 10,
     borderRadius: 5,
-    boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
+    boxShadow: "1px 3px 3px 2px rgba(8, 8, 8, 0.25)",
   },
 
   areaBntAdd: {
@@ -163,7 +175,7 @@ const s = StyleSheet.create({
   areaFlat: {
     flexDirection: "row",
     width: "100%",
-    height: 500,
+    height: "50%",
     justifyContent: "center",
     padding: 15,
     marginTop: 20,

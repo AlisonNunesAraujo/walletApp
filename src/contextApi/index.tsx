@@ -8,6 +8,9 @@ import { collection, query, where } from "firebase/firestore";
 import { db } from "../firebase/firebaseConextion";
 import { getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { showMessage } from "react-native-flash-message";
 
 export const AuthContext = createContext({} as States);
 
@@ -20,9 +23,9 @@ type States = {
   gastos: TypesGastos[] | undefined;
   Deletar: (info: DeletarProp) => Promise<void>;
   DeletarGastos: (info: DeletarGastos) => Promise<void>;
-  LogOut: () => Promise<void>
-  AddReceita: (info: {addValor: string|number})=> Promise<void>
-  AddGastos: (info: {addValor: string|number})=> Promise<void>
+  LogOut: () => Promise<void>;
+  AddReceita: (info: { addValor: string | number }) => Promise<void>;
+  AddGastos: (info: { addValor: string | number }) => Promise<void>;
 };
 
 type stateUser = {
@@ -48,11 +51,9 @@ export type DeletarProp = {
   uid: string;
 };
 
-
 export type DeletarGastos = {
   uid: string;
-}
-
+};
 
 export function AuthProvider({ children }: ChildrenProp) {
   const [user, setUser] = useState<stateUser>({
@@ -64,6 +65,21 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [gastos, setGastos] = useState<TypesGastos[]>();
 
   useEffect(() => {
+    async function VerUser() {
+      try {
+        const response = await AsyncStorage.getItem("@userAppwallet");
+        if (response) {
+          setUser(JSON.parse(response));
+        }
+      } catch {
+        showMessage({
+          message: "Algo deu errado!",
+        });
+      }
+    }
+
+    VerUser();
+
     async function buscarDados() {
       const ref = collection(db, "receita");
 
@@ -118,8 +134,23 @@ export function AuthProvider({ children }: ChildrenProp) {
         email: data.user.email,
         uid: data.user.uid,
       });
+
+      const dados = {
+        email: data.user.email,
+        uid: data.user.uid,
+      };
+
+      showMessage({
+        message: "Bem vindo!",
+        duration: 2000,
+        type: "success",
+      });
+
+      await AsyncStorage.setItem("@userAppwallet", JSON.stringify(dados));
     } catch {
-      alert("erro");
+      showMessage({
+        message: "Algo deu errado!",
+      });
     }
   }
 
@@ -130,9 +161,20 @@ export function AuthProvider({ children }: ChildrenProp) {
         email: data.user.email,
         uid: data.user.uid,
       });
-      alert("bem vindo");
+      const dados = {
+        email: data.user.email,
+        uid: data.user.uid,
+      };
+      await AsyncStorage.setItem("@userAppwallet", JSON.stringify(dados));
+      showMessage({
+        message: "Bem vindo!",
+        type: "success",
+      });
     } catch {
-      alert("erro");
+      showMessage({
+        message: "Algo deu errado!",
+        type: "danger",
+      });
     }
   }
 
@@ -141,10 +183,15 @@ export function AuthProvider({ children }: ChildrenProp) {
 
     await deleteDoc(data)
       .then(() => {
-        alert("apagou");
+        showMessage({
+          message: "Deletado com sucesso!",
+          type: "success",
+        });
       })
       .catch(() => {
-        alert("erroooooo");
+        showMessage({
+          message: "Algo deu errado!",
+        });
       });
   }
 
@@ -153,51 +200,71 @@ export function AuthProvider({ children }: ChildrenProp) {
 
     await deleteDoc(data)
       .then(() => {
-        alert("apagou");
+        showMessage({
+          message: "Deletado com sucesso!",
+          type: "success",
+        });
       })
       .catch((err) => {
-        alert(err);
+        showMessage({
+          message: "Algo deu errado!",
+        });
       });
   }
 
-  async function AddReceita({addValor}: {addValor: string|number}){
-    try{
-      const data = await addDoc(collection(db, 'receita'), {
+  async function AddReceita({ addValor }: { addValor: string | number }) {
+    try {
+      const data = await addDoc(collection(db, "receita"), {
         uid: user.uid,
         valor: addValor,
-    })
-    }
-    catch{
-      alert('erro ao add')
+      });
+
+      showMessage({
+        message: "Adicionado com sucesso!",
+        type: "success",
+      });
+    } catch {
+      showMessage({
+        message: "Algo deu errado!",
+      });
     }
   }
 
-  async function AddGastos({addValor}: {addValor: string|number}){
-    try{
-      const data = await addDoc(collection(db, 'gastos'), {
+  async function AddGastos({ addValor }: { addValor: string | number }) {
+    try {
+      const data = await addDoc(collection(db, "gastos"), {
         uid: user.uid,
         valor: addValor,
-    })
-    }
-    catch{
-      alert('erro ao add')
+      });
+
+      showMessage({
+        message: "Adicionado com sucesso!",
+        type: "success",
+      });
+    } catch {
+      showMessage({
+        message: "Algo deu errado!",
+      });
     }
   }
 
-  async function LogOut(){
-    await signOut(auth)
-    
-    .then(()=>{
-      setUser({
-        email: '',
-        uid: '',
+  async function LogOut() {
+    await signOut(auth);
+    AsyncStorage.clear()
+
+      .then(() => {
+        setUser({
+          email: "",
+          uid: "",
+        });
+        showMessage({
+          message: "Volte sempre!",
+        });
       })
-      alert('voce saiu da conta')
-    })
-    .catch(()=>{
-      alert('errppp')
-    })
-  } 
+      .catch(() => {
+        alert("errppp");
+      });
+  }
 
   const logado = !!user?.email && !!user?.uid;
   return (
@@ -213,7 +280,7 @@ export function AuthProvider({ children }: ChildrenProp) {
         DeletarGastos,
         LogOut,
         AddReceita,
-        AddGastos
+        AddGastos,
       }}
     >
       {children}

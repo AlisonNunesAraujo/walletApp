@@ -1,50 +1,48 @@
-import { View,Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { TypesGastos } from '../../contextApi';
-import { useContext } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { TypesGastos } from "../../contextApi";
+import { useContext } from "react";
 
-import { AuthContext } from '../../contextApi';
-import Feather from '@expo/vector-icons/Feather'
+import { AuthContext } from "../../contextApi";
+import Feather from "@expo/vector-icons/Feather";
 
-export default function RenderGastos({data}: {data:TypesGastos}){ 
+export default function RenderGastos({ data }: { data: TypesGastos }) {
+  const { DeletarGastos } = useContext(AuthContext);
 
-    const {DeletarGastos} = useContext(AuthContext)
+  function Deletar(uid: string) {
+    DeletarGastos({ uid });
+  }
 
-    function Deletar(uid: string){
-        DeletarGastos({uid})
-    }
+  return (
+    <View style={s.areaRender}>
+      <Text style={s.textValor}>R$ {data.gastos}</Text>
 
-
- return (
-   <View style={s.areaRender}>
-    <Text style={s.textValor}>R$ {data.gastos}</Text>
-
-    <TouchableOpacity onPress={() => Deletar(data.uid)}>
-        <Feather color='red' size={20} name='trash'/>
-    </TouchableOpacity>
-   </View>
+      <TouchableOpacity onPress={() => Deletar(data.uid)}>
+        <Feather color="red" size={20} name="trash" />
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const s = StyleSheet.create({
-    areaRender:{
-        width: '100%',
-        height: 100,
-        backgroundColor: '#ccc',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 10,
-        borderRadius: 5,
-        gap: 10,
+  areaRender: {
+    width: "100%",
+    height: 100,
+    backgroundColor: "#ccc",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
+    borderRadius: 5,
+    gap: 10,
+    boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
+  },
+  textValor: {
+    fontFamily: "Arial",
+    fontSize: 16,
+    fontWeight: "700",
+  },
 
-    },
-    textValor:{
-        fontFamily: 'Arial',
-        fontSize: 16,
-    },
-
-    textbnt:{
-        fontFamily: 'Arial',
-        fontWeight: '700'
-    }
-
-})
+  textbnt: {
+    fontFamily: "Arial",
+    fontWeight: "700",
+  },
+});

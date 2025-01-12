@@ -32,7 +32,6 @@ export default function SigIn() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={s.areaLogin}>
-        <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
         <View style={s.form}>
           <Text style={s.Title}>Entre na sua conta!</Text>
 
@@ -46,6 +45,7 @@ export default function SigIn() {
             placeholder="Password"
             value={senha}
             onChangeText={setSenha}
+            secureTextEntry
             style={s.formInput}
           />
           <TouchableOpacity style={s.bnts} onPress={Logar}>

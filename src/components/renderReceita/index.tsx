@@ -25,17 +25,19 @@ const s = StyleSheet.create({
   areaRender: {
     width: "100%",
     height: 100,
-    backgroundColor: "#ccc",
+    backgroundColor: "#cccccc",
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 10,
     borderRadius: 5,
     gap: 19,
+    boxShadow: '0px 4px 4px rgba(8, 8, 8, 0.25)',
   },
 
   textValor: {
     fontSize: 16,
     fontFamily: "Arial,",
+    fontWeight: '700'
   },
   textbnt: {
     fontFamily: "Arial",

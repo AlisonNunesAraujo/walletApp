@@ -10,7 +10,7 @@ import {
   StyleSheet,
   StatusBar,
 } from "react-native";
-
+import { ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
 
@@ -18,7 +18,7 @@ import { AuthContext } from "../contextApi";
 
 export default function SigIn() {
   const navigation = useNavigation();
-  const { CreateUser } = useContext(AuthContext);
+  const { CreateUser,load } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -47,7 +47,11 @@ export default function SigIn() {
             style={s.formInput}
           />
           <TouchableOpacity style={s.bnts} onPress={Create}>
+           {load ? (
+            <ActivityIndicator size={20} color='black'/>
+           ): (
             <Text style={s.textBnts}>Criar</Text>
+           )}
           </TouchableOpacity>
 
           <TouchableOpacity style={s.bnts} onPress={() => navigation.goBack()}>

@@ -12,6 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { showMessage } from "react-native-flash-message";
 
+
 export const AuthContext = createContext({} as States);
 
 type States = {
@@ -26,6 +27,8 @@ type States = {
   LogOut: () => Promise<void>;
   AddReceita: (info: { addValor: string | number }) => Promise<void>;
   AddGastos: (info: { addValor: string | number }) => Promise<void>;
+  load: boolean;
+  loading: boolean
 };
 
 type stateUser = {
@@ -63,6 +66,9 @@ export function AuthProvider({ children }: ChildrenProp) {
 
   const [receita, setReceita] = useState<TypesReceita[]>();
   const [gastos, setGastos] = useState<TypesGastos[]>();
+
+  const [load,setLoading] = useState(false)
+  const [loading,setLoad] = useState(false)
 
   useEffect(() => {
     async function VerUser() {
@@ -119,13 +125,8 @@ export function AuthProvider({ children }: ChildrenProp) {
     RendleGastos();
   }, [Deletar]);
 
-  async function CreateUser({
-    email,
-    senha,
-  }: {
-    email: string;
-    senha: string;
-  }) {
+  async function CreateUser({ email,senha,}: {email: string; senha: string;}) {
+    setLoading(true)
     try {
       const data = await createUserWithEmailAndPassword(auth, email, senha);
 
@@ -145,16 +146,19 @@ export function AuthProvider({ children }: ChildrenProp) {
         duration: 2000,
         type: "success",
       });
+      setLoading(false)
 
       await AsyncStorage.setItem("@userAppwallet", JSON.stringify(dados));
     } catch {
       showMessage({
         message: "Algo deu errado!",
       });
+      setLoading(false)
     }
   }
 
   async function Login({ email, senha }: { email: string; senha: string }) {
+    setLoading(true)
     try {
       const data = await signInWithEmailAndPassword(auth, email, senha);
       setUser({
@@ -165,6 +169,7 @@ export function AuthProvider({ children }: ChildrenProp) {
         email: data.user.email,
         uid: data.user.uid,
       };
+      setLoading(false)
       await AsyncStorage.setItem("@userAppwallet", JSON.stringify(dados));
       showMessage({
         message: "Bem vindo!",
@@ -175,10 +180,12 @@ export function AuthProvider({ children }: ChildrenProp) {
         message: "Algo deu errado!",
         type: "danger",
       });
+      setLoading(false)
     }
   }
 
   async function Deletar({ uid }: DeletarProp) {
+    setLoading(true)
     const data = doc(db, "receita", uid);
 
     await deleteDoc(data)
@@ -187,11 +194,14 @@ export function AuthProvider({ children }: ChildrenProp) {
           message: "Deletado com sucesso!",
           type: "success",
         });
+        setLoading(false)
       })
+      
       .catch(() => {
         showMessage({
           message: "Algo deu errado!",
         });
+        setLoading(false)
       });
   }
 
@@ -213,38 +223,47 @@ export function AuthProvider({ children }: ChildrenProp) {
   }
 
   async function AddReceita({ addValor }: { addValor: string | number }) {
+    setLoading(true)
     try {
       const data = await addDoc(collection(db, "receita"), {
         uid: user.uid,
         valor: addValor,
       });
 
+      
+
       showMessage({
         message: "Adicionado com sucesso!",
         type: "success",
       });
+      setLoading(false)
     } catch {
       showMessage({
         message: "Algo deu errado!",
       });
+      setLoading(false)
     }
   }
 
   async function AddGastos({ addValor }: { addValor: string | number }) {
+    setLoad(true)
     try {
       const data = await addDoc(collection(db, "gastos"), {
         uid: user.uid,
         valor: addValor,
       });
+      
 
       showMessage({
         message: "Adicionado com sucesso!",
         type: "success",
       });
+      setLoad(false)
     } catch {
       showMessage({
         message: "Algo deu errado!",
       });
+      setLoad(false)
     }
   }
 
@@ -281,6 +300,8 @@ export function AuthProvider({ children }: ChildrenProp) {
         LogOut,
         AddReceita,
         AddGastos,
+        load,
+        loading
       }}
     >
       {children}

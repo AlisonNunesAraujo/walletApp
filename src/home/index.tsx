@@ -11,16 +11,18 @@ import {
   StatusBar,
   FlatList,
 } from "react-native";
-
+import { showMessage } from "react-native-flash-message";
 import { useContext } from "react";
 import Feather from "@expo/vector-icons/Feather";
 import { AuthContext } from "../contextApi";
-
+import { ActivityIndicator } from "react-native";
 import RenderReceita from "../components/renderReceita";
 import RenderGastos from "../components/renderGastos";
+import HeaderListGastos from "../components/HeaderListGastos";
+import HeaderListReceita from "../components/HeaderListReceita";
 
 export default function Home() {
-  const { user, receita, gastos, LogOut, AddReceita, AddGastos } =
+  const { user, receita, gastos, LogOut, AddReceita, AddGastos,load,loading } =
     useContext(AuthContext);
   const [addValor, setAddValor] = useState("");
 
@@ -29,11 +31,27 @@ export default function Home() {
   }
 
   async function Add() {
+    if(addValor === ''){
+      showMessage({
+        message: 'Digite algo!',
+        duration: 2000,
+        type: 'danger'
+      })
+      return;
+    }
     AddReceita({ addValor });
     setAddValor("");
   }
 
   async function AddvalorGastos() {
+    if(addValor === ''){
+      showMessage({
+        message: 'Digite algo!',
+        duration: 2000,
+        type: 'danger'
+      })
+      return;
+    }
     AddGastos({ addValor });
     setAddValor("");
   }
@@ -65,22 +83,34 @@ export default function Home() {
 
         <View style={s.areaBntAdd}>
           <TouchableOpacity style={s.bnt} onPress={Add}>
-            <Text style={s.textbntAdd}>Receita</Text>
+            {load ? (
+              <ActivityIndicator size={20} color='black'/>
+            ): (
+              <Text style={s.textbntAdd}>Receita</Text>
+            )}
           </TouchableOpacity>
 
           <TouchableOpacity style={s.bnt} onPress={AddvalorGastos}>
+           {loading ? (
+            <ActivityIndicator size={20} color='black'/>
+           ): (
             <Text style={s.textbntAdd}>Gastos</Text>
+           )}
           </TouchableOpacity>
         </View>
       </View>
 
       <View style={s.areaFlat}>
         <FlatList
+        ListHeaderComponent={<HeaderListReceita/>}
+        showsVerticalScrollIndicator={false}
           data={receita}
           renderItem={({ item }) => <RenderReceita data={item} />}
         />
 
         <FlatList
+        ListHeaderComponent={<HeaderListGastos/>}
+        showsVerticalScrollIndicator={false}
           data={gastos}
           renderItem={({ item }) => <RenderGastos data={item} />}
         />
@@ -120,7 +150,8 @@ const s = StyleSheet.create({
     fontSize: 15,
     fontFamily: "Arial",
     marginLeft: 20,
-    fontWeight: "700",
+    fontWeight: "500",
+    opacity: 0.6
   },
 
   areaSair: {

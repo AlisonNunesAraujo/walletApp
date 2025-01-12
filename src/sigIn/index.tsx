@@ -7,8 +7,8 @@ import {
   Keyboard,
   SafeAreaView,
   StyleSheet,
-  StatusBar,
 } from "react-native";
+import { ActivityIndicator } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
@@ -20,7 +20,7 @@ import { RoutAuthProp } from "../routs/auth";
 import { useState } from "react";
 export default function SigIn() {
   const navigation = useNavigation<NativeStackNavigationProp<RoutAuthProp>>();
-  const { Login } = useContext(AuthContext);
+  const { Login,load } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -49,7 +49,11 @@ export default function SigIn() {
             style={s.formInput}
           />
           <TouchableOpacity style={s.bnts} onPress={Logar}>
-            <Text style={s.textBnts}>Acessar</Text>
+            {load ? (
+              <ActivityIndicator size={20} color='black'/>
+            ) : (
+              <Text style={s.textBnts}>Acessar</Text>
+            )}
           </TouchableOpacity>
 
           <TouchableOpacity

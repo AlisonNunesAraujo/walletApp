@@ -20,7 +20,7 @@ import { RoutAuthProp } from "../routs/auth";
 import { useState } from "react";
 export default function SigIn() {
   const navigation = useNavigation<NativeStackNavigationProp<RoutAuthProp>>();
-  const { Login,load } = useContext(AuthContext);
+  const { Login, load } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -50,7 +50,7 @@ export default function SigIn() {
           />
           <TouchableOpacity style={s.bnts} onPress={Logar}>
             {load ? (
-              <ActivityIndicator size={20} color='black'/>
+              <ActivityIndicator size={20} color='black' />
             ) : (
               <Text style={s.textBnts}>Acessar</Text>
             )}
@@ -81,14 +81,17 @@ const s = StyleSheet.create({
     backgroundColor: "#cccccc",
     justifyContent: "center",
     alignItems: "center",
-    height: "50%",
+    height: "100%",
     borderEndEndRadius: 20,
     borderStartEndRadius: 20,
   },
   Title: {
-    fontSize: 20,
+    fontSize: 30,
     fontFamily: "Arial",
     margin: 20,
+    color: 'white',
+    opacity: 0.8,
+    fontWeight: '600'
   },
 
   formInput: {

@@ -18,13 +18,13 @@ import { AuthContext } from "../contextApi";
 
 export default function SigIn() {
   const navigation = useNavigation();
-  const { CreateUser,load } = useContext(AuthContext);
+  const { CreateUser, load } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
   function Create() {
-    CreateUser({email, senha });
+    CreateUser({ email, senha });
   }
 
   return (
@@ -47,11 +47,11 @@ export default function SigIn() {
             style={s.formInput}
           />
           <TouchableOpacity style={s.bnts} onPress={Create}>
-           {load ? (
-            <ActivityIndicator size={20} color='black'/>
-           ): (
-            <Text style={s.textBnts}>Criar</Text>
-           )}
+            {load ? (
+              <ActivityIndicator size={20} color='black' />
+            ) : (
+              <Text style={s.textBnts}>Criar</Text>
+            )}
           </TouchableOpacity>
 
           <TouchableOpacity style={s.bnts} onPress={() => navigation.goBack()}>
@@ -76,14 +76,18 @@ const s = StyleSheet.create({
     backgroundColor: "#cccccc",
     justifyContent: "center",
     alignItems: "center",
-    height: "50%",
+    height: "100%",
     borderEndEndRadius: 20,
     borderStartEndRadius: 20,
   },
   Title: {
-    fontSize: 20,
+    fontSize: 30,
     fontFamily: "Arial",
     margin: 20,
+    opacity: 0.7,
+    fontWeight: '600',
+    color: 'white'
+
   },
 
   formInput: {

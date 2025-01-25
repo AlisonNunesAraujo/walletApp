@@ -100,6 +100,7 @@ export function AuthProvider({ children }: ChildrenProp) {
           });
         });
         setReceita(lista);
+
       });
     }
 

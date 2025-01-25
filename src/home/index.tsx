@@ -22,7 +22,7 @@ import HeaderListGastos from "../components/HeaderListGastos";
 import HeaderListReceita from "../components/HeaderListReceita";
 
 export default function Home() {
-  const { user, receita, gastos, LogOut, AddReceita, AddGastos,load,loading } =
+  const { user, receita, gastos, LogOut, AddReceita, AddGastos, load, loading, } =
     useContext(AuthContext);
   const [addValor, setAddValor] = useState("");
 
@@ -31,7 +31,7 @@ export default function Home() {
   }
 
   async function Add() {
-    if(addValor === ''){
+    if (addValor === '') {
       showMessage({
         message: 'Digite algo!',
         duration: 2000,
@@ -44,7 +44,7 @@ export default function Home() {
   }
 
   async function AddvalorGastos() {
-    if(addValor === ''){
+    if (addValor === '') {
       showMessage({
         message: 'Digite algo!',
         duration: 2000,
@@ -84,33 +84,33 @@ export default function Home() {
         <View style={s.areaBntAdd}>
           <TouchableOpacity style={s.bnt} onPress={Add}>
             {load ? (
-              <ActivityIndicator size={20} color='black'/>
-            ): (
+              <ActivityIndicator size={20} color='black' />
+            ) : (
               <Text style={s.textbntAdd}>Receita</Text>
             )}
           </TouchableOpacity>
 
           <TouchableOpacity style={s.bnt} onPress={AddvalorGastos}>
-           {loading ? (
-            <ActivityIndicator size={20} color='black'/>
-           ): (
-            <Text style={s.textbntAdd}>Gastos</Text>
-           )}
+            {loading ? (
+              <ActivityIndicator size={20} color='black' />
+            ) : (
+              <Text style={s.textbntAdd}>Gastos</Text>
+            )}
           </TouchableOpacity>
         </View>
       </View>
 
       <View style={s.areaFlat}>
         <FlatList
-        ListHeaderComponent={<HeaderListReceita/>}
-        showsVerticalScrollIndicator={false}
+          ListHeaderComponent={<HeaderListReceita />}
+          showsVerticalScrollIndicator={false}
           data={receita}
           renderItem={({ item }) => <RenderReceita data={item} />}
         />
 
         <FlatList
-        ListHeaderComponent={<HeaderListGastos/>}
-        showsVerticalScrollIndicator={false}
+          ListHeaderComponent={<HeaderListGastos />}
+          showsVerticalScrollIndicator={false}
           data={gastos}
           renderItem={({ item }) => <RenderGastos data={item} />}
         />

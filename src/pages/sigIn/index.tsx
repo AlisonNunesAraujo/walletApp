@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,30 +7,33 @@ import {
   Keyboard,
   SafeAreaView,
   StyleSheet,
-  StatusBar,
 } from "react-native";
 import { ActivityIndicator } from "react-native";
+
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
 
-import { AuthContext } from "../contextApi";
+import { AuthContext } from "../../contextApi";
 
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RoutAuthProp } from "../../routs/auth";
+import { useState } from "react";
 export default function SigIn() {
-  const navigation = useNavigation();
-  const { CreateUser, load } = useContext(AuthContext);
+  const navigation = useNavigation<NativeStackNavigationProp<RoutAuthProp>>();
+  const { Login, load } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
-  function Create() {
-    CreateUser({ email, senha });
+  async function Logar() {
+    Login({ email, senha });
   }
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={s.areaLogin}>
         <View style={s.form}>
-          <Text style={s.Title}>Criar sua conta!</Text>
+          <Text style={s.Title}>Entre na sua conta!</Text>
 
           <TextInput
             placeholder="E-Mail"
@@ -46,16 +48,19 @@ export default function SigIn() {
             secureTextEntry
             style={s.formInput}
           />
-          <TouchableOpacity style={s.bnts} onPress={Create}>
+          <TouchableOpacity style={s.bnts} onPress={Logar}>
             {load ? (
               <ActivityIndicator size={20} color='black' />
             ) : (
-              <Text style={s.textBnts}>Criar</Text>
+              <Text style={s.textBnts}>Acessar</Text>
             )}
           </TouchableOpacity>
 
-          <TouchableOpacity style={s.bnts} onPress={() => navigation.goBack()}>
-            <Text style={s.textBnts}>Voltar</Text>
+          <TouchableOpacity
+            style={s.bnts}
+            onPress={() => navigation.navigate("SigOut")}
+          >
+            <Text style={s.textBnts}>Criar conta!</Text>
           </TouchableOpacity>
         </View>
 
@@ -84,10 +89,9 @@ const s = StyleSheet.create({
     fontSize: 30,
     fontFamily: "Arial",
     margin: 20,
-    opacity: 0.7,
-    fontWeight: '600',
-    color: 'white'
-
+    color: 'white',
+    opacity: 0.8,
+    fontWeight: '600'
   },
 
   formInput: {

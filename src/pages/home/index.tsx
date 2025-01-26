@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -14,17 +14,24 @@ import {
 import { showMessage } from "react-native-flash-message";
 import { useContext } from "react";
 import Feather from "@expo/vector-icons/Feather";
-import { AuthContext } from "../contextApi";
+import { AuthContext } from "../../contextApi";
 import { ActivityIndicator } from "react-native";
-import RenderReceita from "../components/renderReceita";
-import RenderGastos from "../components/renderGastos";
-import HeaderListGastos from "../components/HeaderListGastos";
-import HeaderListReceita from "../components/HeaderListReceita";
+import RenderReceita from "../../components/renderReceita";
+import RenderGastos from "../../components/renderGastos";
+import HeaderListGastos from "../../components/HeaderListGastos";
+import HeaderListReceita from "../../components/HeaderListReceita";
+
+import { useNavigation } from "@react-navigation/native";
+
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { ParamList } from "../../routs/authfree";
+
 
 export default function Home() {
   const { user, receita, gastos, LogOut, AddReceita, AddGastos, load, loading, } =
     useContext(AuthContext);
   const [addValor, setAddValor] = useState("");
+  const navigation = useNavigation<NativeStackNavigationProp<ParamList>>()
 
   async function Sair() {
     LogOut();
@@ -55,6 +62,9 @@ export default function Home() {
     AddGastos({ addValor });
     setAddValor("");
   }
+
+
+
 
   return (
     <SafeAreaView style={s.conteiner}>
@@ -114,6 +124,14 @@ export default function Home() {
           data={gastos}
           renderItem={({ item }) => <RenderGastos data={item} />}
         />
+      </View>
+
+
+
+      <View>
+        <TouchableOpacity onPress={() => navigation.navigate('Dolar')}>
+          <Text>Ver cotaçao</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

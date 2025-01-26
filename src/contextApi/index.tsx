@@ -9,7 +9,7 @@ import { db } from "../firebase/firebaseConextion";
 import { getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { api } from "../services";
 import { showMessage } from "react-native-flash-message";
 
 export const AuthContext = createContext({} as States);
@@ -70,6 +70,10 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [loading, setLoad] = useState(false);
 
   useEffect(() => {
+
+
+
+
     async function VerUser() {
       try {
         const response = await AsyncStorage.getItem("@userAppwallet");
@@ -84,6 +88,8 @@ export function AuthProvider({ children }: ChildrenProp) {
     }
 
     VerUser();
+
+
 
     async function buscarDados() {
       const ref = collection(db, "receita");
@@ -123,7 +129,11 @@ export function AuthProvider({ children }: ChildrenProp) {
     }
 
     RendleGastos();
-  }, [Deletar]);
+  }, [Deletar,]);
+
+
+
+
 
   async function CreateUser({
     email,
@@ -287,6 +297,9 @@ export function AuthProvider({ children }: ChildrenProp) {
         alert("errppp");
       });
   }
+
+
+
 
   const logado = !!user?.email && !!user?.uid;
   return (

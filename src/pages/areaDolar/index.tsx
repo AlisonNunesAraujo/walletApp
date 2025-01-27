@@ -16,13 +16,15 @@ export default function Dolar() {
         async function BuscarApi() {
             try {
                 const response = await api.get("USD-BRL");
-                setDadosapi(response.data);
-                console.log(dadosapi);
+                setDadosapi(Object.values(response.data));
+
+                console.log(response.data)
             } catch (error) {
                 console.error("Error fetching API data:", error);
             }
         }
         BuscarApi();
+
     }, []);
 
     return (

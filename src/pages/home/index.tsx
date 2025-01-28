@@ -128,9 +128,9 @@ export default function Home() {
 
 
 
-      <View>
+      <View style={s.areaDolar}>
         <TouchableOpacity onPress={() => navigation.navigate('Dolar')}>
-          <Text>Ver cotaçao</Text>
+          <Text style={s.textBntDolar}>Cotação</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -230,4 +230,18 @@ const s = StyleSheet.create({
     marginTop: 20,
     gap: 20,
   },
+  areaDolar: {
+    width: '90%',
+    height: 50,
+    backgroundColor: '#ccc',
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textBntDolar: {
+    fontFamily: 'Arial',
+    color: 'white',
+    fontSize: 17,
+    fontWeight: '900'
+  }
 });

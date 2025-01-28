@@ -18,7 +18,11 @@ export function StackFree() {
                 component={Home}
                 options={{ headerShown: false }}
             />
-            <Nav.Screen name="Dolar" component={Dolar} options={{ headerShown: false }} />
+            <Nav.Screen
+                name="Dolar"
+                component={Dolar}
+                options={{ title: "Voltar" }}
+            />
         </Nav.Navigator>
     );
 }

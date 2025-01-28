@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { View, Text, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 import { api } from "../../services";
 import Render from "./render";
 
@@ -15,16 +15,15 @@ export default function Dolar() {
     useEffect(() => {
         async function BuscarApi() {
             try {
-                const response = await api.get("USD-BRL");
+                const response = await api.get("USD-BRL,EUR-BRL,BTC-BRL");
                 setDadosapi(Object.values(response.data));
 
-                console.log(response.data)
+
             } catch (error) {
-                console.error("Error fetching API data:", error);
+                alert('Algo deu errado!')
             }
         }
         BuscarApi();
-
     }, []);
 
     return (
@@ -37,7 +36,10 @@ export default function Dolar() {
                 justifyContent: "center",
             }}
         >
-            <FlatList data={dadosapi} renderItem={({ item }) => <Render data={item} />} />
+            <FlatList
+                data={dadosapi}
+                renderItem={({ item }) => <Render data={item} />}
+            />
         </View>
     );
 }

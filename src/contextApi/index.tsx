@@ -9,7 +9,6 @@ import { db } from "../firebase/firebaseConextion";
 import { getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { api } from "../services";
 import { showMessage } from "react-native-flash-message";
 
 export const AuthContext = createContext({} as States);
@@ -24,8 +23,8 @@ type States = {
   Deletar: (info: DeletarProp) => Promise<void>;
   DeletarGastos: (info: DeletarGastos) => Promise<void>;
   LogOut: () => Promise<void>;
-  AddReceita: (info: { addValor: string | number }) => Promise<void>;
-  AddGastos: (info: { addValor: string | number }) => Promise<void>;
+  AddReceita: (info: { addValor: string | number, addDesc: string }) => Promise<void>;
+  AddGastos: (info: { addValor: string | number, addDesc: string }) => Promise<void>;
   load: boolean;
   loading: boolean;
 };
@@ -40,12 +39,14 @@ type ChildrenProp = {
 };
 
 export interface TypesReceita {
-  receita: string;
+  receita: number;
+  desc: string | number;
   uid: string;
 }
 
 export interface TypesGastos {
-  gastos: string;
+  gastos: number;
+  desc: string;
   uid: string;
 }
 
@@ -70,9 +71,6 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [loading, setLoad] = useState(false);
 
   useEffect(() => {
-
-
-
 
     async function VerUser() {
       try {
@@ -102,6 +100,7 @@ export function AuthProvider({ children }: ChildrenProp) {
         snapshot.forEach((doc) => {
           lista.push({
             receita: doc.data().valor,
+            desc: doc.data().descricao,
             uid: doc.id,
           });
         });
@@ -121,6 +120,7 @@ export function AuthProvider({ children }: ChildrenProp) {
         snapshot.forEach((doc) => {
           lista.push({
             gastos: doc.data().valor,
+            desc: doc.data().descricao,
             uid: doc.id,
           });
         });
@@ -238,12 +238,13 @@ export function AuthProvider({ children }: ChildrenProp) {
       });
   }
 
-  async function AddReceita({ addValor }: { addValor: string | number }) {
+  async function AddReceita({ addValor, addDesc }: { addValor: string | number, addDesc: string }) {
     setLoading(true);
     try {
       const data = await addDoc(collection(db, "receita"), {
         uid: user.uid,
         valor: addValor,
+        descricao: addDesc,
       });
 
       showMessage({
@@ -259,12 +260,13 @@ export function AuthProvider({ children }: ChildrenProp) {
     }
   }
 
-  async function AddGastos({ addValor }: { addValor: string | number }) {
+  async function AddGastos({ addValor, addDesc }: { addValor: string | number, addDesc: string }) {
     setLoad(true);
     try {
       const data = await addDoc(collection(db, "gastos"), {
         uid: user.uid,
         valor: addValor,
+        descricao: addDesc
       });
 
       showMessage({

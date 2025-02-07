@@ -1,25 +1,39 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { TypesGastos } from "../../contextApi";
 import { useContext } from "react";
 
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { ParamList } from "../../routs/authfree";
+
 import { AuthContext } from "../../contextApi";
 import Feather from "@expo/vector-icons/Feather";
+import { useNavigation } from "@react-navigation/native";
 
 export default function RenderGastos({ data }: { data: TypesGastos }) {
   const { DeletarGastos } = useContext(AuthContext);
+
+  const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
   function Deletar(uid: string) {
     DeletarGastos({ uid });
   }
 
   return (
-    <View style={s.areaRender}>
+    <TouchableOpacity
+      style={s.areaRender}
+      onPress={() =>
+        navigation.navigate("AreaDescGastos", {
+          gastos: data.gastos,
+          desc: data.desc,
+        })
+      }
+    >
       <Text style={s.textValor}>R$ {data.gastos}</Text>
-
+      <Text style={s.textVerMais}>Ver mais</Text>
       <TouchableOpacity onPress={() => Deletar(data.uid)}>
         <Feather color="red" size={20} name="trash" />
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -38,11 +52,17 @@ const s = StyleSheet.create({
   textValor: {
     fontFamily: "Arial",
     fontSize: 16,
-    fontWeight: "700",
   },
+
 
   textbnt: {
     fontFamily: "Arial",
     fontWeight: "700",
+  },
+  textVerMais: {
+    fontSize: 14,
+    fontFamily: "Arial",
+    color: 'red',
+    fontWeight: 'bold'
   },
 });

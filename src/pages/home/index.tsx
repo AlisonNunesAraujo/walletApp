@@ -31,6 +31,7 @@ export default function Home() {
   const { user, receita, gastos, LogOut, AddReceita, AddGastos, load, loading, } =
     useContext(AuthContext);
   const [addValor, setAddValor] = useState("");
+  const [addDesc, setAdddesc] = useState("")
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>()
 
   async function Sair() {
@@ -46,7 +47,7 @@ export default function Home() {
       })
       return;
     }
-    AddReceita({ addValor });
+    AddReceita({ addValor, addDesc });
     setAddValor("");
   }
 
@@ -59,7 +60,7 @@ export default function Home() {
       })
       return;
     }
-    AddGastos({ addValor });
+    AddGastos({ addValor, addDesc });
     setAddValor("");
   }
 
@@ -77,7 +78,7 @@ export default function Home() {
             <Text style={s.textEmail}>Email: {user.email}</Text>
           </View>
           <TouchableOpacity style={s.areaSair} onPress={Sair}>
-            <Feather color="black" name="log-out" size={20} />
+            <Feather color="black" name="log-out" size={22} />
           </TouchableOpacity>
         </View>
       </View>
@@ -88,6 +89,12 @@ export default function Home() {
           keyboardType="numeric"
           value={addValor}
           onChangeText={setAddValor}
+          style={s.inputAdd}
+        />
+        <TextInput
+          placeholder="Descrição"
+          value={addDesc}
+          onChangeText={setAdddesc}
           style={s.inputAdd}
         />
 
@@ -196,9 +203,10 @@ const s = StyleSheet.create({
   inputAdd: {
     width: "90%",
     height: 50,
-    padding: 10,
+    padding: 13,
     borderRadius: 5,
-    boxShadow: "1px 3px 3px 2px rgba(8, 8, 8, 0.25)",
+    boxShadow: "1px 3px 3px 0px rgba(8, 8, 8, 0.25)",
+    margin: 2,
   },
 
   areaBntAdd: {

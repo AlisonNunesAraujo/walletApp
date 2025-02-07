@@ -2,10 +2,20 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Home from "../pages/home";
 import Dolar from "../pages/areaDolar";
+import AreaDescReceita from "../pages/areaDescReceita";
+import AreaDescGastos from "../pages/areaDescGastos";
 
 export type ParamList = {
     Home: undefined;
     Dolar: undefined;
+    AreaDescReceita: {
+        receita: number,
+        desc: string | number,
+    };
+    AreaDescGastos: {
+        gastos: number,
+        desc: string | number
+    }
 };
 
 const Nav = createNativeStackNavigator<ParamList>();
@@ -23,6 +33,18 @@ export function StackFree() {
                 component={Dolar}
                 options={{ title: "Voltar" }}
             />
+
+            <Nav.Screen
+                name="AreaDescReceita"
+                component={AreaDescReceita}
+            />
+
+            <Nav.Screen
+                name="AreaDescGastos"
+                component={AreaDescGastos}
+            />
+
+
         </Nav.Navigator>
     );
 }

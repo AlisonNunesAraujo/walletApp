@@ -37,11 +37,13 @@ export function StackFree() {
             <Nav.Screen
                 name="AreaDescReceita"
                 component={AreaDescReceita}
+                options={{ headerShown: false }}
             />
 
             <Nav.Screen
                 name="AreaDescGastos"
                 component={AreaDescGastos}
+                options={{ headerShown: false }}
             />
 
 

@@ -4,8 +4,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback,
-  Keyboard,
   SafeAreaView,
   StyleSheet,
   StatusBar,
@@ -26,25 +24,33 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
 
-
 export default function Home() {
-  const { user, receita, gastos, LogOut, AddReceita, AddGastos, load, loading, } =
-    useContext(AuthContext);
+  const {
+    user,
+    receita,
+    gastos,
+    LogOut,
+    AddReceita,
+    AddGastos,
+    load,
+    loading,
+  } = useContext(AuthContext);
   const [addValor, setAddValor] = useState("");
-  const [addDesc, setAdddesc] = useState("")
-  const navigation = useNavigation<NativeStackNavigationProp<ParamList>>()
+  const [addDesc, setAdddesc] = useState("");
+  const [isAddactive, setIsaddactive] = useState(false);
+  const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
   async function Sair() {
     LogOut();
   }
 
   async function Add() {
-    if (addValor === '') {
+    if (addValor === "") {
       showMessage({
-        message: 'Digite algo!',
+        message: "Digite algo!",
         duration: 2000,
-        type: 'danger'
-      })
+        type: "danger",
+      });
       return;
     }
     AddReceita({ addValor, addDesc });
@@ -52,20 +58,17 @@ export default function Home() {
   }
 
   async function AddvalorGastos() {
-    if (addValor === '') {
+    if (addValor === "") {
       showMessage({
-        message: 'Digite algo!',
+        message: "Digite algo!",
         duration: 2000,
-        type: 'danger'
-      })
+        type: "danger",
+      });
       return;
     }
     AddGastos({ addValor, addDesc });
     setAddValor("");
   }
-
-
-
 
   return (
     <SafeAreaView style={s.conteiner}>
@@ -83,39 +86,49 @@ export default function Home() {
         </View>
       </View>
 
-      <View style={s.areaAdd}>
-        <TextInput
-          placeholder="Receita/Gastos"
-          keyboardType="numeric"
-          value={addValor}
-          onChangeText={setAddValor}
-          style={s.inputAdd}
-        />
-        <TextInput
-          placeholder="Descrição"
-          value={addDesc}
-          onChangeText={setAdddesc}
-          style={s.inputAdd}
-        />
+      {isAddactive ? (
+        <View style={s.areaAdd}>
+          <TextInput
+            placeholder="Receita/Gastos"
+            keyboardType="numeric"
+            value={addValor}
+            onChangeText={setAddValor}
+            style={s.inputAdd}
+          />
+          <TextInput
+            placeholder="Descrição"
+            value={addDesc}
+            onChangeText={setAdddesc}
+            style={s.inputAdd}
+            maxLength={100}
+          />
 
-        <View style={s.areaBntAdd}>
-          <TouchableOpacity style={s.bnt} onPress={Add}>
-            {load ? (
-              <ActivityIndicator size={20} color='black' />
-            ) : (
-              <Text style={s.textbntAdd}>Receita</Text>
-            )}
-          </TouchableOpacity>
+          <View style={s.areaBntAdd}>
+            <TouchableOpacity style={s.bnt} onPress={Add}>
+              {load ? (
+                <ActivityIndicator size={20} color="black" />
+              ) : (
+                <Text style={s.textbntAdd}>Receita</Text>
+              )}
+            </TouchableOpacity>
 
-          <TouchableOpacity style={s.bnt} onPress={AddvalorGastos}>
-            {loading ? (
-              <ActivityIndicator size={20} color='black' />
-            ) : (
-              <Text style={s.textbntAdd}>Gastos</Text>
-            )}
-          </TouchableOpacity>
+            <TouchableOpacity style={s.bnt} onPress={AddvalorGastos}>
+              {loading ? (
+                <ActivityIndicator size={20} color="black" />
+              ) : (
+                <Text style={s.textbntAdd}>Gastos</Text>
+              )}
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      ) : (
+        <TouchableOpacity
+          style={s.bntisActive}
+          onPress={() => setIsaddactive(!isAddactive)}
+        >
+          <Text style={s.textbntIsActive}>Adicionar Receita/Gastos</Text>
+        </TouchableOpacity>
+      )}
 
       <View style={s.areaFlat}>
         <FlatList
@@ -133,13 +146,12 @@ export default function Home() {
         />
       </View>
 
-
-
-      <View style={s.areaDolar}>
-        <TouchableOpacity onPress={() => navigation.navigate('Dolar')}>
-          <Text style={s.textBntDolar}>Cotação</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        style={s.areaDolar}
+        onPress={() => navigation.navigate("Dolar")}
+      >
+        <Text style={s.textBntDolar}>Cotação</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -176,7 +188,7 @@ const s = StyleSheet.create({
     fontFamily: "Arial",
     marginLeft: 20,
     fontWeight: "500",
-    opacity: 0.6
+    opacity: 0.6,
   },
 
   areaSair: {
@@ -239,17 +251,29 @@ const s = StyleSheet.create({
     gap: 20,
   },
   areaDolar: {
-    width: '90%',
+    width: "90%",
     height: 50,
-    backgroundColor: '#ccc',
+    backgroundColor: "#ccc",
     borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   textBntDolar: {
-    fontFamily: 'Arial',
-    color: 'white',
+    fontFamily: "Arial",
+    color: "white",
     fontSize: 17,
-    fontWeight: '900'
-  }
+    fontWeight: "900",
+  },
+  bntisActive: {
+    width: "50%",
+    marginTop: 20,
+    backgroundColor: "#ccc",
+    padding: 10,
+    borderRadius: 2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  textbntIsActive: {
+    fontFamily: "Arial",
+  },
 });

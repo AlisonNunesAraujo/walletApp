@@ -11,52 +11,19 @@ import { signOut } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 
+
+
+import { States } from "./types";
+import { ChildrenProp } from "./types";
+import { stateUser } from "./types";
+import { TypesReceita } from "./types";
+import { TypesGastos } from "./types";
+import { DeletarProp } from "./types";
+
+
+
 export const AuthContext = createContext({} as States);
 
-type States = {
-  user: stateUser;
-  logado: boolean;
-  CreateUser: (info: { email: string; senha: string }) => Promise<void>;
-  Login: (info: { email: string; senha: string }) => Promise<void>;
-  receita: TypesReceita[] | undefined;
-  gastos: TypesGastos[] | undefined;
-  Deletar: (info: DeletarProp) => Promise<void>;
-  DeletarGastos: (info: DeletarGastos) => Promise<void>;
-  LogOut: () => Promise<void>;
-  AddReceita: (info: { addValor: string | number, addDesc: string }) => Promise<void>;
-  AddGastos: (info: { addValor: string | number, addDesc: string }) => Promise<void>;
-  load: boolean;
-  loading: boolean;
-};
-
-type stateUser = {
-  email: string | null;
-  uid: string | number;
-};
-
-type ChildrenProp = {
-  children: ReactNode;
-};
-
-export interface TypesReceita {
-  receita: number;
-  desc: string | number;
-  uid: string;
-}
-
-export interface TypesGastos {
-  gastos: number;
-  desc: string;
-  uid: string;
-}
-
-export type DeletarProp = {
-  uid: string;
-};
-
-export type DeletarGastos = {
-  uid: string;
-};
 
 export function AuthProvider({ children }: ChildrenProp) {
   const [user, setUser] = useState<stateUser>({

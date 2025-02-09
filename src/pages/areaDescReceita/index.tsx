@@ -3,12 +3,7 @@ import { useRoute, RouteProp } from "@react-navigation/native";
 
 import { useNavigation } from "@react-navigation/native";
 
-type AreaDescricao = {
-    dados: {
-        receita: number | string;
-        desc: string | null;
-    };
-};
+import { AreaDescricao } from "./types";
 
 type DadosProps = RouteProp<AreaDescricao, "dados">;
 
@@ -50,7 +45,7 @@ const s = StyleSheet.create({
         fontWeight: '700'
     },
     textValorReceita: {
-        color: 'red',
+        color: 'black',
         fontWeight: 'bold',
         fontFamily: 'Arial'
     },

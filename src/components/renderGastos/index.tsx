@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
-import { TypesGastos } from "../../contextApi";
+import { TypesGastos } from "../../contextApi/types";
 import { useContext } from "react";
 
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";

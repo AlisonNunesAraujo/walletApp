@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
-import { TypesReceita } from "../../contextApi";
+import { TypesReceita } from "../../contextApi/types";
 
 import { useContext } from "react";
 import { AuthContext } from "../../contextApi";

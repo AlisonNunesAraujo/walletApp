@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   StyleSheet,
   StatusBar,
   FlatList,
+  ScrollView
 } from "react-native";
 import { showMessage } from "react-native-flash-message";
 import { useContext } from "react";
@@ -120,6 +121,12 @@ export default function Home() {
               )}
             </TouchableOpacity>
           </View>
+          <TouchableOpacity
+            style={s.areaDolar}
+            onPress={() => navigation.navigate("Dolar")}
+          >
+            <Text style={s.textBntDolar}>Ver cotação</Text>
+          </TouchableOpacity>
         </View>
       ) : (
         <TouchableOpacity
@@ -146,12 +153,7 @@ export default function Home() {
         />
       </View>
 
-      <TouchableOpacity
-        style={s.areaDolar}
-        onPress={() => navigation.navigate("Dolar")}
-      >
-        <Text style={s.textBntDolar}>Cotação</Text>
-      </TouchableOpacity>
+
     </SafeAreaView>
   );
 }

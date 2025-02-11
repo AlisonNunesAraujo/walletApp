@@ -251,7 +251,7 @@ export function AuthProvider({ children }: ChildrenProp) {
 
   async function LogOut() {
     await signOut(auth);
-    AsyncStorage.clear()
+    AsyncStorage.removeItem("@userAppwallet")
 
       .then(() => {
         setUser({

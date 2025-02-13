@@ -8,7 +8,6 @@ import {
   StyleSheet,
   StatusBar,
   FlatList,
-  ScrollView
 } from "react-native";
 import { showMessage } from "react-native-flash-message";
 import { useContext } from "react";
@@ -19,11 +18,11 @@ import RenderReceita from "../../components/renderReceita";
 import RenderGastos from "../../components/renderGastos";
 import HeaderListGastos from "../../components/HeaderListGastos";
 import HeaderListReceita from "../../components/HeaderListReceita";
-
 import { useNavigation } from "@react-navigation/native";
-
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
+
+import * as Animatable from 'react-native-animatable'
 
 export default function Home() {
   const {
@@ -45,7 +44,7 @@ export default function Home() {
     LogOut();
   }
 
-  async function Add() {
+  async function AddvalorReceita() {
     if (addValor === "") {
       showMessage({
         message: "Digite algo!",
@@ -56,6 +55,7 @@ export default function Home() {
     }
     AddReceita({ addValor, addDesc });
     setAddValor("");
+    setAdddesc("");
   }
 
   async function AddvalorGastos() {
@@ -69,12 +69,13 @@ export default function Home() {
     }
     AddGastos({ addValor, addDesc });
     setAddValor("");
+    setAdddesc("");
   }
 
   return (
     <SafeAreaView style={s.conteiner}>
       <StatusBar backgroundColor="#ccc" barStyle={"dark-content"} />
-      <View style={s.header}>
+      <Animatable.View animation='fadeInDown' style={s.header}>
         <Text style={s.title}>Bem vindo!</Text>
 
         <View style={s.areaLogOut}>
@@ -85,10 +86,10 @@ export default function Home() {
             <Feather color="black" name="log-out" size={22} />
           </TouchableOpacity>
         </View>
-      </View>
+      </Animatable.View>
 
       {isAddactive ? (
-        <View style={s.areaAdd}>
+        <Animatable.View animation='fadeInDown' style={s.areaAdd}>
           <TextInput
             placeholder="Receita/Gastos"
             keyboardType="numeric"
@@ -105,7 +106,7 @@ export default function Home() {
           />
 
           <View style={s.areaBntAdd}>
-            <TouchableOpacity style={s.bnt} onPress={Add}>
+            <TouchableOpacity style={s.bnt} onPress={AddvalorReceita}>
               {load ? (
                 <ActivityIndicator size={20} color="black" />
               ) : (
@@ -127,7 +128,12 @@ export default function Home() {
           >
             <Text style={s.textBntDolar}>Ver cotação</Text>
           </TouchableOpacity>
-        </View>
+
+
+          <TouchableOpacity onPress={() => setIsaddactive(false)} style={s.bntOcultarActive}>
+            <Text style={s.textbntOcultarActive}>Ocultar</Text>
+          </TouchableOpacity>
+        </Animatable.View>
       ) : (
         <TouchableOpacity
           style={s.bntisActive}
@@ -167,7 +173,7 @@ const s = StyleSheet.create({
 
   header: {
     width: "100%",
-    height: 150,
+    height: '15%',
     backgroundColor: "#ccc",
     boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
   },
@@ -249,16 +255,17 @@ const s = StyleSheet.create({
     height: "50%",
     justifyContent: "center",
     padding: 15,
-    marginTop: 20,
     gap: 20,
   },
   areaDolar: {
-    width: "90%",
-    height: 50,
-    backgroundColor: "#ccc",
+    width: "80%",
+    height: 45,
+    backgroundColor: "blue",
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
+    opacity: 0.6,
+    marginBottom: 5,
   },
   textBntDolar: {
     fontFamily: "Arial",
@@ -277,5 +284,20 @@ const s = StyleSheet.create({
   },
   textbntIsActive: {
     fontFamily: "Arial",
+    color: 'white'
+  },
+  bntOcultarActive: {
+    width: "80%",
+    height: 45,
+    backgroundColor: "blue",
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    opacity: 0.6
+  },
+  textbntOcultarActive: {
+    fontFamily: "Arial",
+    color: 'white',
+    fontWeight: '800'
   },
 });

@@ -251,19 +251,20 @@ export function AuthProvider({ children }: ChildrenProp) {
 
   async function LogOut() {
     await signOut(auth);
-    AsyncStorage.removeItem("@userAppwallet")
+    AsyncStorage.clear()
 
       .then(() => {
         setUser({
           email: "",
           uid: "",
         });
+
         showMessage({
           message: "Volte sempre!",
         });
       })
       .catch(() => {
-        alert("errppp");
+        alert("erro");
       });
   }
 

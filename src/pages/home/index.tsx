@@ -22,7 +22,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
 
-import * as Animatable from 'react-native-animatable'
+import * as Animatable from "react-native-animatable";
 
 export default function Home() {
   const {
@@ -75,7 +75,7 @@ export default function Home() {
   return (
     <SafeAreaView style={s.conteiner}>
       <StatusBar backgroundColor="#ccc" barStyle={"dark-content"} />
-      <Animatable.View animation='fadeInDown' style={s.header}>
+      <Animatable.View animation="fadeInDown" style={s.header}>
         <Text style={s.title}>Bem vindo!</Text>
 
         <View style={s.areaLogOut}>
@@ -86,10 +86,16 @@ export default function Home() {
             <Feather color="black" name="log-out" size={22} />
           </TouchableOpacity>
         </View>
+
+
+        <TouchableOpacity style={s.bntAddContas} onPress={() => navigation.navigate('FixedAccout')}>
+          <Text style={s.textbntaddContas}>Adicionar contas fixas!</Text>
+        </TouchableOpacity>
+
       </Animatable.View>
 
       {isAddactive ? (
-        <Animatable.View animation='fadeInDown' style={s.areaAdd}>
+        <Animatable.View animation="fadeInDown" style={s.areaAdd}>
           <TextInput
             placeholder="Receita/Gastos"
             keyboardType="numeric"
@@ -122,6 +128,7 @@ export default function Home() {
               )}
             </TouchableOpacity>
           </View>
+
           <TouchableOpacity
             style={s.areaDolar}
             onPress={() => navigation.navigate("Dolar")}
@@ -129,18 +136,22 @@ export default function Home() {
             <Text style={s.textBntDolar}>Ver cotação</Text>
           </TouchableOpacity>
 
-
-          <TouchableOpacity onPress={() => setIsaddactive(false)} style={s.bntOcultarActive}>
+          <TouchableOpacity
+            onPress={() => setIsaddactive(false)}
+            style={s.bntOcultarActive}
+          >
             <Text style={s.textbntOcultarActive}>Ocultar</Text>
           </TouchableOpacity>
         </Animatable.View>
       ) : (
-        <TouchableOpacity
-          style={s.bntisActive}
-          onPress={() => setIsaddactive(!isAddactive)}
-        >
-          <Text style={s.textbntIsActive}>Adicionar Receita/Gastos</Text>
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity
+            style={s.bntisActive}
+            onPress={() => setIsaddactive(!isAddactive)}
+          >
+            <Text style={s.textbntIsActive}>Adicionar Receita/Gastos</Text>
+          </TouchableOpacity>
+        </View>
       )}
 
       <View style={s.areaFlat}>
@@ -158,8 +169,6 @@ export default function Home() {
           renderItem={({ item }) => <RenderGastos data={item} />}
         />
       </View>
-
-
     </SafeAreaView>
   );
 }
@@ -173,13 +182,13 @@ const s = StyleSheet.create({
 
   header: {
     width: "100%",
-    height: '15%',
+    height: "auto",
     backgroundColor: "#ccc",
     boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
   },
   areaLogOut: {
     width: "100%",
-    marginTop: 25,
+    marginTop: 10,
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
@@ -197,6 +206,20 @@ const s = StyleSheet.create({
     marginLeft: 20,
     fontWeight: "500",
     opacity: 0.6,
+  },
+
+  bntAddContas: {
+    width: '50%',
+    backgroundColor: "#fff4ff",
+    marginLeft: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 5,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  textbntaddContas: {
+    fontFamily: 'Arial',
   },
 
   areaSair: {
@@ -226,7 +249,6 @@ const s = StyleSheet.create({
     padding: 13,
     borderRadius: 5,
     boxShadow: "1px 3px 3px 0px rgba(8, 8, 8, 0.25)",
-    margin: 2,
   },
 
   areaBntAdd: {
@@ -234,7 +256,7 @@ const s = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
     flexDirection: "row",
-    margin: 20,
+    margin: 10,
   },
   bnt: {
     width: "30%",
@@ -284,7 +306,7 @@ const s = StyleSheet.create({
   },
   textbntIsActive: {
     fontFamily: "Arial",
-    color: 'white'
+    color: "white",
   },
   bntOcultarActive: {
     width: "80%",
@@ -293,11 +315,11 @@ const s = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
-    opacity: 0.6
+    opacity: 0.6,
   },
   textbntOcultarActive: {
     fontFamily: "Arial",
-    color: 'white',
-    fontWeight: '800'
+    color: "white",
+    fontWeight: "800",
   },
 });

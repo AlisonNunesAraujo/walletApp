@@ -20,7 +20,7 @@ import { TypesReceita } from "./types";
 import { TypesGastos } from "./types";
 import { DeletarProp } from "./types";
 
-
+import { renderAccount } from "./types";
 
 export const AuthContext = createContext({} as States);
 
@@ -33,7 +33,7 @@ export function AuthProvider({ children }: ChildrenProp) {
 
   const [receita, setReceita] = useState<TypesReceita[]>();
   const [gastos, setGastos] = useState<TypesGastos[]>();
-
+  const [listAccout, setListAccout] = useState<renderAccount[]>([])
   const [load, setLoading] = useState(false);
   const [loading, setLoad] = useState(false);
 
@@ -54,7 +54,30 @@ export function AuthProvider({ children }: ChildrenProp) {
 
     VerUser();
 
+    async function PushAccout() {
+      try {
+        const response = collection(db, 'fixedaccount')
 
+        getDocs(response)
+          .then((snapshot) => {
+            let list: renderAccount[] = []
+
+            snapshot.forEach((doc) => {
+              list.push({
+                accountValor: doc.data().accountValor,
+                fixedAccount: doc.data().fixedAccount,
+                uid: doc.id
+              })
+            })
+            setListAccout(list)
+          })
+
+      }
+      catch {
+        alert('erro')
+      }
+    }
+    PushAccout()
 
     async function buscarDados() {
       const ref = collection(db, "receita");
@@ -249,6 +272,21 @@ export function AuthProvider({ children }: ChildrenProp) {
     }
   }
 
+
+  async function AddAccout({ valor, accout }: { valor: string, accout: string | number }) {
+    try {
+      const response = await addDoc(collection(db, 'fixedaccout'), {
+        fixedAccout: accout,
+        accoutValor: valor
+      })
+      alert('ok')
+    }
+    catch {
+      alert('erro')
+    }
+  }
+
+
   async function LogOut() {
     await signOut(auth);
     AsyncStorage.clear()
@@ -288,6 +326,7 @@ export function AuthProvider({ children }: ChildrenProp) {
         AddGastos,
         load,
         loading,
+        AddAccout
       }}
     >
       {children}

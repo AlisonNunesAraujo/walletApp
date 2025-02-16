@@ -4,6 +4,8 @@ import Home from "../pages/home";
 import Dolar from "../pages/areaDolar";
 import AreaDescReceita from "../pages/areaDescReceita";
 import AreaDescGastos from "../pages/areaDescGastos";
+import FixedAccout from "../pages/FixedAccout";
+
 
 export type ParamList = {
     Home: undefined;
@@ -15,7 +17,8 @@ export type ParamList = {
     AreaDescGastos: {
         gastos: number,
         desc: string | number
-    }
+    };
+    FixedAccout: undefined;
 };
 
 const Nav = createNativeStackNavigator<ParamList>();
@@ -44,6 +47,10 @@ export function StackFree() {
                 name="AreaDescGastos"
                 component={AreaDescGastos}
                 options={{ headerShown: false }}
+            />
+            <Nav.Screen
+                name="FixedAccout"
+                component={FixedAccout}
             />
 
 

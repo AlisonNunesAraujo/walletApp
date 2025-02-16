@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, } from "react-native";
 
 export default function HeaderListGastos() {
   return (
@@ -13,6 +13,8 @@ export default function HeaderListGastos() {
       >
         Gastos
       </Text>
+
+
     </View>
   );
 }

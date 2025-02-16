@@ -15,6 +15,7 @@ export type States = {
   AddGastos: (info: { addValor: string | number, addDesc: string }) => Promise<void>;
   load: boolean;
   loading: boolean;
+  AddAccout: (info : {accout: string|number, valor: string}) => Promise<void>
 }
 
 export type stateUser = {
@@ -29,6 +30,12 @@ export type ChildrenProp = {
 export interface TypesReceita {
   receita: number;
   desc: string | number;
+  uid: string;
+}
+
+export type renderAccount = {
+  accountValor: string|number;
+  fixedAccount: string;
   uid: string;
 }
 

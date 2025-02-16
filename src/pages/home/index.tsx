@@ -88,10 +88,6 @@ export default function Home() {
         </View>
 
 
-        <TouchableOpacity style={s.bntAddContas} onPress={() => navigation.navigate('FixedAccout')}>
-          <Text style={s.textbntaddContas}>Adicionar contas fixas!</Text>
-        </TouchableOpacity>
-
       </Animatable.View>
 
       {isAddactive ? (
@@ -192,6 +188,7 @@ const s = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
+    marginBottom: 10,
   },
   title: {
     marginTop: 10,
@@ -208,19 +205,7 @@ const s = StyleSheet.create({
     opacity: 0.6,
   },
 
-  bntAddContas: {
-    width: '50%',
-    backgroundColor: "#fff4ff",
-    marginLeft: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 5,
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-  textbntaddContas: {
-    fontFamily: 'Arial',
-  },
+
 
   areaSair: {
     width: "10%",

@@ -38,6 +38,7 @@ export default function Home() {
   const [addValor, setAddValor] = useState("");
   const [addDesc, setAdddesc] = useState("");
   const [isAddactive, setIsaddactive] = useState(false);
+  const [isFlat, setIsFlat] = useState(false)
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
   async function Sair() {
@@ -150,21 +151,36 @@ export default function Home() {
         </View>
       )}
 
-      <View style={s.areaFlat}>
-        <FlatList
-          ListHeaderComponent={<HeaderListReceita />}
-          showsVerticalScrollIndicator={false}
-          data={receita}
-          renderItem={({ item }) => <RenderReceita data={item} />}
-        />
+      {isFlat ? (
+        <View style={s.areaFlat}>
+          <FlatList
+            ListHeaderComponent={<HeaderListReceita />}
+            showsVerticalScrollIndicator={false}
+            data={receita}
+            renderItem={({ item }) => <RenderReceita data={item} />}
+          />
 
-        <FlatList
-          ListHeaderComponent={<HeaderListGastos />}
-          showsVerticalScrollIndicator={false}
-          data={gastos}
-          renderItem={({ item }) => <RenderGastos data={item} />}
-        />
-      </View>
+          <FlatList
+            ListHeaderComponent={<HeaderListGastos />}
+            showsVerticalScrollIndicator={false}
+            data={gastos}
+            renderItem={({ item }) => <RenderGastos data={item} />}
+          />
+
+
+        </View>
+      ) : (
+        <TouchableOpacity onPress={() => setIsFlat(!isFlat)} style={s.bntisActive}>
+          <Text style={s.textbntocultarList}>Mostrar lista</Text>
+        </TouchableOpacity>
+      )}
+      {isFlat ? (
+        <TouchableOpacity onPress={() => setIsFlat(!isFlat)} style={s.bntisActive}>
+          <Text style={s.textbntocultarList}>Ocultar lista</Text>
+        </TouchableOpacity>
+      ) : (
+        <Text></Text>
+      )}
     </SafeAreaView>
   );
 }
@@ -259,7 +275,7 @@ const s = StyleSheet.create({
   areaFlat: {
     flexDirection: "row",
     width: "100%",
-    height: "50%",
+    height: "40%",
     justifyContent: "center",
     padding: 15,
     gap: 20,
@@ -281,7 +297,7 @@ const s = StyleSheet.create({
     fontWeight: "900",
   },
   bntisActive: {
-    width: "50%",
+    width: "40%",
     marginTop: 20,
     backgroundColor: "#ccc",
     padding: 10,
@@ -305,6 +321,11 @@ const s = StyleSheet.create({
   textbntOcultarActive: {
     fontFamily: "Arial",
     color: "white",
-    fontWeight: "800",
+    fontWeight: "700",
   },
+  textbntocultarList: {
+    fontWeight: '700',
+    fontFamily: 'Arial',
+    color: 'white'
+  }
 });

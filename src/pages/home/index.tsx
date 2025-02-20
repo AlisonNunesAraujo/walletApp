@@ -102,7 +102,7 @@ export default function Home() {
           value={addDesc}
           onChangeText={setAdddesc}
           style={s.inputAdd}
-          maxLength={100}
+          maxLength={20}
         />
 
         <View style={s.areaBntAdd}>

@@ -100,16 +100,11 @@ export function AuthProvider({ children }: ChildrenProp) {
 
 
 
-  async function CreateUser({
-    email,
-    senha,
-  }: {
-    email: string;
-    senha: string;
-  }) {
+  async function CreateUser({ email, senha, }: { email: string; senha: string; }) {
     setLoading(true);
     try {
-      const data = await createUserWithEmailAndPassword(auth, email, senha);
+      const data = await createUserWithEmailAndPassword(auth, email, senha)
+
 
       alert("Conta criada com sucesso!");
       setUser({

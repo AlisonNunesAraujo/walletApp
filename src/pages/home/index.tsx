@@ -38,7 +38,7 @@ export default function Home() {
   const [addValor, setAddValor] = useState("");
   const [addDesc, setAdddesc] = useState("");
   const [isAddactive, setIsaddactive] = useState(false);
-  const [isFlat, setIsFlat] = useState(false)
+  const [isFlat, setIsFlat] = useState(false);
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
   async function Sair() {
@@ -87,68 +87,59 @@ export default function Home() {
             <Feather color="black" name="log-out" size={22} />
           </TouchableOpacity>
         </View>
-
-
       </Animatable.View>
 
-      {isAddactive ? (
-        <Animatable.View animation="fadeInDown" style={s.areaAdd}>
-          <TextInput
-            placeholder="Receita/Gastos"
-            keyboardType="numeric"
-            value={addValor}
-            onChangeText={setAddValor}
-            style={s.inputAdd}
-          />
-          <TextInput
-            placeholder="Descrição"
-            value={addDesc}
-            onChangeText={setAdddesc}
-            style={s.inputAdd}
-            maxLength={100}
-          />
+      <Animatable.View animation="fadeInDown" style={s.areaAdd}>
+        <TextInput
+          placeholder="Receita/Gastos"
+          keyboardType="numeric"
+          value={addValor}
+          onChangeText={setAddValor}
+          style={s.inputAdd}
+        />
+        <TextInput
+          placeholder="Descrição"
+          value={addDesc}
+          onChangeText={setAdddesc}
+          style={s.inputAdd}
+          maxLength={100}
+        />
 
-          <View style={s.areaBntAdd}>
-            <TouchableOpacity style={s.bnt} onPress={AddvalorReceita}>
-              {load ? (
-                <ActivityIndicator size={20} color="black" />
-              ) : (
-                <Text style={s.textbntAdd}>Receita</Text>
-              )}
-            </TouchableOpacity>
-
-            <TouchableOpacity style={s.bnt} onPress={AddvalorGastos}>
-              {loading ? (
-                <ActivityIndicator size={20} color="black" />
-              ) : (
-                <Text style={s.textbntAdd}>Gastos</Text>
-              )}
-            </TouchableOpacity>
-          </View>
-
-          <TouchableOpacity
-            style={s.areaDolar}
-            onPress={() => navigation.navigate("Dolar")}
-          >
-            <Text style={s.textBntDolar}>Ver cotação</Text>
+        <View style={s.areaBntAdd}>
+          <TouchableOpacity style={s.bnt} onPress={AddvalorReceita}>
+            {load ? (
+              <ActivityIndicator size={20} color="black" />
+            ) : (
+              <Text style={s.textbntAdd}>Receita</Text>
+            )}
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => setIsaddactive(false)}
-            style={s.bntOcultarActive}
-          >
-            <Text style={s.textbntOcultarActive}>Ocultar</Text>
-          </TouchableOpacity>
-        </Animatable.View>
-      ) : (
-        <View>
-          <TouchableOpacity
-            style={s.bntisActive}
-            onPress={() => setIsaddactive(!isAddactive)}
-          >
-            <Text style={s.textbntIsActive}>Adicionar Receita/Gastos</Text>
+          <TouchableOpacity style={s.bnt} onPress={AddvalorGastos}>
+            {loading ? (
+              <ActivityIndicator size={20} color="black" />
+            ) : (
+              <Text style={s.textbntAdd}>Gastos</Text>
+            )}
           </TouchableOpacity>
         </View>
+
+        <TouchableOpacity
+          style={s.areaDolar}
+          onPress={() => navigation.navigate("Dolar")}
+        >
+          <Text style={s.textBntDolar}>Ver cotação</Text>
+        </TouchableOpacity>
+      </Animatable.View>
+
+      {isFlat ? (
+        <TouchableOpacity
+          onPress={() => setIsFlat(!isFlat)}
+          style={s.bntisActive}
+        >
+          <Text style={s.textbntocultarList}>Ocultar lista</Text>
+        </TouchableOpacity>
+      ) : (
+        <Text></Text>
       )}
 
       {isFlat ? (
@@ -166,20 +157,14 @@ export default function Home() {
             data={gastos}
             renderItem={({ item }) => <RenderGastos data={item} />}
           />
-
-
         </View>
       ) : (
-        <TouchableOpacity onPress={() => setIsFlat(!isFlat)} style={s.bntisActive}>
+        <TouchableOpacity
+          onPress={() => setIsFlat(!isFlat)}
+          style={s.bntisActive}
+        >
           <Text style={s.textbntocultarList}>Mostrar lista</Text>
         </TouchableOpacity>
-      )}
-      {isFlat ? (
-        <TouchableOpacity onPress={() => setIsFlat(!isFlat)} style={s.bntisActive}>
-          <Text style={s.textbntocultarList}>Ocultar lista</Text>
-        </TouchableOpacity>
-      ) : (
-        <Text></Text>
       )}
     </SafeAreaView>
   );
@@ -220,8 +205,6 @@ const s = StyleSheet.create({
     fontWeight: "500",
     opacity: 0.6,
   },
-
-
 
   areaSair: {
     width: "10%",
@@ -324,8 +307,8 @@ const s = StyleSheet.create({
     fontWeight: "700",
   },
   textbntocultarList: {
-    fontWeight: '700',
-    fontFamily: 'Arial',
-    color: 'white'
-  }
+    fontWeight: "700",
+    fontFamily: "Arial",
+    color: "white",
+  },
 });

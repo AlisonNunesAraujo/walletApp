@@ -34,6 +34,7 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [gastos, setGastos] = useState<TypesGastos[]>([]);
   const [load, setLoading] = useState(false);
   const [loading, setLoad] = useState(false);
+  const [saldo, setSaldo] = useState([])
 
   useEffect(() => {
 
@@ -70,7 +71,6 @@ export function AuthProvider({ children }: ChildrenProp) {
           });
         });
         setReceita(lista);
-
       });
     }
 

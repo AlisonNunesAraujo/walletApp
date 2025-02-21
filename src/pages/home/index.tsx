@@ -134,12 +134,23 @@ export default function Home() {
       {isFlat ? (
         <TouchableOpacity
           onPress={() => setIsFlat(!isFlat)}
-          style={s.bntisActive}
+          style={[
+            s.bntisActive,
+            { backgroundColor: isFlat ? "blue" : "blue" },
+          ]}
         >
           <Text style={s.textbntocultarList}>Ocultar lista</Text>
         </TouchableOpacity>
       ) : (
-        <Text></Text>
+        <TouchableOpacity
+          onPress={() => setIsFlat(!isFlat)}
+          style={[
+            s.bntisActive,
+            { backgroundColor: isFlat ? "black" : "black" },
+          ]}
+        >
+          <Text style={s.textbntocultarList}>Mostrar lista</Text>
+        </TouchableOpacity>
       )}
 
       {isFlat ? (
@@ -159,12 +170,7 @@ export default function Home() {
           />
         </View>
       ) : (
-        <TouchableOpacity
-          onPress={() => setIsFlat(!isFlat)}
-          style={s.bntisActive}
-        >
-          <Text style={s.textbntocultarList}>Mostrar lista</Text>
-        </TouchableOpacity>
+        <Text></Text>
       )}
     </SafeAreaView>
   );
@@ -282,24 +288,10 @@ const s = StyleSheet.create({
   bntisActive: {
     width: "40%",
     marginTop: 20,
-    backgroundColor: "#ccc",
     padding: 10,
-    borderRadius: 2,
+    borderRadius: 6,
     justifyContent: "center",
     alignItems: "center",
-  },
-  textbntIsActive: {
-    fontFamily: "Arial",
-    color: "white",
-  },
-  bntOcultarActive: {
-    width: "80%",
-    height: 45,
-    backgroundColor: "blue",
-    borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
-    opacity: 0.6,
   },
   textbntOcultarActive: {
     fontFamily: "Arial",

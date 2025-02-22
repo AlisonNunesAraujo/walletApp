@@ -8,6 +8,8 @@ import {
   StyleSheet,
   StatusBar,
   FlatList,
+  TouchableWithoutFeedback,
+  Keyboard
 } from "react-native";
 import { showMessage } from "react-native-flash-message";
 import { useContext } from "react";
@@ -22,6 +24,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
 
+import HeaderComponent from "../../components/Header";
 import * as Animatable from "react-native-animatable";
 
 export default function Home() {
@@ -37,13 +40,9 @@ export default function Home() {
   } = useContext(AuthContext);
   const [addValor, setAddValor] = useState("");
   const [addDesc, setAdddesc] = useState("");
-  const [isAddactive, setIsaddactive] = useState(false);
   const [isFlat, setIsFlat] = useState(false);
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
-  async function Sair() {
-    LogOut();
-  }
 
   async function AddvalorReceita() {
     if (addValor === "") {
@@ -74,105 +73,97 @@ export default function Home() {
   }
 
   return (
-    <SafeAreaView style={s.conteiner}>
-      <StatusBar backgroundColor="#ccc" barStyle={"dark-content"} />
-      <Animatable.View animation="fadeInDown" style={s.header}>
-        <Text style={s.title}>Bem vindo!</Text>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <SafeAreaView style={s.conteiner}>
+        <StatusBar backgroundColor="#ccc" barStyle={"dark-content"} />
 
-        <View style={s.areaLogOut}>
-          <View>
-            <Text style={s.textEmail}>Email: {user.email}</Text>
+        <HeaderComponent />
+
+        <Animatable.View animation="fadeInDown" style={s.areaAdd}>
+          <TextInput
+            placeholder="Receita/Gastos"
+            keyboardType="numeric"
+            value={addValor}
+            onChangeText={setAddValor}
+            style={s.inputAdd}
+          />
+          <TextInput
+            placeholder="Descrição"
+            value={addDesc}
+            onChangeText={setAdddesc}
+            style={s.inputAdd}
+            maxLength={20}
+          />
+
+          <View style={s.areaBntAdd}>
+            <TouchableOpacity style={s.bnt} onPress={AddvalorReceita}>
+              {load ? (
+                <ActivityIndicator size={20} color="black" />
+              ) : (
+                <Text style={s.textbntAdd}>Receita</Text>
+              )}
+            </TouchableOpacity>
+
+            <TouchableOpacity style={s.bnt} onPress={AddvalorGastos}>
+              {loading ? (
+                <ActivityIndicator size={20} color="black" />
+              ) : (
+                <Text style={s.textbntAdd}>Gastos</Text>
+              )}
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity style={s.areaSair} onPress={Sair}>
-            <Feather color="black" name="log-out" size={22} />
+
+          <TouchableOpacity
+            style={s.areaDolar}
+            onPress={() => navigation.navigate("Dolar")}
+          >
+            <Text style={s.textBntDolar}>Ver cotação</Text>
           </TouchableOpacity>
-        </View>
-      </Animatable.View>
+        </Animatable.View>
 
-      <Animatable.View animation="fadeInDown" style={s.areaAdd}>
-        <TextInput
-          placeholder="Receita/Gastos"
-          keyboardType="numeric"
-          value={addValor}
-          onChangeText={setAddValor}
-          style={s.inputAdd}
-        />
-        <TextInput
-          placeholder="Descrição"
-          value={addDesc}
-          onChangeText={setAdddesc}
-          style={s.inputAdd}
-          maxLength={20}
-        />
-
-        <View style={s.areaBntAdd}>
-          <TouchableOpacity style={s.bnt} onPress={AddvalorReceita}>
-            {load ? (
-              <ActivityIndicator size={20} color="black" />
-            ) : (
-              <Text style={s.textbntAdd}>Receita</Text>
-            )}
+        {isFlat ? (
+          <TouchableOpacity
+            onPress={() => setIsFlat(!isFlat)}
+            style={[
+              s.bntisActive,
+              { backgroundColor: isFlat ? "blue" : "blue" },
+            ]}
+          >
+            <Text style={s.textbntocultarList}>Ocultar lista</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity style={s.bnt} onPress={AddvalorGastos}>
-            {loading ? (
-              <ActivityIndicator size={20} color="black" />
-            ) : (
-              <Text style={s.textbntAdd}>Gastos</Text>
-            )}
+        ) : (
+          <TouchableOpacity
+            onPress={() => setIsFlat(!isFlat)}
+            style={[
+              s.bntisActive,
+              { backgroundColor: isFlat ? "black" : "black" },
+            ]}
+          >
+            <Text style={s.textbntocultarList}>Mostrar lista</Text>
           </TouchableOpacity>
-        </View>
+        )}
 
-        <TouchableOpacity
-          style={s.areaDolar}
-          onPress={() => navigation.navigate("Dolar")}
-        >
-          <Text style={s.textBntDolar}>Ver cotação</Text>
-        </TouchableOpacity>
-      </Animatable.View>
+        {isFlat ? (
+          <View style={s.areaFlat}>
+            <FlatList
+              ListHeaderComponent={<HeaderListReceita />}
+              showsVerticalScrollIndicator={false}
+              data={receita}
+              renderItem={({ item }) => <RenderReceita data={item} />}
+            />
 
-      {isFlat ? (
-        <TouchableOpacity
-          onPress={() => setIsFlat(!isFlat)}
-          style={[
-            s.bntisActive,
-            { backgroundColor: isFlat ? "blue" : "blue" },
-          ]}
-        >
-          <Text style={s.textbntocultarList}>Ocultar lista</Text>
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-          onPress={() => setIsFlat(!isFlat)}
-          style={[
-            s.bntisActive,
-            { backgroundColor: isFlat ? "black" : "black" },
-          ]}
-        >
-          <Text style={s.textbntocultarList}>Mostrar lista</Text>
-        </TouchableOpacity>
-      )}
-
-      {isFlat ? (
-        <View style={s.areaFlat}>
-          <FlatList
-            ListHeaderComponent={<HeaderListReceita />}
-            showsVerticalScrollIndicator={false}
-            data={receita}
-            renderItem={({ item }) => <RenderReceita data={item} />}
-          />
-
-          <FlatList
-            ListHeaderComponent={<HeaderListGastos />}
-            showsVerticalScrollIndicator={false}
-            data={gastos}
-            renderItem={({ item }) => <RenderGastos data={item} />}
-          />
-        </View>
-      ) : (
-        <Text></Text>
-      )}
-    </SafeAreaView>
+            <FlatList
+              ListHeaderComponent={<HeaderListGastos />}
+              showsVerticalScrollIndicator={false}
+              data={gastos}
+              renderItem={({ item }) => <RenderGastos data={item} />}
+            />
+          </View>
+        ) : (
+          <Text></Text>
+        )}
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -183,44 +174,8 @@ const s = StyleSheet.create({
     alignItems: "center",
   },
 
-  header: {
-    width: "100%",
-    height: "auto",
-    backgroundColor: "#ccc",
-    boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
-  },
-  areaLogOut: {
-    width: "100%",
-    marginTop: 10,
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-    marginBottom: 10,
-  },
-  title: {
-    marginTop: 10,
-    fontSize: 30,
-    fontFamily: "Arial",
-    marginLeft: 20,
-  },
 
-  textEmail: {
-    fontSize: 15,
-    fontFamily: "Arial",
-    marginLeft: 20,
-    fontWeight: "500",
-    opacity: 0.6,
-  },
 
-  areaSair: {
-    width: "10%",
-    height: 40,
-    backgroundColor: "white",
-    borderRadius: 10,
-    marginRight: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
 
   areaAdd: {
     width: "90%",

@@ -63,14 +63,19 @@ export function AuthProvider({ children }: ChildrenProp) {
       getDocs(receitaQuery).then((snapshot) => {
         let lista: TypesReceita[] = [];
 
+
         snapshot.forEach((doc) => {
           lista.push({
             receita: doc.data().valor,
             desc: doc.data().descricao,
             uid: doc.id,
           });
+
+
         });
         setReceita(lista);
+
+
       });
     }
 

@@ -11,8 +11,6 @@ import { signOut } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 
-
-
 import { States } from "./types";
 import { ChildrenProp } from "./types";
 import { stateUser } from "./types";
@@ -20,9 +18,7 @@ import { TypesReceita } from "./types";
 import { TypesGastos } from "./types";
 import { DeletarProp } from "./types";
 
-
 export const AuthContext = createContext({} as States);
-
 
 export function AuthProvider({ children }: ChildrenProp) {
   const [user, setUser] = useState<stateUser>({
@@ -34,10 +30,9 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [gastos, setGastos] = useState<TypesGastos[]>([]);
   const [load, setLoading] = useState(false);
   const [loading, setLoad] = useState(false);
-  const [saldo, setSaldo] = useState([])
+  const [saldo, setSaldo] = useState([]);
 
   useEffect(() => {
-
     async function VerUser() {
       try {
         const response = await AsyncStorage.getItem("@userAppwallet");
@@ -53,8 +48,6 @@ export function AuthProvider({ children }: ChildrenProp) {
 
     VerUser();
 
-
-
     async function buscarDados() {
       const ref = collection(db, "receita");
 
@@ -63,19 +56,14 @@ export function AuthProvider({ children }: ChildrenProp) {
       getDocs(receitaQuery).then((snapshot) => {
         let lista: TypesReceita[] = [];
 
-
         snapshot.forEach((doc) => {
           lista.push({
             receita: doc.data().valor,
             desc: doc.data().descricao,
             uid: doc.id,
           });
-
-
         });
         setReceita(lista);
-
-
       });
     }
 
@@ -99,19 +87,19 @@ export function AuthProvider({ children }: ChildrenProp) {
     }
 
     RendleGastos();
-  }, [Deletar,]);
+  }, [Deletar]);
 
-
-
-
-
-  async function CreateUser({ email, senha, }: { email: string; senha: string; }) {
+  async function CreateUser({
+    email,
+    senha,
+  }: {
+    email: string;
+    senha: string;
+  }) {
     setLoading(true);
     try {
-      const data = await createUserWithEmailAndPassword(auth, email, senha)
+      const data = await createUserWithEmailAndPassword(auth, email, senha);
 
-
-      alert("Conta criada com sucesso!");
       setUser({
         email: data.user.email,
         uid: data.user.uid,
@@ -203,7 +191,13 @@ export function AuthProvider({ children }: ChildrenProp) {
       });
   }
 
-  async function AddReceita({ addValor, addDesc }: { addValor: string | number, addDesc: string }) {
+  async function AddReceita({
+    addValor,
+    addDesc,
+  }: {
+    addValor: string | number;
+    addDesc: string;
+  }) {
     setLoading(true);
     try {
       const data = await addDoc(collection(db, "receita"), {
@@ -225,13 +219,19 @@ export function AuthProvider({ children }: ChildrenProp) {
     }
   }
 
-  async function AddGastos({ addValor, addDesc }: { addValor: string | number, addDesc: string }) {
+  async function AddGastos({
+    addValor,
+    addDesc,
+  }: {
+    addValor: string | number;
+    addDesc: string;
+  }) {
     setLoad(true);
     try {
       const data = await addDoc(collection(db, "gastos"), {
         uid: user.uid,
         valor: addValor,
-        descricao: addDesc
+        descricao: addDesc,
       });
 
       showMessage({
@@ -246,10 +246,6 @@ export function AuthProvider({ children }: ChildrenProp) {
       setLoad(false);
     }
   }
-
-
-
-
 
   async function LogOut() {
     await signOut(auth);
@@ -269,9 +265,6 @@ export function AuthProvider({ children }: ChildrenProp) {
         alert("erro");
       });
   }
-
-
-
 
   const logado = !!user?.email && !!user?.uid;
   return (

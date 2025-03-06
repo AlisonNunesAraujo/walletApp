@@ -5,7 +5,6 @@ import Dolar from "../pages/areaDolar";
 import AreaDescReceita from "../pages/areaDescReceita";
 import AreaDescGastos from "../pages/areaDescGastos";
 
-
 export type ParamList = {
     Home: undefined;
     Dolar: undefined;
@@ -18,6 +17,7 @@ export type ParamList = {
         desc: string | number
     };
     FixedAccout: undefined;
+    Extratos: undefined;
 };
 
 const Nav = createNativeStackNavigator<ParamList>();
@@ -47,6 +47,7 @@ export function StackFree() {
                 component={AreaDescGastos}
                 options={{ headerShown: false }}
             />
+
 
 
         </Nav.Navigator>

@@ -119,6 +119,7 @@ export default function Home() {
           >
             <Text style={s.textBntDolar}>Ver cotação</Text>
           </TouchableOpacity>
+
         </Animatable.View>
 
         {isFlat ? (
@@ -231,7 +232,6 @@ const s = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
-    opacity: 0.6,
     marginBottom: 5,
   },
   textBntDolar: {

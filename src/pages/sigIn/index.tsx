@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { ActivityIndicator } from "react-native";
-
+import Feather from '@expo/vector-icons/Feather';
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
 
@@ -33,6 +33,7 @@ export default function SigIn() {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={s.areaLogin}>
         <View style={s.form}>
+          <Feather name="user" size={30} color="black" />
           <Text style={s.Title}>Entre na sua conta!</Text>
 
           <TextInput
@@ -91,7 +92,7 @@ const s = StyleSheet.create({
     margin: 20,
     color: 'white',
     opacity: 0.8,
-    fontWeight: '600'
+    fontWeight: '700'
   },
 
   formInput: {

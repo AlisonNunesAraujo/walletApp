@@ -13,7 +13,7 @@ import {
 import { ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
-
+import Feather from '@expo/vector-icons/Feather';
 import { AuthContext } from "../../contextApi";
 
 export default function SigIn() {
@@ -31,6 +31,7 @@ export default function SigIn() {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={s.areaLogin}>
         <View style={s.form}>
+          <Feather name="user" size={30} color="black" />
           <Text style={s.Title}>Criar sua conta!</Text>
 
           <TextInput
@@ -85,7 +86,7 @@ const s = StyleSheet.create({
     fontFamily: "Arial",
     margin: 20,
     opacity: 0.7,
-    fontWeight: '600',
+    fontWeight: '700',
     color: 'white'
 
   },

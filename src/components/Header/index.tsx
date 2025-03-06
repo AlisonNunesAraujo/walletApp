@@ -51,7 +51,10 @@ export default function HeaderComponent() {
                             Aplicaivo, caso deseje! Voçe pode conferir a cotação em tempo real
                             também para se manter atualizado(a)!{" "}
                         </Text>
-                        <TouchableOpacity onPress={() => setModal(false)} style={s.bntFechar}>
+                        <TouchableOpacity
+                            onPress={() => setModal(false)}
+                            style={s.bntFechar}
+                        >
                             <Text style={s.textbntfechar}>Fechar</Text>
                         </TouchableOpacity>
                     </View>
@@ -118,32 +121,30 @@ const s = StyleSheet.create({
         width: "100%",
         height: "100%",
         alignItems: "center",
-        backgroundColor: '#c12345',
+        backgroundColor: "white",
         padding: 20,
     },
     modalTitle: {
-        fontFamily: 'Arial',
+        fontFamily: "Arial",
         fontSize: 20,
-        color: 'white'
+        color: "black",
+        fontWeight: 'bold'
     },
     modalText: {
-        fontFamily: 'Arial',
+        fontFamily: "Arial",
         letterSpacing: 2,
         marginBottom: 20,
-        color: 'white'
+        color: "black",
     },
     bntFechar: {
-        width: '50%',
-        backgroundColor: '#ccc',
+        width: "50%",
+        backgroundColor: "#ccc",
         padding: 10,
         borderRadius: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-
+        alignItems: "center",
+        justifyContent: "center",
     },
     textbntfechar: {
-        fontFamily: 'Arial',
-
-    }
-
+        fontFamily: "Arial",
+    },
 });

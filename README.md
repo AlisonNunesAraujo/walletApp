@@ -9,4 +9,4 @@
 
 ![foto do app](https://github.com/AlisonNunesAraujo/walletApp/blob/main/assets/imageappexpo.jpeg?raw=true)
 
-![foto do app](https://github.com/AlisonNunesAraujo/walletApp/blob/main/assets/imageApp.jpeg?raw=true)
+![foto do app](https://github.com/AlisonNunesAraujo/walletApp/blob/main/assets/appimage.jpeg?raw=true)

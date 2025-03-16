@@ -209,6 +209,6 @@ const s = StyleSheet.create({
   textcreateAccount:{
     color: 'white',
     fontFamily: 'Arial',
-    fontWeight: 'bold'
+    fontWeight: '800'
   } 
 });

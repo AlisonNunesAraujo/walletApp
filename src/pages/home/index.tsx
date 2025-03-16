@@ -120,6 +120,10 @@ export default function Home() {
             <Text style={s.textBntDolar}>Ver cotação</Text>
           </TouchableOpacity>
 
+          <TouchableOpacity style={s.areaDolar} onPress={()=> navigation.navigate('AccountFixed')}>
+            <Text style={s.textBntDolar}>Adicionar conta fixa</Text>
+          </TouchableOpacity>
+
         </Animatable.View>
 
         {isFlat ? (

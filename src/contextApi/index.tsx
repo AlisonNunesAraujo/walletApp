@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { auth } from "../firebase/firebaseConextion";
 import {
   createUserWithEmailAndPassword,
@@ -16,7 +16,7 @@ import { ChildrenProp } from "./types";
 import { stateUser } from "./types";
 import { TypesReceita } from "./types";
 import { TypesGastos } from "./types";
-import { DeletarProp } from "./types";
+import { DeletarProp, listAccount,UidDelete } from "./types";
 
 export const AuthContext = createContext({} as States);
 
@@ -30,7 +30,7 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [gastos, setGastos] = useState<TypesGastos[]>([]);
   const [load, setLoading] = useState(false);
   const [loading, setLoad] = useState(false);
-  const [saldo, setSaldo] = useState([]);
+  const [account, setAccount] = useState<listAccount[]>();
 
   useEffect(() => {
     async function VerUser() {
@@ -87,7 +87,27 @@ export function AuthProvider({ children }: ChildrenProp) {
     }
 
     RendleGastos();
-  }, [Deletar]);
+
+    async function BuscarAccount() {
+      const ref = collection(db, "Account");
+      const queryAccount = query(ref, where("uid", "==", user.uid));
+      getDocs(queryAccount).then((snapshot) => {
+        let lista: listAccount[] = [];
+
+        snapshot.forEach((doc) => {
+          lista.push({
+            nameAccount: doc.data().nameAccount,
+            valor: doc.data().valor,
+            vencimento: doc.data().vencimento,
+            uid: doc.id,
+          });
+        });
+        setAccount(lista);
+      });
+    }
+
+    BuscarAccount();
+  }, [Deletar, deleteAccountfixed]);
 
   async function CreateUser({
     email,
@@ -247,6 +267,40 @@ export function AuthProvider({ children }: ChildrenProp) {
     }
   }
 
+  async function addAccount({
+    nameAccount,
+    valor,
+    vencimento,
+  }: {
+    nameAccount: string;
+    valor: string;
+    vencimento: string;
+  }) {
+    const data = await addDoc(collection(db, "Account"), {
+      nameAccount: nameAccount,
+      valor: valor,
+      vencimento: vencimento,
+      uid: user.uid,
+    });
+  }
+
+
+  async function deleteAccountfixed({ uid }: {uid: string}) {
+    const data = doc(db, "Account", uid);
+
+    await deleteDoc(data)
+      .then(() => {
+        showMessage({
+          message: "Deletado com sucesso!",
+        });
+      })
+      .catch(() => {
+        showMessage({
+          message: "Algo deu errado!",
+        });
+      });
+  }
+
   async function LogOut() {
     await signOut(auth);
     AsyncStorage.clear()
@@ -283,6 +337,9 @@ export function AuthProvider({ children }: ChildrenProp) {
         AddGastos,
         load,
         loading,
+        addAccount,
+        account,
+        deleteAccountfixed,
       }}
     >
       {children}

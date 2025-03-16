@@ -15,7 +15,26 @@ export type States = {
   AddGastos: (info: { addValor: string | number, addDesc: string }) => Promise<void>;
   load: boolean;
   loading: boolean;
+  addAccount: (info: accountProps)=> Promise<void>;
+  account: listAccount[]|undefined;
+  deleteAccountfixed: (info: {uid: string}) => Promise<void>
  
+}
+
+export type UidDelete = {
+  uid: any;
+}
+export type accountProps = {
+  nameAccount: string;
+  valor: string;
+  vencimento: string;
+}
+
+export type listAccount = {
+  uid: string;
+  nameAccount: string;
+  valor: string;
+  vencimento: string;
 }
 
 export type stateUser = {

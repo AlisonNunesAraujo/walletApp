@@ -62,7 +62,7 @@ export default function Home() {
     if (addValor === "") {
       showMessage({
         message: "Digite algo!",
-        duration: 2000,
+        duration: 1000,
         type: "danger",
       });
       return;

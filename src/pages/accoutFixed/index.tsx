@@ -174,6 +174,7 @@ const s = StyleSheet.create({
     fontFamily: "Arial",
   },
   flatList:{
+    marginLeft: 10,
     width: 'auto',
     height: 'auto',
     backgroundColor: '#ccc',

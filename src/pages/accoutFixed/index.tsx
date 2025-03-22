@@ -7,41 +7,39 @@ import {
   StyleSheet,
   TextInput,
   FlatList,
-
 } from "react-native";
 import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
 import { showMessage } from "react-native-flash-message";
 
 export default function AccoutFixed() {
-    const {addAccount, account,deleteAccountfixed} = useContext(AuthContext)
+  const { addAccount, account, deleteAccountfixed } = useContext(AuthContext);
   const [modal, setModal] = useState(false);
   const [nameAccount, setNameAccount] = useState("");
   const [valor, setValor] = useState("");
   const [vencimento, setVencimento] = useState("");
 
-
-  function Delete(uid: string){
-    deleteAccountfixed({uid})
+  function Delete(uid: string) {
+    deleteAccountfixed({ uid });
   }
-  function Add(){
-    if(nameAccount === '' || valor === '' || vencimento === ''){
+  function Add() {
+    if (nameAccount === "" || valor === "" || vencimento === "") {
       showMessage({
-        message: 'Preencha todos os campos'}) 
-        return; 
+        message: "Preencha todos os campos",
+      });
+      return;
     }
-    
-    addAccount({nameAccount, valor, vencimento})
-    setModal(false)
-    setNameAccount('')
-    setValor('')
-    setVencimento('')
+
+    addAccount({ nameAccount, valor, vencimento });
+    setModal(false);
+    setNameAccount("");
+    setValor("");
+    setVencimento("");
   }
 
   return (
     <View style={s.conteiner}>
       <View style={s.header}>
-
         <Text style={s.Title}>Voçe quer adicionar uma conta fixa?</Text>
         <TouchableOpacity
           onPress={() => setModal(true)}
@@ -53,7 +51,7 @@ export default function AccoutFixed() {
 
       <View style={s.areaRender}>
         <FlatList
-        horizontal
+          horizontal
           style={s.flatList}
           data={account}
           renderItem={({ item }) => (
@@ -61,12 +59,22 @@ export default function AccoutFixed() {
               <Text style={s.text}>Nome: {item.nameAccount}</Text>
               <Text style={s.text}>R$ {item.valor}</Text>
               <Text style={s.text}>Vencimento: {item.vencimento}</Text>
-              <TouchableOpacity style={s.bntFlat} onPress={()=> Delete(item.uid)}>
+              <TouchableOpacity
+                style={s.bntFlat}
+                onPress={() => Delete(item.uid)}
+              >
                 <Text style={s.textBnt}>Excluir</Text>
               </TouchableOpacity>
-            </View>     
+            </View>
           )}
-          />
+          ListEmptyComponent={() => {
+            return (
+              <View style={s.ListVazia}>
+                <Text style={s.textListVazia}>Quando voçe adicionar alguma conta, ela aparecerá aqui!</Text>
+              </View>
+            );
+          }}
+        />
       </View>
 
       <Modal visible={modal} animationType="slide">
@@ -93,7 +101,7 @@ export default function AccoutFixed() {
             value={vencimento}
             onChangeText={setVencimento}
             maxLength={4}
-             keyboardType="numeric"
+            keyboardType="numeric"
             style={s.Inputs}
           />
           <TouchableOpacity style={s.buttomModal} onPress={Add}>
@@ -173,43 +181,51 @@ const s = StyleSheet.create({
   textButom: {
     fontFamily: "Arial",
   },
-  flatList:{
+  flatList: {
     marginLeft: 10,
-    width: 'auto',
-    height: 'auto',
-    backgroundColor: '#ccc',
+    width: "auto",
+    height: "auto",
+    backgroundColor: "#ccc",
   },
-  grupoAccount:{
+  grupoAccount: {
     width: 330,
-    height: '15%',
+    height: "15%",
     gap: 10,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     marginTop: 30,
     borderRadius: 5,
     padding: 15,
     marginRight: 10,
-    overflow:"hidden",
+    overflow: "hidden",
   },
-  text:{
-    fontFamily: 'Arial',
-    fontWeight:'bold'
+  text: {
+    fontFamily: "Arial",
+    fontWeight: "bold",
   },
-  bntFlat:{
-    width: '100%',
-    backgroundColor: 'blue',
+  bntFlat: {
+    width: "100%",
+    backgroundColor: "blue",
     padding: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 5,
   },
-  textBnt:{
-    color: 'white',
-    fontWeight: 'bold',
-    fontFamily: 'Arial'
+  textBnt: {
+    color: "white",
+    fontWeight: "bold",
+    fontFamily: "Arial",
   },
-  textcreateAccount:{
-    color: 'white',
-    fontFamily: 'Arial',
-    fontWeight: '800'
-  } 
+  textcreateAccount: {
+    color: "white",
+    fontFamily: "Arial",
+    fontWeight: "800",
+  },
+  ListVazia:{
+    width: '100%',
+    height: '20%',
+    alignItems: 'center',
+  },
+  textListVazia:{
+    fontFamily: 'Arial'
+  }
 });

@@ -154,6 +154,13 @@ export default function Home() {
               showsVerticalScrollIndicator={false}
               data={receita}
               renderItem={({ item }) => <RenderReceita data={item} />}
+              ListEmptyComponent={()=>{
+                return(
+                  <View style={s.infoListaVazia}>
+                    <Text style={s.textListVazia}>Suas receitas apareceram aqui</Text>
+                  </View>
+                )
+              }}
             />
 
             <FlatList
@@ -161,6 +168,13 @@ export default function Home() {
               showsVerticalScrollIndicator={false}
               data={gastos}
               renderItem={({ item }) => <RenderGastos data={item} />}
+              ListEmptyComponent={()=>{
+                return(
+                  <View style={s.infoListaVazia}>
+                    <Text style={s.textListVazia}>Seus gastos apareceram aqui!</Text>
+                  </View>
+                )
+              }}
             />
           </View>
         ) : (
@@ -261,4 +275,11 @@ const s = StyleSheet.create({
     fontFamily: "Arial",
     color: "white",
   },
+  infoListaVazia:{
+    alignItems: 'center',
+
+  },
+  textListVazia:{
+    fontFamily: 'Arial'
+  }
 });

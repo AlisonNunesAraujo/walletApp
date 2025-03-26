@@ -8,12 +8,17 @@ import {
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import Feather from "@expo/vector-icons/Feather";
-
+import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../../contextApi";
 import { useContext, useState } from "react";
+import { ParamList } from "../../routs/authfree";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+
 export default function HeaderComponent() {
     const { user, LogOut } = useContext(AuthContext);
     const [Modal, setModal] = useState(false);
+    const naviagation = useNavigation<NativeStackNavigationProp<ParamList>>()
 
     async function Sair() {
         LogOut();

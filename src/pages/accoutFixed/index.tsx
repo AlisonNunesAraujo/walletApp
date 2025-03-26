@@ -56,9 +56,15 @@ export default function AccoutFixed() {
           data={account}
           renderItem={({ item }) => (
             <View style={s.grupoAccount}>
-              <Text style={s.text}>Nome: {item.nameAccount}</Text>
-              <Text style={s.text}>R$ {item.valor}</Text>
-              <Text style={s.text}>Vencimento: {item.vencimento}</Text>
+              <Text style={s.text}>
+                Nome:<Text style={s.textDados}> {item.nameAccount}</Text>
+              </Text>
+              <Text style={s.text}>
+                R$ <Text style={s.textDados}>{item.valor}</Text>
+              </Text>
+              <Text style={s.text}>
+                Vencimento: <Text style={s.textDados}>{item.vencimento}</Text>
+              </Text>
               <TouchableOpacity
                 style={s.bntFlat}
                 onPress={() => Delete(item.uid)}
@@ -70,7 +76,9 @@ export default function AccoutFixed() {
           ListEmptyComponent={() => {
             return (
               <View style={s.ListVazia}>
-                <Text style={s.textListVazia}>Quando voçe adicionar alguma conta, ela aparecerá aqui!</Text>
+                <Text style={s.textListVazia}>
+                  Quando voçe adicionar alguma conta, ela aparecerá aqui!
+                </Text>
               </View>
             );
           }}
@@ -202,6 +210,9 @@ const s = StyleSheet.create({
     fontFamily: "Arial",
     fontWeight: "bold",
   },
+  textDados: {
+    color: "red",
+  },
   bntFlat: {
     width: "100%",
     backgroundColor: "blue",
@@ -220,12 +231,12 @@ const s = StyleSheet.create({
     fontFamily: "Arial",
     fontWeight: "800",
   },
-  ListVazia:{
-    width: '100%',
-    height: '20%',
-    alignItems: 'center',
+  ListVazia: {
+    width: "100%",
+    height: "20%",
+    alignItems: "center",
   },
-  textListVazia:{
-    fontFamily: 'Arial'
-  }
+  textListVazia: {
+    fontFamily: "Arial",
+  },
 });

@@ -8,7 +8,6 @@ import {
   Keyboard,
   SafeAreaView,
   StyleSheet,
-  StatusBar,
 } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -34,6 +33,7 @@ export default function SigIn() {
           <Feather name="user" size={30} color="black" />
           <Text style={s.Title}>Criar sua conta!</Text>
 
+          
           <TextInput
             placeholder="E-Mail"
             value={email}

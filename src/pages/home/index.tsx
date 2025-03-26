@@ -9,179 +9,50 @@ import {
   StatusBar,
   FlatList,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
+  ScrollView,
 } from "react-native";
 import { showMessage } from "react-native-flash-message";
 import { useContext } from "react";
-import Feather from "@expo/vector-icons/Feather";
-import { AuthContext } from "../../contextApi";
-import { ActivityIndicator } from "react-native";
-import RenderReceita from "../../components/renderReceita";
-import RenderGastos from "../../components/renderGastos";
-import HeaderListGastos from "../../components/HeaderListGastos";
-import HeaderListReceita from "../../components/HeaderListReceita";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
-
+import Feather from "@expo/vector-icons/Feather";
 import HeaderComponent from "../../components/Header";
 import * as Animatable from "react-native-animatable";
 
 export default function Home() {
-  const {
-    user,
-    receita,
-    gastos,
-    LogOut,
-    AddReceita,
-    AddGastos,
-    load,
-    loading,
-  } = useContext(AuthContext);
-  const [addValor, setAddValor] = useState("");
-  const [addDesc, setAdddesc] = useState("");
-  const [isFlat, setIsFlat] = useState(false);
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
-
-  async function AddvalorReceita() {
-    if (addValor === "") {
-      showMessage({
-        message: "Digite algo!",
-        duration: 2000,
-        type: "danger",
-      });
-      return;
-    }
-    AddReceita({ addValor, addDesc });
-    setAddValor("");
-    setAdddesc("");
-  }
-
-  async function AddvalorGastos() {
-    if (addValor === "") {
-      showMessage({
-        message: "Digite algo!",
-        duration: 1000,
-        type: "danger",
-      });
-      return;
-    }
-    AddGastos({ addValor, addDesc });
-    setAddValor("");
-    setAdddesc("");
-  }
-
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <SafeAreaView style={s.conteiner}>
-        <StatusBar backgroundColor="#ccc" barStyle={"dark-content"} />
+   
+      <View style={s.conteiner}>
+       <StatusBar backgroundColor="#ccc" barStyle={"dark-content"} />
+        <HeaderComponent /> 
 
-        <HeaderComponent />
-
-        <Animatable.View animation="fadeInDown" style={s.areaAdd}>
-          <TextInput
-            placeholder="Receita/Gastos"
-            keyboardType="numeric"
-            value={addValor}
-            onChangeText={setAddValor}
-            style={s.inputAdd}
-          />
-          <TextInput
-            placeholder="Descrição"
-            value={addDesc}
-            onChangeText={setAdddesc}
-            style={s.inputAdd}
-          />
-
-          <View style={s.areaBntAdd}>
-            <TouchableOpacity style={s.bnt} onPress={AddvalorReceita}>
-              {load ? (
-                <ActivityIndicator size={20} color="black" />
-              ) : (
-                <Text style={s.textbntAdd}>Receita</Text>
-              )}
+        
+          <ScrollView scrollEnabled={true}
+          horizontal={true}
+          style={s.scroll}>
+            <TouchableOpacity onPress={()=> navigation.navigate('ViewRegister')} style={s.conteudoScroll}>
+              <Feather name="folder-plus" size={25}/>
+              <Text style={s.text}>Ver meus registros</Text>
             </TouchableOpacity>
-
-            <TouchableOpacity style={s.bnt} onPress={AddvalorGastos}>
-              {loading ? (
-                <ActivityIndicator size={20} color="black" />
-              ) : (
-                <Text style={s.textbntAdd}>Gastos</Text>
-              )}
-            </TouchableOpacity>
-          </View>
-
-          <TouchableOpacity
-            style={s.areaDolar}
-            onPress={() => navigation.navigate("Dolar")}
-          >
-            <Text style={s.textBntDolar}>Ver cotação</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={s.areaDolar} onPress={()=> navigation.navigate('AccountFixed')}>
-            <Text style={s.textBntDolar}>Adicionar conta fixa</Text>
-          </TouchableOpacity>
-
-        </Animatable.View>
-
-        {isFlat ? (
-          <TouchableOpacity
-            onPress={() => setIsFlat(!isFlat)}
-            style={[
-              s.bntisActive,
-              { backgroundColor: isFlat ? "blue" : "blue" },
-            ]}
-          >
-            <Text style={s.textbntocultarList}>Ocultar lista</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            onPress={() => setIsFlat(!isFlat)}
-            style={[
-              s.bntisActive,
-              { backgroundColor: isFlat ? "black" : "black" },
-            ]}
-          >
-            <Text style={s.textbntocultarList}>Mostrar lista</Text>
-          </TouchableOpacity>
-        )}
-
-        {isFlat ? (
-          <View style={s.areaFlat}>
-            <FlatList
-              ListHeaderComponent={<HeaderListReceita />}
-              showsVerticalScrollIndicator={false}
-              data={receita}
-              renderItem={({ item }) => <RenderReceita data={item} />}
-              ListEmptyComponent={()=>{
-                return(
-                  <View style={s.infoListaVazia}>
-                    <Text style={s.textListVazia}>Suas receitas apareceram aqui</Text>
-                  </View>
-                )
-              }}
-            />
-
-            <FlatList
-              ListHeaderComponent={<HeaderListGastos />}
-              showsVerticalScrollIndicator={false}
-              data={gastos}
-              renderItem={({ item }) => <RenderGastos data={item} />}
-              ListEmptyComponent={()=>{
-                return(
-                  <View style={s.infoListaVazia}>
-                    <Text style={s.textListVazia}>Seus gastos apareceram aqui!</Text>
-                  </View>
-                )
-              }}
-            />
-          </View>
-        ) : (
-          <Text></Text>
-        )}
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
+            <TouchableOpacity style={s.conteudoScroll}>
+            <Feather name="plus" size={25}/>
+              <Text style={s.text}>Adicionar Gastos ou Receitas</Text>
+            </TouchableOpacity >
+            <TouchableOpacity onPress={()=> navigation.navigate('Dolar')} style={s.conteudoScroll}>
+            <Feather name="folder-plus" size={25}/>
+              <Text style={s.text}>Cotaçao</Text>
+            </TouchableOpacity >
+            <TouchableOpacity onPress={()=> navigation.navigate('AccountFixed')} style={s.conteudoScroll}>
+            <Feather name="folder-plus" size={25}/>
+              <Text style={s.text}>Adiconar conta fixa</Text>
+            </TouchableOpacity >
+          </ScrollView>
+      
+        </View>
   );
 }
 
@@ -189,97 +60,32 @@ const s = StyleSheet.create({
   conteiner: {
     flex: 1,
     backgroundColor: "#fff4ff",
-    alignItems: "center",
   },
-
-
-
-
-  areaAdd: {
-    width: "90%",
+  areaScrool:{
+    width: '100%',
+    height: '14%',
+    backgroundColor: '#ccc',
+    marginTop: 10,
+  },
+  scroll:{
+    width: '100%',
+    height:  170,
     marginTop: 20,
-    backgroundColor: "#ccc",
-    padding: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 5,
-    boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
+    
+    
   },
-
-  inputAdd: {
-    width: "90%",
-    height: 50,
-    padding: 13,
-    borderRadius: 5,
-    boxShadow: "1px 3px 3px 0px rgba(8, 8, 8, 0.25)",
-  },
-
-  areaBntAdd: {
-    width: "100%",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    flexDirection: "row",
-    margin: 10,
-  },
-  bnt: {
-    width: "30%",
-    backgroundColor: "white",
-    padding: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 5,
-  },
-
-  textbntAdd: {
-    fontSize: 15,
-    fontFamily: "Arial",
-  },
-  areaFlat: {
-    flexDirection: "row",
-    width: "100%",
-    height: "40%",
-    justifyContent: "center",
-    padding: 15,
-    gap: 20,
-  },
-  areaDolar: {
-    width: "80%",
-    height: 45,
-    backgroundColor: "blue",
-    borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 5,
-  },
-  textBntDolar: {
-    fontFamily: "Arial",
-    color: "white",
-    fontSize: 17,
-    fontWeight: "900",
-  },
-  bntisActive: {
-    width: "40%",
-    marginTop: 20,
-    padding: 10,
-    borderRadius: 6,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  textbntOcultarActive: {
-    fontFamily: "Arial",
-    color: "white",
-    fontWeight: "700",
-  },
-  textbntocultarList: {
-    fontWeight: "700",
-    fontFamily: "Arial",
-    color: "white",
-  },
-  infoListaVazia:{
+  conteudoScroll:{
+    width: 170,
+    height:  130,
+    backgroundColor: '#ccc',
+    borderRadius: 10,
+    margin: 8,
     alignItems: 'center',
-
+    justifyContent: 'center'
   },
-  textListVazia:{
-    fontFamily: 'Arial'
+  text:{
+    fontFamily: 'Arial',
+    color: 'black',
+    textAlign: 'center'
   }
 });

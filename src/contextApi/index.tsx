@@ -16,7 +16,9 @@ import { ChildrenProp } from "./types";
 import { stateUser } from "./types";
 import { TypesReceita } from "./types";
 import { TypesGastos } from "./types";
-import { DeletarProp, listAccount,UidDelete } from "./types";
+import { DeletarProp, listAccount, UidDelete } from "./types";
+
+
 
 export const AuthContext = createContext({} as States);
 
@@ -110,12 +112,7 @@ export function AuthProvider({ children }: ChildrenProp) {
   }, [Deletar, deleteAccountfixed]);
 
   async function CreateUser({
-    email,
-    senha,
-  }: {
-    email: string;
-    senha: string;
-  }) {
+    email,senha,}: { email: string;senha: string;}) {
     setLoading(true);
     try {
       const data = await createUserWithEmailAndPassword(auth, email, senha);
@@ -284,8 +281,7 @@ export function AuthProvider({ children }: ChildrenProp) {
     });
   }
 
-
-  async function deleteAccountfixed({ uid }: {uid: string}) {
+  async function deleteAccountfixed({ uid }: { uid: string }) {
     const data = doc(db, "Account", uid);
 
     await deleteDoc(data)

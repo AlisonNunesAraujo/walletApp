@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   SafeAreaView,
   StyleSheet,
@@ -11,10 +10,8 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import { showMessage } from "react-native-flash-message";
 import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
-import { ActivityIndicator } from "react-native";
 import RenderReceita from "../../components/renderReceita";
 import RenderGastos from "../../components/renderGastos";
 import HeaderListGastos from "../../components/HeaderListGastos";
@@ -22,53 +19,20 @@ import HeaderListReceita from "../../components/HeaderListReceita";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
-
-import HeaderComponent from "../../components/Header";
-import * as Animatable from "react-native-animatable";
+import * as Animatable from 'react-native-animatable'
 
 export default function ViewRegister() {
   const {
     user,
     receita,
     gastos,
-    LogOut,
-    AddReceita,
-    AddGastos,
     load,
     loading,
   } = useContext(AuthContext);
-  const [addValor, setAddValor] = useState("");
-  const [addDesc, setAdddesc] = useState("");
   const [isFlat, setIsFlat] = useState(false);
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
-  async function AddvalorReceita() {
-    if (addValor === "") {
-      showMessage({
-        message: "Digite algo!",
-        duration: 2000,
-        type: "danger",
-      });
-      return;
-    }
-    AddReceita({ addValor, addDesc });
-    setAddValor("");
-    setAdddesc("");
-  }
-
-  async function AddvalorGastos() {
-    if (addValor === "") {
-      showMessage({
-        message: "Digite algo!",
-        duration: 1000,
-        type: "danger",
-      });
-      return;
-    }
-    AddGastos({ addValor, addDesc });
-    setAddValor("");
-    setAdddesc("");
-  }
+  
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -77,41 +41,10 @@ export default function ViewRegister() {
 
         
 
-        {/* <Animatable.View animation="fadeInDown" style={s.areaAdd}>
-          <TextInput
-            placeholder="Receita/Gastos"
-            keyboardType="numeric"
-            value={addValor}
-            onChangeText={setAddValor}
-            style={s.inputAdd}
-          />
-          <TextInput
-            placeholder="Descrição"
-            value={addDesc}
-            onChangeText={setAdddesc}
-            style={s.inputAdd}
-          />
-
-          <View style={s.areaBntAdd}>
-            <TouchableOpacity style={s.bnt} onPress={AddvalorReceita}>
-              {load ? (
-                <ActivityIndicator size={20} color="black" />
-              ) : (
-                <Text style={s.textbntAdd}>Receita</Text>
-              )}
-            </TouchableOpacity>
-
-            <TouchableOpacity style={s.bnt} onPress={AddvalorGastos}>
-              {loading ? (
-                <ActivityIndicator size={20} color="black" />
-              ) : (
-                <Text style={s.textbntAdd}>Gastos</Text>
-              )}
-            </TouchableOpacity>
-          </View>
+       
 
           
-        </Animatable.View> */}
+
 
         {isFlat ? (
           <TouchableOpacity
@@ -144,8 +77,8 @@ export default function ViewRegister() {
               renderItem={({ item }) => <RenderReceita data={item} />}
               ListEmptyComponent={() => {
                 return (
-                  <View style={s.infoListaVazia}>
-                    <Text style={s.textListVazia}>
+                  <View  style={s.infoListaVazia}>
+                    <Text   style={s.textListVazia}>
                       Suas receitas apareceram aqui
                     </Text>
                   </View>
@@ -160,7 +93,7 @@ export default function ViewRegister() {
               renderItem={({ item }) => <RenderGastos data={item} />}
               ListEmptyComponent={() => {
                 return (
-                  <View style={s.infoListaVazia}>
+                  <View  style={s.infoListaVazia}>
                     <Text style={s.textListVazia}>
                       Seus gastos apareceram aqui!
                     </Text>

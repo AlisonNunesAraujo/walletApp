@@ -6,7 +6,7 @@ import AreaDescReceita from "../pages/areaDescReceita";
 import AreaDescGastos from "../pages/areaDescGastos";
 import AccoutFixed from "../pages/accoutFixed";
 import ViewRegister from "../pages/ViewRegister";
-
+import AddRegister from "../pages/AddRegister";
 export type ParamList = {
     Home: undefined;
     Dolar: undefined;
@@ -22,6 +22,7 @@ export type ParamList = {
     Extratos: undefined;
     AccountFixed: undefined;
     ViewRegister: undefined;
+    AddRegister: undefined;
 };
 
 const Nav = createNativeStackNavigator<ParamList>();
@@ -60,7 +61,12 @@ export function StackFree() {
              <Nav.Screen 
                 name="ViewRegister"
                 component={ViewRegister}
-                options={{title: "View"}}
+                options={{title: "Voltar"}}
+             />
+             <Nav.Screen 
+                name="AddRegister"
+                component={AddRegister}
+                options={{title: "Criar um novo registro"}}
              />
 
 

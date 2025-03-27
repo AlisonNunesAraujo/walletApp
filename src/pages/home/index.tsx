@@ -12,14 +12,11 @@ import {
   Keyboard,
   ScrollView,
 } from "react-native";
-import { showMessage } from "react-native-flash-message";
-import { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
 import Feather from "@expo/vector-icons/Feather";
 import HeaderComponent from "../../components/Header";
-import * as Animatable from "react-native-animatable";
 
 export default function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
@@ -38,7 +35,7 @@ export default function Home() {
               <Feather name="folder-plus" size={25}/>
               <Text style={s.text}>Ver meus registros</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={s.conteudoScroll}>
+            <TouchableOpacity onPress={()=> navigation.navigate('AddRegister')} style={s.conteudoScroll}>
             <Feather name="plus" size={25}/>
               <Text style={s.text}>Adicionar Gastos ou Receitas</Text>
             </TouchableOpacity >
@@ -75,8 +72,8 @@ const s = StyleSheet.create({
     
   },
   conteudoScroll:{
-    width: 170,
-    height:  130,
+    width: '20%',
+    height:  '10%',
     backgroundColor: '#ccc',
     borderRadius: 10,
     margin: 8,

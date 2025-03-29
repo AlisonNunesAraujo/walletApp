@@ -1,42 +1,40 @@
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
-import { TypesReceita } from "../../contextApi/types";
-import * as Animateble from 'react-native-animatable'
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { TypesGastos } from "../../../contextApi/types";
 import { useContext } from "react";
-import { AuthContext } from "../../contextApi";
-import Feather from "@expo/vector-icons/Feather";
-
+import * as Animatebale from "react-native-animatable";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { ParamList } from "../../routs/authfree";
+import { ParamList } from "../../../routs/authfree";
+import { AuthContext } from "../../../contextApi";
+import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 
+export default function RenderGastos({ data }: { data: TypesGastos }) {
+  const { DeletarGastos } = useContext(AuthContext);
 
-
-export default function RenderReceita({ data }: { data: TypesReceita }) {
-  const { Deletar } = useContext(AuthContext);
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
-  function Delete(uid: string) {
-    Deletar({ uid });
+  function Deletar(uid: string) {
+    DeletarGastos({ uid });
   }
 
   return (
-    <Animateble.View animation='fadeInDown'>
+    <Animatebale.View animation="fadeInDown">
       <TouchableOpacity
         style={s.areaRender}
         onPress={() =>
-          navigation.navigate("AreaDescReceita", {
-            receita: data.receita,
+          navigation.navigate("AreaDescGastos", {
+            gastos: data.gastos,
             desc: data.desc,
           })
         }
       >
-        <Text style={s.textValor}>R$ {data.receita}</Text>
+        <Text style={s.textValor}>R$ {data.gastos}</Text>
         <Text style={s.textVerMais}>Ver mais</Text>
-        <TouchableOpacity onPress={() => Delete(data.uid)}>
+        <TouchableOpacity onPress={() => Deletar(data.uid)}>
           <Feather color="red" size={20} name="trash" />
         </TouchableOpacity>
       </TouchableOpacity>
-    </Animateble.View>
+    </Animatebale.View>
   );
 }
 
@@ -44,7 +42,7 @@ const s = StyleSheet.create({
   areaRender: {
     width: "100%",
     height: 'auto',
-    backgroundColor: "#cccccc",
+    backgroundColor: "#ccc",
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 10,
@@ -52,12 +50,12 @@ const s = StyleSheet.create({
     gap: 10,
     boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
   },
-
   textValor: {
+    fontFamily: "Arial",
     fontSize: 16,
-    fontFamily: "Arial,",
     padding: 2,
   },
+
   textbnt: {
     fontFamily: "Arial",
     fontWeight: "700",

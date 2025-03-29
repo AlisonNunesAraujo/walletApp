@@ -33,6 +33,7 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [load, setLoading] = useState(false);
   const [loading, setLoad] = useState(false);
   const [account, setAccount] = useState<listAccount[]>();
+  const [saldo, setSaldo] = useState<number>(0)
 
   useEffect(() => {
     async function VerUser() {
@@ -66,6 +67,9 @@ export function AuthProvider({ children }: ChildrenProp) {
           });
         });
         setReceita(lista);
+
+        const saldoAtual = lista.reduce((valor, item) => valor + Number(item.receita), 0);
+        setSaldo(saldoAtual)
       });
     }
 
@@ -336,6 +340,7 @@ export function AuthProvider({ children }: ChildrenProp) {
         addAccount,
         account,
         deleteAccountfixed,
+        saldo
       }}
     >
       {children}

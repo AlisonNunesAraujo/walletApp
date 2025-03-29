@@ -2,14 +2,10 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   SafeAreaView,
   StyleSheet,
   StatusBar,
-  FlatList,
-  TouchableWithoutFeedback,
-  Keyboard,
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -23,16 +19,18 @@ export default function Home() {
 
   return (
    
-      <View style={s.conteiner}>
+      <SafeAreaView style={s.conteiner}>
        <StatusBar backgroundColor="#ccc" barStyle={"dark-content"} />
         <HeaderComponent /> 
 
-        
-          <ScrollView scrollEnabled={true}
+        <View>
+          
+        <ScrollView scrollEnabled={true}
           horizontal={true}
+          showsHorizontalScrollIndicator={false}
           style={s.scroll}>
             <TouchableOpacity onPress={()=> navigation.navigate('ViewRegister')} style={s.conteudoScroll}>
-              <Feather name="folder-plus" size={25}/>
+              <Feather name="eye" size={25}/>
               <Text style={s.text}>Ver meus registros</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=> navigation.navigate('AddRegister')} style={s.conteudoScroll}>
@@ -40,16 +38,17 @@ export default function Home() {
               <Text style={s.text}>Adicionar Gastos ou Receitas</Text>
             </TouchableOpacity >
             <TouchableOpacity onPress={()=> navigation.navigate('Dolar')} style={s.conteudoScroll}>
-            <Feather name="folder-plus" size={25}/>
+            <Feather name="dollar-sign" size={25}/>
               <Text style={s.text}>Cotaçao</Text>
             </TouchableOpacity >
             <TouchableOpacity onPress={()=> navigation.navigate('AccountFixed')} style={s.conteudoScroll}>
-            <Feather name="folder-plus" size={25}/>
+            <Feather name="plus" size={25}/>
               <Text style={s.text}>Adiconar conta fixa</Text>
             </TouchableOpacity >
           </ScrollView>
-      
         </View>
+      
+        </SafeAreaView>
   );
 }
 
@@ -66,19 +65,19 @@ const s = StyleSheet.create({
   },
   scroll:{
     width: '100%',
-    height:  170,
+    height: '10%',
     marginTop: 20,
     
     
   },
   conteudoScroll:{
     width: '20%',
-    height:  '10%',
+    height:  '90%',
     backgroundColor: '#ccc',
     borderRadius: 10,
     margin: 8,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'space-evenly',
   },
   text:{
     fontFamily: 'Arial',

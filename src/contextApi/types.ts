@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 
-
 export type States = {
   user: stateUser;
   logado: boolean;
@@ -11,31 +10,37 @@ export type States = {
   Deletar: (info: DeletarProp) => Promise<void>;
   DeletarGastos: (info: DeletarGastos) => Promise<void>;
   LogOut: () => Promise<void>;
-  AddReceita: (info: { addValor: string | number, addDesc: string }) => Promise<void>;
-  AddGastos: (info: { addValor: string | number, addDesc: string }) => Promise<void>;
+  AddReceita: (info: {
+    addValor: string | number;
+    addDesc: string;
+  }) => Promise<void>;
+  AddGastos: (info: {
+    addValor: string | number;
+    addDesc: string;
+  }) => Promise<void>;
   load: boolean;
   loading: boolean;
-  addAccount: (info: accountProps)=> Promise<void>;
-  account: listAccount[]|undefined;
-  deleteAccountfixed: (info: {uid: string}) => Promise<void>
- 
-}
+  addAccount: (info: accountProps) => Promise<void>;
+  account: listAccount[] | undefined;
+  deleteAccountfixed: (info: { uid: string }) => Promise<void>;
+  saldo: number;
+};
 
 export type UidDelete = {
   uid: any;
-}
+};
 export type accountProps = {
   nameAccount: string;
   valor: string;
   vencimento: string;
-}
+};
 
 export type listAccount = {
   uid: string;
   nameAccount: string;
   valor: string;
   vencimento: string;
-}
+};
 
 export type stateUser = {
   email: string | null;
@@ -51,8 +56,6 @@ export interface TypesReceita {
   desc: string | number;
   uid: string;
 }
-
-
 
 export interface TypesGastos {
   gastos: number;

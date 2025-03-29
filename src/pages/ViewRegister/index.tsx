@@ -12,99 +12,57 @@ import {
 } from "react-native";
 import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
-import RenderReceita from "../../components/renderReceita";
-import RenderGastos from "../../components/renderGastos";
-import HeaderListGastos from "../../components/HeaderListGastos";
-import HeaderListReceita from "../../components/HeaderListReceita";
+import RenderReceita from "./renderReceita";
+import RenderGastos from "./renderGastos";
+import HeaderListGastos from "./HeaderListGastos";
+import HeaderListReceita from "./HeaderListReceita";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
-import * as Animatable from 'react-native-animatable'
 
 export default function ViewRegister() {
-  const {
-    user,
-    receita,
-    gastos,
-    load,
-    loading,
-  } = useContext(AuthContext);
+  const { user, receita, gastos, load, loading } = useContext(AuthContext);
   const [isFlat, setIsFlat] = useState(false);
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
-
-  
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={s.conteiner}>
         <StatusBar backgroundColor="#ccc" barStyle={"dark-content"} />
 
-        
+        <View style={s.areaFlat}>
+          <FlatList
+            ListHeaderComponent={<HeaderListReceita />}
+            showsVerticalScrollIndicator={false}
+            data={receita}
+            renderItem={({ item }) => <RenderReceita data={item} />}
+            ListEmptyComponent={() => {
+              return (
+                <View style={s.infoListaVazia}>
+                  <Text style={s.textListVazia}>
+                    Suas receitas apareceram aqui
+                  </Text>
+                </View>
+              );
+            }}
+          />
 
-       
-
-          
-
-
-        {isFlat ? (
-          <TouchableOpacity
-            onPress={() => setIsFlat(!isFlat)}
-            style={[
-              s.bntisActive,
-              { backgroundColor: isFlat ? "blue" : "blue" },
-            ]}
-          >
-            <Text style={s.textbntocultarList}>Ocultar lista</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            onPress={() => setIsFlat(!isFlat)}
-            style={[
-              s.bntisActive,
-              { backgroundColor: isFlat ? "black" : "black" },
-            ]}
-          >
-            <Text style={s.textbntocultarList}>Mostrar lista</Text>
-          </TouchableOpacity>
-        )}
-
-        {isFlat ? (
-          <View style={s.areaFlat}>
-            <FlatList
-              ListHeaderComponent={<HeaderListReceita />}
-              showsVerticalScrollIndicator={false}
-              data={receita}
-              renderItem={({ item }) => <RenderReceita data={item} />}
-              ListEmptyComponent={() => {
-                return (
-                  <View  style={s.infoListaVazia}>
-                    <Text   style={s.textListVazia}>
-                      Suas receitas apareceram aqui
-                    </Text>
-                  </View>
-                );
-              }}
-            />
-
-            <FlatList
-              ListHeaderComponent={<HeaderListGastos />}
-              showsVerticalScrollIndicator={false}
-              data={gastos}
-              renderItem={({ item }) => <RenderGastos data={item} />}
-              ListEmptyComponent={() => {
-                return (
-                  <View  style={s.infoListaVazia}>
-                    <Text style={s.textListVazia}>
-                      Seus gastos apareceram aqui!
-                    </Text>
-                  </View>
-                );
-              }}
-            />
-          </View>
-        ) : (
-          <Text></Text>
-        )}
+          <FlatList
+            ListHeaderComponent={<HeaderListGastos />}
+            showsVerticalScrollIndicator={false}
+            data={gastos}
+            renderItem={({ item }) => <RenderGastos data={item} />}
+            ListEmptyComponent={() => {
+              return (
+                <View style={s.infoListaVazia}>
+                  <Text style={s.textListVazia}>
+                    Seus gastos apareceram aqui!
+                  </Text>
+                </View>
+              );
+            }}
+          />
+        </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );

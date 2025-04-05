@@ -24,6 +24,7 @@ export type States = {
   account: listAccount[] | undefined;
   deleteAccountfixed: (info: { uid: string }) => Promise<void>;
   saldo: number;
+  despesa: number;
 };
 
 export type UidDelete = {

@@ -6,19 +6,16 @@ import {
   SafeAreaView,
   Modal as RnModal,
   FlatList,
+  TextInput,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../../contextApi";
 import { useContext, useState } from "react";
-import { ParamList } from "../../routs/authfree";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-
 export default function HeaderComponent() {
-  const { user, LogOut, saldo } = useContext(AuthContext);
+  const { user, LogOut, saldo, despesa } = useContext(AuthContext);
   const [Modal, setModal] = useState(false);
-  const naviagation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
   async function Sair() {
     LogOut();
@@ -28,28 +25,14 @@ export default function HeaderComponent() {
     <SafeAreaView>
       <Animatable.View animation="fadeInDown" style={s.header}>
         <View style={s.viewInfo}>
-          <Text style={s.title}>Bem vindo!</Text>
+          <Text style={s.title}>Olá!</Text>
 
           <TouchableOpacity
             style={s.viewBntinfo}
             onPress={() => setModal(true)}
           >
-            <Feather name="info" color={"black"} size={20} />
-            <Text style={s.textviewInfo}>Info</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={s.areaLogOut}>
-          <View>
-            
-            <FlatList
-              data={[saldo]}
-              renderItem={({ item }) => 
-              <Text style={s.textSaldo}>Saldo: R$ {item}</Text>}
-            />
-          </View>
-          <TouchableOpacity style={s.areaSair} onPress={Sair}>
-            <Feather color="black" name="log-out" size={22} />
+            <Feather name="user" color={"black"} size={20} />
+            <Text style={s.textviewInfo}>Perfil</Text>
           </TouchableOpacity>
         </View>
 
@@ -66,6 +49,12 @@ export default function HeaderComponent() {
               style={s.bntFechar}
             >
               <Text style={s.textbntfechar}>Fechar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={Sair}
+              style={s.bntFechar}
+            >
+              <Feather name="log-out" size={20} color="black" />
             </TouchableOpacity>
           </View>
         </RnModal>
@@ -85,6 +74,7 @@ const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
+    marginBottom: 10,
   },
   viewBntinfo: {
     marginRight: 25,
@@ -95,45 +85,16 @@ const s = StyleSheet.create({
     fontFamily: "Arial",
     fontWeight: "700",
   },
-  textSaldo:{
-    fontFamily: 'Arial',
-    marginLeft: 20,
-    fontSize: 20,
-    fontWeight: 'bold',
-    opacity: 0.6
-  },
-  areaLogOut: {
-    width: "100%",
-    marginTop: 10,
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-    marginBottom: 10,
-  },
+
   title: {
     marginTop: 10,
-    fontSize: 30,
+    fontSize: 25,
     fontFamily: "Arial",
     marginLeft: 20,
+    fontWeight: "bold",
+    opacity: 0.8,
   },
 
-  textEmail: {
-    fontSize: 15,
-    fontFamily: "Arial",
-    marginLeft: 20,
-    fontWeight: "500",
-    opacity: 0.6,
-  },
-
-  areaSair: {
-    width: "10%",
-    height: 40,
-    backgroundColor: "white",
-    borderRadius: 10,
-    marginRight: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   modal: {
     width: "100%",
     height: "100%",
@@ -160,6 +121,7 @@ const s = StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: 10,
   },
   textbntfechar: {
     fontFamily: "Arial",

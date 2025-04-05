@@ -13,7 +13,7 @@ import { AuthContext } from "../../contextApi";
 import { showMessage } from "react-native-flash-message";
 
 export default function AccoutFixed() {
-  const { addAccount, account, deleteAccountfixed } = useContext(AuthContext);
+  const { addAccount, account, deleteAccountfixed, despesa } = useContext(AuthContext);
   const [modal, setModal] = useState(false);
   const [nameAccount, setNameAccount] = useState("");
   const [valor, setValor] = useState("");
@@ -40,6 +40,7 @@ export default function AccoutFixed() {
   return (
     <View style={s.conteiner}>
       <View style={s.header}>
+
         <Text style={s.Title}>Voçe quer adicionar uma conta fixa?</Text>
         <TouchableOpacity
           onPress={() => setModal(true)}
@@ -48,6 +49,7 @@ export default function AccoutFixed() {
           <Text style={s.textcreateAccount}>Criar uma conta fixa</Text>
         </TouchableOpacity>
       </View>
+
 
       <View style={s.areaRender}>
         <FlatList
@@ -83,6 +85,8 @@ export default function AccoutFixed() {
             );
           }}
         />
+
+
       </View>
 
       <Modal visible={modal} animationType="slide">

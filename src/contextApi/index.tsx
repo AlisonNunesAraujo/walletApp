@@ -18,8 +18,6 @@ import { TypesReceita } from "./types";
 import { TypesGastos } from "./types";
 import { DeletarProp, listAccount, UidDelete } from "./types";
 
-
-
 export const AuthContext = createContext({} as States);
 
 export function AuthProvider({ children }: ChildrenProp) {
@@ -33,7 +31,8 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [load, setLoading] = useState(false);
   const [loading, setLoad] = useState(false);
   const [account, setAccount] = useState<listAccount[]>();
-  const [saldo, setSaldo] = useState<number>(0)
+  const [saldo, setSaldo] = useState<number>(0);
+  const [despesa, setDespesa] = useState<number>(0);
 
   useEffect(() => {
     async function VerUser() {
@@ -68,8 +67,12 @@ export function AuthProvider({ children }: ChildrenProp) {
         });
         setReceita(lista);
 
-        const saldoAtual = lista.reduce((valor, item) => valor + Number(item.receita), 0);
-        setSaldo(saldoAtual)
+        const saldoAtual = lista.reduce(
+          (valor, item) => valor + Number(item.receita),
+          0
+        );
+
+        setSaldo(saldoAtual);
       });
     }
 
@@ -89,6 +92,12 @@ export function AuthProvider({ children }: ChildrenProp) {
           });
         });
         setGastos(lista);
+
+        const saldoDespesa = lista.reduce(
+          (valor, item) => valor + Number(item.gastos), 0
+        )
+
+        setDespesa(saldoDespesa);
       });
     }
 
@@ -116,7 +125,12 @@ export function AuthProvider({ children }: ChildrenProp) {
   }, [Deletar, deleteAccountfixed]);
 
   async function CreateUser({
-    email,senha,}: { email: string;senha: string;}) {
+    email,
+    senha,
+  }: {
+    email: string;
+    senha: string;
+  }) {
     setLoading(true);
     try {
       const data = await createUserWithEmailAndPassword(auth, email, senha);
@@ -340,7 +354,8 @@ export function AuthProvider({ children }: ChildrenProp) {
         addAccount,
         account,
         deleteAccountfixed,
-        saldo
+        saldo,
+        despesa
       }}
     >
       {children}

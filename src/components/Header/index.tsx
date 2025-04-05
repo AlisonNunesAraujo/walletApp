@@ -38,6 +38,10 @@ export default function HeaderComponent() {
 
         <RnModal visible={Modal} animationType="slide">
           <View style={s.modal}>
+            <View style={s.areaEmail}>
+              <Text style={s.textInfoEmail}>Seu E-mail</Text>
+              <Text style={s.textEmail}>{user.email}</Text>
+            </View>
             <Text style={s.modalTitle}>Sobre o Aplicativo</Text>
             <Text style={s.modalText}>
               Voçe pode registrar despesas e receitas ao criar uma conta no
@@ -75,6 +79,22 @@ const s = StyleSheet.create({
     justifyContent: "space-between",
     flexDirection: "row",
     marginBottom: 10,
+  },
+  areaEmail: {
+    width: '100%',
+    padding: 5,
+
+  },
+  textInfoEmail: {
+    fontFamily: 'Arial',
+    fontSize: 15,
+    fontWeight: 'bold'
+  },
+
+  textEmail: {
+    fontFamily: 'Arial',
+    marginBottom: 40,
+    fontSize: 15
   },
   viewBntinfo: {
     marginRight: 25,

@@ -43,6 +43,7 @@ export default function Home() {
                 )}
               </View>
             )}
+
           />
           <TouchableOpacity
             style={s.bntOcultar}

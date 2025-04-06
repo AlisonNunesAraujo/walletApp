@@ -18,7 +18,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
 export default function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
-  const { saldo } = useContext(AuthContext);
+  const { saldo, despesa } = useContext(AuthContext);
   const [ocultarSaldo, setOcultarSaldo] = useState(false);
   return (
     <SafeAreaView style={s.conteiner}>
@@ -43,8 +43,8 @@ export default function Home() {
                 )}
               </View>
             )}
-
           />
+
           <TouchableOpacity
             style={s.bntOcultar}
             onPress={() => setOcultarSaldo(!ocultarSaldo)}
@@ -56,6 +56,20 @@ export default function Home() {
             )}
           </TouchableOpacity>
         </View>
+        <FlatList
+          data={[despesa]}
+          renderItem={({ item }) => (
+            <View>
+              {ocultarSaldo ? (
+                <Text style={s.textSaldoGastos}>Despesa: R$ {item}</Text>
+              ) : (
+                <Text style={s.textSaldoGastos}>
+                  Despesa: <View style={s.ocultarSaldo}></View>
+                </Text>
+              )}
+            </View>
+          )}
+        />
       </View>
 
       <View>
@@ -112,7 +126,7 @@ const s = StyleSheet.create({
     marginLeft: "5%",
     borderRadius: 8,
     flexDirection: "column",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
   },
   textTitle: {
     color: "black",
@@ -129,8 +143,15 @@ const s = StyleSheet.create({
   },
   renderSaldo: {
     width: "100%",
-    height: "50%",
+    height: "auto",
     flexDirection: "row",
+  },
+  textSaldoGastos: {
+    color: "red",
+    fontFamily: "Arial",
+    fontWeight: "800",
+    fontSize: 17,
+    margin: 5,
   },
   bntOcultar: {
     marginRight: 15,

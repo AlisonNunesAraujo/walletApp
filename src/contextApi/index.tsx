@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { auth } from "../firebase/firebaseConextion";
 import {
   createUserWithEmailAndPassword,
@@ -94,8 +94,9 @@ export function AuthProvider({ children }: ChildrenProp) {
         setGastos(lista);
 
         const saldoDespesa = lista.reduce(
-          (valor, item) => valor + Number(item.gastos), 0
-        )
+          (valor, item) => valor + Number(item.gastos),
+          0
+        );
 
         setDespesa(saldoDespesa);
       });
@@ -355,7 +356,7 @@ export function AuthProvider({ children }: ChildrenProp) {
         account,
         deleteAccountfixed,
         saldo,
-        despesa
+        despesa,
       }}
     >
       {children}

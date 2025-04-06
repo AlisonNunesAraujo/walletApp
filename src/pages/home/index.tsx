@@ -35,7 +35,7 @@ export default function Home() {
             renderItem={({ item }) => (
               <View>
                 {ocultarSaldo ? (
-                  <Text style={s.textSaldo}>Saldo: R$ {item}</Text>
+                  <Text style={s.textSaldo}>Saldo:R$ {item}</Text>
                 ) : (
                   <Text style={s.textSaldo}>
                     Saldo: <View style={s.ocultarSaldo}></View>

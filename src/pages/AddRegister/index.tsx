@@ -17,7 +17,6 @@ import { ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
-
 import * as Animatable from "react-native-animatable";
 
 export default function AddRegister() {
@@ -61,14 +60,16 @@ export default function AddRegister() {
         <StatusBar backgroundColor="#ccc" barStyle={"dark-content"} />
 
         <Animatable.View animation="fadeInDown" style={s.areaAdd}>
-            <Text style={s.title}>Adicionar um registro!</Text>
+          <Text style={s.title}>Adicionar um registro!</Text>
           <TextInput
-            placeholder="Receita/Gastos"
+            placeholder="Valor"
             keyboardType="numeric"
             value={addValor}
             onChangeText={setAddValor}
             style={s.inputAdd}
           />
+
+
           <TextInput
             placeholder="Descrição"
             value={addDesc}
@@ -116,7 +117,7 @@ const s = StyleSheet.create({
     borderRadius: 5,
     boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
   },
-  title:{
+  title: {
     fontFamily: 'Arial',
     fontSize: 20,
 

@@ -25,52 +25,7 @@ export default function Home() {
       <StatusBar backgroundColor="#ccc" barStyle={"dark-content"} />
       <HeaderComponent />
 
-      <View style={s.areaSaldo}>
-        <View>
-          <Text style={s.textTitle}>Saldo</Text>
-        </View>
-        <View style={s.renderSaldo}>
-          <FlatList
-            data={[saldo]}
-            renderItem={({ item }) => (
-              <View>
-                {ocultarSaldo ? (
-                  <Text style={s.textSaldo}>Saldo: R$ {item}</Text>
-                ) : (
-                  <Text style={s.textSaldo}>
-                    Saldo: <View style={s.ocultarSaldo}></View>
-                  </Text>
-                )}
-              </View>
-            )}
-          />
 
-          <TouchableOpacity
-            style={s.bntOcultar}
-            onPress={() => setOcultarSaldo(!ocultarSaldo)}
-          >
-            {ocultarSaldo ? (
-              <Feather name="eye-off" size={25} color="black" />
-            ) : (
-              <Feather name="eye" size={25} color="black" />
-            )}
-          </TouchableOpacity>
-        </View>
-        <FlatList
-          data={[despesa]}
-          renderItem={({ item }) => (
-            <View>
-              {ocultarSaldo ? (
-                <Text style={s.textSaldoGastos}>Despesa: R$ {item}</Text>
-              ) : (
-                <Text style={s.textSaldoGastos}>
-                  Despesa: <View style={s.ocultarSaldo}></View>
-                </Text>
-              )}
-            </View>
-          )}
-        />
-      </View>
 
       <View>
         <ScrollView
@@ -109,6 +64,22 @@ export default function Home() {
           </TouchableOpacity>
         </ScrollView>
       </View>
+
+      <TouchableOpacity
+        style={s.areaSaldo}
+        onPress={() => navigation.navigate("Dolar")}
+      >
+        <Text style={s.textTitle}>Verificar a cotaçao atual</Text>
+        <Text style={s.textInfo}>Aqui voçe pode se informar sobrea cotação em tempo real!</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={s.areaSaldo}
+        onPress={() => navigation.navigate("AccountFixed")}
+      >
+        <Text style={s.textTitle}>Criar uma conta fixa!</Text>
+        <Text style={s.textInfo}>Voçe pode criar uma conta fixa do
+          mês, exp: Conta de luz!</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -120,50 +91,29 @@ const s = StyleSheet.create({
   },
   areaSaldo: {
     width: "90%",
-    height: 150,
+    height: 100,
     backgroundColor: "#ccc",
     marginTop: 40,
     marginLeft: "5%",
     borderRadius: 8,
     flexDirection: "column",
-    justifyContent: "space-around",
   },
   textTitle: {
     color: "black",
     fontFamily: "Arial",
     margin: 5,
-    fontWeight: "bold",
-    fontSize: 15,
-  },
-  textSaldo: {
+    fontWeight: "700",
     fontSize: 17,
+  },
+  textInfo: {
+    fontSize: 15,
     color: "black",
     fontFamily: "Arial",
     margin: 5,
+    alignItems: 'center',
   },
-  renderSaldo: {
-    width: "100%",
-    height: "auto",
-    flexDirection: "row",
-  },
-  textSaldoGastos: {
-    color: "red",
-    fontFamily: "Arial",
-    fontWeight: "800",
-    fontSize: 17,
-    margin: 5,
-  },
-  bntOcultar: {
-    marginRight: 15,
-    margin: 5,
-  },
-  ocultarSaldo: {
-    width: 70,
-    height: 10,
-    backgroundColor: "white",
-    borderRadius: 5,
-    opacity: 0.7,
-  },
+
+
   areaScrool: {
     width: "100%",
     height: "14%",

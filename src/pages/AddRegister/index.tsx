@@ -19,11 +19,15 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
 import * as Animatable from "react-native-animatable";
 
+
+
 export default function AddRegister() {
   const { user, receita, gastos, AddReceita, AddGastos, load, loading } =
     useContext(AuthContext);
   const [addValor, setAddValor] = useState("");
   const [addDesc, setAdddesc] = useState("");
+  const [valor, setValor] = useState('');
+
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
   async function AddvalorReceita() {
@@ -63,11 +67,13 @@ export default function AddRegister() {
           <Text style={s.title}>Adicionar um registro!</Text>
           <TextInput
             placeholder="Valor"
-            keyboardType="numeric"
+            keyboardType="phone-pad"
             value={addValor}
             onChangeText={setAddValor}
             style={s.inputAdd}
           />
+
+
 
 
           <TextInput

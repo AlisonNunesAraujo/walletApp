@@ -72,6 +72,7 @@ export function AuthProvider({ children }: ChildrenProp) {
           0
         );
 
+
         setSaldo(saldoAtual);
       });
     }

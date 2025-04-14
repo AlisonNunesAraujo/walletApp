@@ -70,7 +70,7 @@ export default function Home() {
         onPress={() => navigation.navigate("Dolar")}
       >
         <Text style={s.textTitle}>Verificar a cotaçao atual</Text>
-        <Text style={s.textInfo}>Aqui voçe pode se informar sobrea cotação em tempo real!</Text>
+        <Text style={s.textInfo}>Aqui voçe pode se informar sobre cotação em tempo real!</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={s.areaSaldo}
@@ -91,7 +91,7 @@ const s = StyleSheet.create({
   },
   areaSaldo: {
     width: "90%",
-    height: 100,
+    height: "10%",
     backgroundColor: "#ccc",
     marginTop: 40,
     marginLeft: "5%",
@@ -102,8 +102,9 @@ const s = StyleSheet.create({
     color: "black",
     fontFamily: "Arial",
     margin: 5,
-    fontWeight: "700",
+    fontWeight: "semibold",
     fontSize: 17,
+    textAlign: "center",
   },
   textInfo: {
     fontSize: 15,
@@ -111,6 +112,7 @@ const s = StyleSheet.create({
     fontFamily: "Arial",
     margin: 5,
     alignItems: 'center',
+    textAlign: 'center'
   },
 
 

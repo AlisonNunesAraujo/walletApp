@@ -67,7 +67,7 @@ export default function AddRegister() {
           <Text style={s.title}>Adicionar um registro!</Text>
           <TextInput
             placeholder="Valor"
-            keyboardType="phone-pad"
+            keyboardType="numeric"
             value={addValor}
             onChangeText={setAddValor}
             style={s.inputAdd}

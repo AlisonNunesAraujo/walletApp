@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TextInput,
   FlatList,
+  StatusBar
 } from "react-native";
 import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
@@ -39,6 +40,7 @@ export default function AccoutFixed() {
 
   return (
     <View style={s.conteiner}>
+      <StatusBar backgroundColor={"white"} />
       <View style={s.header}>
 
         <Text style={s.Title}>Voçe quer adicionar uma conta fixa?</Text>

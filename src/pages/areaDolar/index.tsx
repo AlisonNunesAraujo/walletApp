@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-
-import { View, FlatList } from "react-native";
+import { View, FlatList, Text } from "react-native";
 import { api } from "../../services";
 import Render from "./render";
+import { showMessage } from "react-native-flash-message";
 
 type ApiDados = {
     ask: string;
@@ -17,10 +17,8 @@ export default function Dolar() {
             try {
                 const response = await api.get("USD-BRL,EUR-BRL,BTC-BRL");
                 setDadosapi(Object.values(response.data));
-
-
             } catch (error) {
-                alert('Algo deu errado!')
+                alert("Algo deu errado!");
             }
         }
         BuscarApi();

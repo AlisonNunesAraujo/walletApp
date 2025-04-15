@@ -28,7 +28,7 @@ export default function ViewRegister() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={s.conteiner}>
-        <StatusBar backgroundColor="#ccc" barStyle={"dark-content"} />
+        <StatusBar backgroundColor={"white"} />
 
         <View style={s.areaFlat}>
           <FlatList

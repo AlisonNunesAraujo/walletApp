@@ -19,14 +19,12 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
 import * as Animatable from "react-native-animatable";
 
-
-
 export default function AddRegister() {
   const { user, receita, gastos, AddReceita, AddGastos, load, loading } =
     useContext(AuthContext);
   const [addValor, setAddValor] = useState("");
   const [addDesc, setAdddesc] = useState("");
-  const [valor, setValor] = useState('');
+  const [valor, setValor] = useState("");
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
@@ -61,7 +59,7 @@ export default function AddRegister() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={s.conteiner}>
-        <StatusBar backgroundColor="#ccc" barStyle={"dark-content"} />
+        <StatusBar backgroundColor="white" barStyle={"dark-content"} />
 
         <Animatable.View animation="fadeInDown" style={s.areaAdd}>
           <Text style={s.title}>Adicionar um registro!</Text>
@@ -72,9 +70,6 @@ export default function AddRegister() {
             onChangeText={setAddValor}
             style={s.inputAdd}
           />
-
-
-
 
           <TextInput
             placeholder="Descrição"
@@ -124,9 +119,8 @@ const s = StyleSheet.create({
     boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
   },
   title: {
-    fontFamily: 'Arial',
+    fontFamily: "Arial",
     fontSize: 20,
-
   },
   inputAdd: {
     width: "90%",
@@ -155,5 +149,5 @@ const s = StyleSheet.create({
   textbntAdd: {
     fontSize: 15,
     fontFamily: "Arial",
-  }
+  },
 });

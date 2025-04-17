@@ -18,7 +18,7 @@ export default function RenderGastos({ data }: { data: TypesGastos }) {
   }
 
   return (
-    <Animatebale.View animation="fadeInDown">
+    <View>
       <TouchableOpacity
         style={s.areaRender}
         onPress={() =>
@@ -34,7 +34,7 @@ export default function RenderGastos({ data }: { data: TypesGastos }) {
           <Feather color="red" size={20} name="trash" />
         </TouchableOpacity>
       </TouchableOpacity>
-    </Animatebale.View>
+    </View>
   );
 }
 

@@ -19,7 +19,7 @@ import HeaderListReceita from "./HeaderListReceita";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
-
+import * as Animatable from "react-native-animatable";
 export default function ViewRegister() {
   const { user, receita, gastos, load, loading } = useContext(AuthContext);
   const [isFlat, setIsFlat] = useState(false);
@@ -30,7 +30,7 @@ export default function ViewRegister() {
       <SafeAreaView style={s.conteiner}>
         <StatusBar backgroundColor={"white"} />
 
-        <View style={s.areaFlat}>
+        <Animatable.View animation="fadeIn" style={s.areaFlat}>
           <FlatList
             ListHeaderComponent={<HeaderListReceita />}
             showsVerticalScrollIndicator={false}
@@ -62,7 +62,7 @@ export default function ViewRegister() {
               );
             }}
           />
-        </View>
+        </Animatable.View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );

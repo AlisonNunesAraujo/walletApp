@@ -1,15 +1,15 @@
 import { View, Text, StyleSheet, ScrollView, StatusBar } from "react-native";
-
+import * as Animatable from "react-native-animatable";
 export default function Render({ data }: { data: any }) {
     return (
         <ScrollView>
             <StatusBar backgroundColor={"white"} />
-            <View style={s.conteiner}>
+            <Animatable.View animation="fadeInDown" style={s.conteiner}>
                 <View style={s.render}>
                     <Text style={s.textTitile}>{data.name}</Text>
                     <Text style={s.textValor}>R$ {data.ask}</Text>
                 </View>
-            </View>
+            </Animatable.View>
         </ScrollView>
     );
 }

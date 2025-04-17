@@ -12,7 +12,7 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
 import { showMessage } from "react-native-flash-message";
-
+import * as Animatable from "react-native-animatable";
 export default function AccoutFixed() {
   const { addAccount, account, deleteAccountfixed, despesa } = useContext(AuthContext);
   const [modal, setModal] = useState(false);
@@ -59,7 +59,7 @@ export default function AccoutFixed() {
           style={s.flatList}
           data={account}
           renderItem={({ item }) => (
-            <View style={s.grupoAccount}>
+            <Animatable.View animation='fadeInDown' style={s.grupoAccount}>
               <Text style={s.text}>
                 Nome:<Text style={s.textDados}> {item.nameAccount}</Text>
               </Text>
@@ -75,7 +75,7 @@ export default function AccoutFixed() {
               >
                 <Text style={s.textBnt}>Excluir</Text>
               </TouchableOpacity>
-            </View>
+            </Animatable.View>
           )}
           ListEmptyComponent={() => {
             return (

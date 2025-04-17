@@ -23,7 +23,7 @@ export default function HeaderComponent() {
 
   return (
     <SafeAreaView>
-      <Animatable.View animation="fadeInDown" style={s.header}>
+      <Animatable.View animation="fadeIn" style={s.header}>
         <View style={s.viewInfo}>
           <Text style={s.title}>Olá!</Text>
 

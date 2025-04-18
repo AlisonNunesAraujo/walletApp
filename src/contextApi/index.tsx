@@ -72,7 +72,6 @@ export function AuthProvider({ children }: ChildrenProp) {
           0
         );
 
-
         setSaldo(saldoAtual);
       });
     }
@@ -318,8 +317,8 @@ export function AuthProvider({ children }: ChildrenProp) {
   }
 
   async function LogOut() {
-    await signOut(auth);
     AsyncStorage.clear()
+    await signOut(auth)
 
       .then(() => {
         setUser({

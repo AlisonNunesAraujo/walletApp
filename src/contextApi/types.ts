@@ -56,12 +56,14 @@ export interface TypesReceita {
   receita: number;
   desc: string | number;
   uid: string;
+  date: string
 }
 
 export interface TypesGastos {
   gastos: number;
   desc: string;
   uid: string;
+  date: string
 }
 
 export type DeletarProp = {

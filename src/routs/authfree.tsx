@@ -13,10 +13,12 @@ export type ParamList = {
   AreaDescReceita: {
     receita: number;
     desc: string | number;
+    date: string;
   };
   AreaDescGastos: {
     gastos: number;
     desc: string | number;
+    date: string;
   };
   FixedAccout: undefined;
   Extratos: undefined;

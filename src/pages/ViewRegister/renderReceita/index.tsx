@@ -27,10 +27,12 @@ export default function RenderReceita({ data }: { data: TypesReceita }) {
           navigation.navigate("AreaDescReceita", {
             receita: data.receita,
             desc: data.desc,
+            date: data.date
           })
         }
       >
         <Text style={s.textValor}>R$ {data.receita}</Text>
+        <Text style={s.textValor}>{data.date}</Text>
         <Text style={s.textVerMais}>Ver mais</Text>
         <TouchableOpacity onPress={() => Delete(data.uid)}>
           <Feather color="red" size={20} name="trash" />

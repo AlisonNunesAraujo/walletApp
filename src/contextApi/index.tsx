@@ -10,7 +10,7 @@ import { getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
-
+import { format } from 'date-fns'
 import { States } from "./types";
 import { ChildrenProp } from "./types";
 import { stateUser } from "./types";
@@ -63,6 +63,7 @@ export function AuthProvider({ children }: ChildrenProp) {
             receita: doc.data().valor,
             desc: doc.data().descricao,
             uid: doc.id,
+            date: doc.data().date
           });
         });
         setReceita(lista);
@@ -89,6 +90,7 @@ export function AuthProvider({ children }: ChildrenProp) {
             gastos: doc.data().valor,
             desc: doc.data().descricao,
             uid: doc.id,
+            date: doc.data().date
           });
         });
         setGastos(lista);
@@ -240,6 +242,7 @@ export function AuthProvider({ children }: ChildrenProp) {
         uid: user.uid,
         valor: addValor,
         descricao: addDesc,
+        date: format(new Date(), "dd/MM/yyyy"),
       });
 
       showMessage({
@@ -268,6 +271,7 @@ export function AuthProvider({ children }: ChildrenProp) {
         uid: user.uid,
         valor: addValor,
         descricao: addDesc,
+        date: format(new Date(), "dd/MM/yyyy"),
       });
 
       showMessage({

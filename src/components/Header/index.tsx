@@ -173,6 +173,7 @@ const s = StyleSheet.create({
     padding: 20,
   },
   textCargo: {
+    textAlign: "center",
     fontFamily: "Arial",
     fontSize: 17,
   },

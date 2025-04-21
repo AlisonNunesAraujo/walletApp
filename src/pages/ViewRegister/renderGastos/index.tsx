@@ -18,32 +18,32 @@ export default function RenderGastos({ data }: { data: TypesGastos }) {
   }
 
   return (
-    <View>
+    <Animatebale.View animation="fadeInDown">
       <TouchableOpacity
         style={s.areaRender}
         onPress={() =>
           navigation.navigate("AreaDescGastos", {
             gastos: data.gastos,
             desc: data.desc,
-            date: data.date
+            date: data.date,
           })
         }
       >
-        <Text style={s.textValor}>R$ {data.gastos}</Text>
+        <Text style={s.textValor}>{data.gastos}</Text>
         <Text style={s.textValor}>{data.date}</Text>
         <Text style={s.textVerMais}>Ver mais</Text>
         <TouchableOpacity onPress={() => Deletar(data.uid)}>
           <Feather color="red" size={20} name="trash" />
         </TouchableOpacity>
       </TouchableOpacity>
-    </View>
+    </Animatebale.View>
   );
 }
 
 const s = StyleSheet.create({
   areaRender: {
     width: "100%",
-    height: 'auto',
+    height: "auto",
     backgroundColor: "#ccc",
     justifyContent: "center",
     alignItems: "center",

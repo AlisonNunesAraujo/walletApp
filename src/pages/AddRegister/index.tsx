@@ -18,7 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
 import * as Animatable from "react-native-animatable";
-
+import { TextInputMask } from "react-native-masked-text";
 export default function AddRegister() {
   const { user, receita, gastos, AddReceita, AddGastos, load, loading } =
     useContext(AuthContext);
@@ -63,12 +63,13 @@ export default function AddRegister() {
 
         <Animatable.View animation="fadeInDown" style={s.areaAdd}>
           <Text style={s.title}>Adicionar um registro!</Text>
-          <TextInput
-            placeholder="Valor"
-            keyboardType="numeric"
+
+          <TextInputMask
+            type={"money"}
             value={addValor}
             onChangeText={setAddValor}
             style={s.inputAdd}
+            placeholder="Valor"
           />
 
           <TextInput

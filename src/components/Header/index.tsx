@@ -5,8 +5,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Modal as RnModal,
-  FlatList,
-  TextInput,
+  Image,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import Feather from "@expo/vector-icons/Feather";
@@ -42,24 +41,36 @@ export default function HeaderComponent() {
               <Text style={s.textInfoEmail}>Seu E-mail</Text>
               <Text style={s.textEmail}>{user.email}</Text>
             </View>
-            <Text style={s.modalTitle}>Sobre o Aplicativo</Text>
-            <Text style={s.modalText}>
-              Voçe pode registrar despesas e receitas ao criar uma conta no
-              Aplicaivo, caso deseje! Voçe pode conferir a cotação em tempo real
-              também para se manter atualizado(a)!{" "}
-            </Text>
+
             <TouchableOpacity
               onPress={() => setModal(false)}
               style={s.bntFechar}
             >
               <Text style={s.textbntfechar}>Fechar</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={Sair}
-              style={s.bntFechar}
-            >
+            <TouchableOpacity onPress={Sair} style={s.bntFechar}>
               <Feather name="log-out" size={20} color="black" />
             </TouchableOpacity>
+
+            <View style={s.infoSobre}>
+              <Text style={s.modalTitle}>Sobre o Aplicativo</Text>
+              <Text style={s.modalText}>
+                Voçe pode registrar despesas e receitas ao criar uma conta no
+                Aplicaivo, caso deseje! Também pode conferir a cotação em tempo
+                real, criar um lembrete de uma conta fixa do mês!
+              </Text>
+
+              <View style={s.areaApresentar}>
+                <Text style={s.textCargo}>Desenvolvedor</Text>
+                <Text style={s.nome}>Alison Araújo</Text>
+                <Image
+                  style={s.image}
+                  source={{
+                    uri: "https://avatars.githubusercontent.com/u/166415022?v=4",
+                  }}
+                />
+              </View>
+            </View>
           </View>
         </RnModal>
       </Animatable.View>
@@ -81,20 +92,19 @@ const s = StyleSheet.create({
     marginBottom: 10,
   },
   areaEmail: {
-    width: '100%',
+    width: "100%",
     padding: 5,
-
   },
   textInfoEmail: {
-    fontFamily: 'Arial',
+    fontFamily: "Arial",
     fontSize: 15,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
 
   textEmail: {
-    fontFamily: 'Arial',
+    fontFamily: "Arial",
     marginBottom: 40,
-    fontSize: 15
+    fontSize: 15,
   },
   viewBntinfo: {
     marginRight: 25,
@@ -145,5 +155,36 @@ const s = StyleSheet.create({
   },
   textbntfechar: {
     fontFamily: "Arial",
+  },
+  infoSobre: {
+    width: "100%",
+    height: "auto",
+    alignItems: "center",
+    justifyContent: "center",
+    bottom: 50,
+    position: "absolute",
+    padding: 20,
+  },
+  areaApresentar: {
+    width: "100%",
+    height: "auto",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+  },
+  textCargo: {
+    fontFamily: "Arial",
+    fontSize: 17,
+  },
+  nome: {
+    textAlign: "center",
+    fontSize: 15,
+    fontFamily: "Arial",
+  },
+  image: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    margin: 15,
   },
 });

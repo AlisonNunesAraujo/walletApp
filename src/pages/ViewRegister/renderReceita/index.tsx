@@ -1,6 +1,6 @@
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import { TypesReceita } from "../../../contextApi/types";
-import * as Animateble from 'react-native-animatable'
+import * as Animateble from "react-native-animatable";
 import { useContext } from "react";
 import { AuthContext } from "../../../contextApi";
 import Feather from "@expo/vector-icons/Feather";
@@ -8,8 +8,6 @@ import Feather from "@expo/vector-icons/Feather";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../../routs/authfree";
 import { useNavigation } from "@react-navigation/native";
-
-
 
 export default function RenderReceita({ data }: { data: TypesReceita }) {
   const { Deletar } = useContext(AuthContext);
@@ -20,18 +18,18 @@ export default function RenderReceita({ data }: { data: TypesReceita }) {
   }
 
   return (
-    <Animateble.View animation='fadeInDown'>
+    <Animateble.View animation="fadeInDown">
       <TouchableOpacity
         style={s.areaRender}
         onPress={() =>
           navigation.navigate("AreaDescReceita", {
             receita: data.receita,
             desc: data.desc,
-            date: data.date
+            date: data.date,
           })
         }
       >
-        <Text style={s.textValor}>R$ {data.receita}</Text>
+        <Text style={s.textValor}>{data.receita}</Text>
         <Text style={s.textValor}>{data.date}</Text>
         <Text style={s.textVerMais}>Ver mais</Text>
         <TouchableOpacity onPress={() => Delete(data.uid)}>
@@ -45,7 +43,7 @@ export default function RenderReceita({ data }: { data: TypesReceita }) {
 const s = StyleSheet.create({
   areaRender: {
     width: "100%",
-    height: 'auto',
+    height: "auto",
     backgroundColor: "#cccccc",
     justifyContent: "center",
     alignItems: "center",

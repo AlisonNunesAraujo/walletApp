@@ -13,6 +13,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
 import { showMessage } from "react-native-flash-message";
 import * as Animatable from "react-native-animatable";
+import { TextInputMask } from 'react-native-masked-text'
 export default function AccoutFixed() {
   const { addAccount, account, deleteAccountfixed, despesa } = useContext(AuthContext);
   const [modal, setModal] = useState(false);
@@ -60,14 +61,13 @@ export default function AccoutFixed() {
           data={account}
           renderItem={({ item }) => (
             <Animatable.View animation='fadeInDown' style={s.grupoAccount}>
-              <Text style={s.text}>
-                Nome:<Text style={s.textDados}> {item.nameAccount}</Text>
+              <Text style={s.text}>Conta {item.nameAccount}
               </Text>
               <Text style={s.text}>
-                R$ <Text style={s.textDados}>{item.valor}</Text>
+                {item.valor}
               </Text>
               <Text style={s.text}>
-                Vencimento: <Text style={s.textDados}>{item.vencimento}</Text>
+                Vencimento: {item.vencimento}
               </Text>
               <TouchableOpacity
                 style={s.bntFlat}
@@ -102,19 +102,21 @@ export default function AccoutFixed() {
             maxLength={20}
             style={s.Inputs}
           />
-          <TextInput
+          <TextInputMask
+            type="money"
             placeholder="Valor"
             value={valor}
             onChangeText={setValor}
             keyboardType="numeric"
-            maxLength={20}
             style={s.Inputs}
           />
-          <TextInput
+
+          <TextInputMask
+            type="datetime"
             placeholder="Dia de vencimento!"
             value={vencimento}
             onChangeText={setVencimento}
-            maxLength={4}
+            maxLength={10}
             keyboardType="numeric"
             style={s.Inputs}
           />

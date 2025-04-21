@@ -75,7 +75,7 @@ export default function Home() {
           style={s.areaBnts}
           onPress={() => navigation.navigate("AccountFixed")}
         >
-          <Text style={s.textTitle}>Criar uma conta fixa!</Text>
+          <Text style={s.textTitle}>Criar uma conta fixa! 'lembrete'</Text>
           <Text style={s.textInfo}>
             Voçe pode criar uma conta fixa do mês, exp: Conta de luz!
           </Text>

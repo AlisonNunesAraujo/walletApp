@@ -21,7 +21,7 @@ export default function AreaDescReceita() {
             <View style={s.areaInformacao}>
                 <Text style={s.textGastos}>
                     Valor adicionado:{" "}
-                    <Text style={s.textValorGastos}>R$ {route.params?.gastos}</Text>
+                    <Text style={s.textValorGastos}> {route.params?.gastos}</Text>
                 </Text>
                 <Text style={s.textDesc}>
                     Sua descrição adicionada: <Text>{route.params?.desc}</Text>

@@ -61,7 +61,7 @@ export default function AccoutFixed() {
           data={account}
           renderItem={({ item }) => (
             <Animatable.View animation='fadeInDown' style={s.grupoAccount}>
-              <Text style={s.text}>Conta {item.nameAccount}
+              <Text style={s.text}>Conta: {item.nameAccount}
               </Text>
               <Text style={s.text}>
                 {item.valor}

@@ -17,7 +17,7 @@ import { stateUser } from "./types";
 import { TypesReceita } from "./types";
 import { TypesGastos } from "./types";
 import { DeletarProp, listAccount, UidDelete } from "./types";
-
+import { useNavigation } from "@react-navigation/native";
 export const AuthContext = createContext({} as States);
 
 export function AuthProvider({ children }: ChildrenProp) {
@@ -25,7 +25,7 @@ export function AuthProvider({ children }: ChildrenProp) {
     email: "",
     uid: "",
   });
-
+  const navigation = useNavigation();
   const [receita, setReceita] = useState<TypesReceita[]>([]);
   const [gastos, setGastos] = useState<TypesGastos[]>([]);
   const [load, setLoading] = useState(false);
@@ -323,16 +323,14 @@ export function AuthProvider({ children }: ChildrenProp) {
   async function LogOut() {
     AsyncStorage.removeItem('@userAppwallet');
     await signOut(auth)
-
       .then(() => {
-        setUser({
-          email: "",
-          uid: "",
-        });
+
+        setUser({ email: '', uid: '' });
 
         showMessage({
           message: "Volte sempre!",
         });
+
       })
       .catch(() => {
         alert("erro");

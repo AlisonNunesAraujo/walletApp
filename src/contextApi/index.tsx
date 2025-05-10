@@ -95,12 +95,9 @@ export function AuthProvider({ children }: ChildrenProp) {
         });
         setGastos(lista);
 
-        const saldoDespesa = lista.reduce(
-          (valor, item) => valor + Number(item.gastos),
-          0
-        );
 
-        setDespesa(saldoDespesa);
+
+
       });
     }
 

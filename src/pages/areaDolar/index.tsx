@@ -3,11 +3,7 @@ import { View, FlatList, Text } from "react-native";
 import { api } from "../../services";
 import Render from "./render";
 import { showMessage } from "react-native-flash-message";
-
-type ApiDados = {
-    ask: string;
-    name: string;
-};
+import { ActivityIndicator } from "react-native";
 
 export default function Dolar() {
     const [dadosapi, setDadosapi] = useState([]);
@@ -37,7 +33,17 @@ export default function Dolar() {
             <FlatList
                 data={dadosapi}
                 renderItem={({ item }) => <Render data={item} />}
+                ListEmptyComponent={() => {
+                    return (
+                        <View style={{ marginTop: 50 }}>
+
+                            <ActivityIndicator size="large" color="blue" />
+                            <Text style={{ fontFamily: "Arial", fontSize: 20 }}>Carregando...</Text>
+                        </View>
+                    );
+                }}
             />
+
         </View>
     );
 }

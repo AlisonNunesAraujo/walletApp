@@ -21,9 +21,8 @@
 ### Depois só rodar o app no emulador apertando a tecla A ou pelo celular mesmo apontando a camero do celular para o qrCode
 
 ## Apresentaçao do aplicativo!
-![foto do app](https://github.com/AlisonNunesAraujo/walletApp/blob/main/assets/appHome.jpg)
+![foto do app](https://play-lh.googleusercontent.com/bye0Pap5Img5kHR69ZkCYSmKG7GtycWGVxkR1NsbzRPYKm51g7_jy4FeeWcsxAp5tg=w526-h296-rw)
 
-![foto do app](https://github.com/AlisonNunesAraujo/walletApp/blob/main/assets/appHome2.jpg)
 
 ![foto do app](https://github.com/AlisonNunesAraujo/walletApp/blob/main/assets/appDolar.jpg)
 

@@ -24,14 +24,14 @@
 ![foto do app](https://play-lh.googleusercontent.com/bye0Pap5Img5kHR69ZkCYSmKG7GtycWGVxkR1NsbzRPYKm51g7_jy4FeeWcsxAp5tg=w526-h296-rw)
 
 
-![foto do app](https://github.com/AlisonNunesAraujo/walletApp/blob/main/assets/appDolar.jpg)
+![foto do app](https://play-lh.googleusercontent.com/EH4wiRC2Ar7_SZJLYZqp82YRqMTEXzXBeUpR-hVNi152C791xbi9yEaL4r27QEHKBTs=w526-h296-rw)
 
-![foto do app](https://github.com/AlisonNunesAraujo/walletApp/blob/main/assets/appDesc.jpg)
-
-
-![foto do app](https://github.com/AlisonNunesAraujo/walletApp/blob/main/assets/appContafixa.jpg)
+![foto do app](https://play-lh.googleusercontent.com/XY9Ig-3QsSqEfBfdzt4_9RmkfxdazP3AGbuKTj3RWi5MjRkIPMGOI8E06QgHo3Yu5tI=w526-h296-rw)
 
 
-![foto do app](https://github.com/AlisonNunesAraujo/walletApp/blob/main/assets/appVercontafixa.jpg)
+![foto do app](https://play-lh.googleusercontent.com/-8rkkCTRWBxowOh03hfuu7yRcVigdxXDRHoOyL4kdCmhU69f2xxRcGfmMysoYFaPeK4=w526-h296-rw)
 
-![foto do app](https://github.com/AlisonNunesAraujo/walletApp/blob/main/assets/appRegistro.jpg)
+
+![foto do app](https://play-lh.googleusercontent.com/EFhE17CGIkcz05is8_yXpjpCmtlqipRzE4bSkHaoJ98Y-0dGitwXeKR7qoJ6WtV7S1Y=w526-h296-rw)
+
+![foto do app](https://play-lh.googleusercontent.com/ur4kuwqjTYGqMblP_UA9MDc9je2nTgGtvepPC3PgL6oZvLhjWGjGGXA3jAYA7DPKyWs=w526-h296-rw)

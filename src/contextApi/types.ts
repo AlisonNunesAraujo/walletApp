@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 export type States = {
   user: stateUser;
   logado: boolean;
-  CreateUser: (info: { email: string; senha: string }) => Promise<void>;
+  CreateUser: (info: { email: string; senha: string, }) => Promise<void>;
   Login: (info: { email: string; senha: string }) => Promise<void>;
   receita: TypesReceita[] | undefined;
   gastos: TypesGastos[] | undefined;
@@ -23,9 +23,14 @@ export type States = {
   addAccount: (info: accountProps) => Promise<void>;
   account: listAccount[] | undefined;
   deleteAccountfixed: (info: { uid: string }) => Promise<void>;
-  saldo: number;
-  despesa: number;
+  
+  AddName:(info: { name: string }) => Promise<void>;
 };
+
+
+export interface nome {
+  name: [];
+}
 
 export type UidDelete = {
   uid: any;

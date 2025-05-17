@@ -18,7 +18,13 @@ import { TypesReceita } from "./types";
 import { TypesGastos } from "./types";
 import { DeletarProp, listAccount, UidDelete } from "./types";
 import { useNavigation } from "@react-navigation/native";
+import { Alert } from "react-native";
 export const AuthContext = createContext({} as States);
+
+type nome = {
+  name: string;
+  uid: string;
+}
 
 export function AuthProvider({ children }: ChildrenProp) {
   const [user, setUser] = useState<stateUser>({
@@ -31,8 +37,7 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [load, setLoading] = useState(false);
   const [loading, setLoad] = useState(false);
   const [account, setAccount] = useState<listAccount[]>();
-  const [saldo, setSaldo] = useState<number>(0);
-  const [despesa, setDespesa] = useState<number>(0);
+  const [name, setName] = useState<nome[]>([]);
 
   useEffect(() => {
     async function VerUser() {
@@ -68,12 +73,9 @@ export function AuthProvider({ children }: ChildrenProp) {
         });
         setReceita(lista);
 
-        const saldoAtual = lista.reduce(
-          (valor, item) => valor + Number(item.receita),
-          0
-        );
 
-        setSaldo(saldoAtual);
+
+
       });
     }
 
@@ -122,6 +124,27 @@ export function AuthProvider({ children }: ChildrenProp) {
     }
 
     BuscarAccount();
+
+    async function GetName() {
+      const ref = collection(db, 'users')
+
+      getDocs(ref).then((snapshot) => {
+        let getName: nome[] = []
+
+        snapshot.forEach((doc) => {
+          getName.push({
+            name: doc.data().name,
+            uid: doc.id
+          })
+        })
+
+      })
+
+    }
+
+    GetName();
+
+
   }, [Deletar, deleteAccountfixed]);
 
   async function CreateUser({
@@ -334,6 +357,19 @@ export function AuthProvider({ children }: ChildrenProp) {
       });
   }
 
+  async function AddName({ name }: { name: string }) {
+    try {
+      const data = await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        name: name,
+      });
+      Alert.alert("Adicionado com sucesso!");
+    }
+    catch {
+      Alert.alert("Algo deu errado!");
+    }
+  }
+
   const logado = !!user?.email && !!user?.uid;
   return (
     <AuthContext.Provider
@@ -354,8 +390,9 @@ export function AuthProvider({ children }: ChildrenProp) {
         addAccount,
         account,
         deleteAccountfixed,
-        saldo,
-        despesa,
+
+
+        AddName
       }}
     >
       {children}

@@ -370,7 +370,10 @@ export function AuthProvider({ children }: ChildrenProp) {
         uid: user.uid,
         name: name,
       });
-      Alert.alert("Adicionado com sucesso!");
+      showMessage({
+        message: "Adicionado com sucesso!",
+        type: "success",
+      })
     }
     catch {
       Alert.alert("Algo deu errado!");

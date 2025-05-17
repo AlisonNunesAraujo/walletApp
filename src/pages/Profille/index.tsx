@@ -14,7 +14,7 @@ import * as Animatable from "react-native-animatable";
 import Feather from "@expo/vector-icons/Feather";
 import { AuthContext } from "../../contextApi";
 import { useContext, useState } from "react";
-
+import showMessage from "react-native-flash-message";
 export default function Profille() {
     const { user, LogOut, AddName, nameUser } = useContext(AuthContext);
 
@@ -26,7 +26,10 @@ export default function Profille() {
 
     async function NameSave() {
         if (name === "") {
-            alert("Digite um nome");
+            new showMessage({
+                message: "Preencha o Nome",
+                type: "warning",
+            })
             return;
         }
         Keyboard.dismiss();

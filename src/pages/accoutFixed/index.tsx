@@ -15,7 +15,7 @@ import { showMessage } from "react-native-flash-message";
 import * as Animatable from "react-native-animatable";
 import { TextInputMask } from 'react-native-masked-text'
 export default function AccoutFixed() {
-  const { addAccount, account, deleteAccountfixed, despesa } = useContext(AuthContext);
+  const { addAccount, account, deleteAccountfixed, } = useContext(AuthContext);
   const [modal, setModal] = useState(false);
   const [nameAccount, setNameAccount] = useState("");
   const [valor, setValor] = useState("");

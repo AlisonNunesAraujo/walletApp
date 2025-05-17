@@ -21,7 +21,6 @@ export default function SigIn() {
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [name, setName] = useState("");
 
   function Create() {
     CreateUser({ email, senha });
@@ -33,6 +32,8 @@ export default function SigIn() {
         <View style={s.form}>
           <Feather name="user" size={30} color="black" />
           <Text style={s.Title}>Criar sua conta!</Text>
+
+
 
 
 

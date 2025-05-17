@@ -8,6 +8,7 @@ import {
     Image,
     TextInput,
     Keyboard,
+    FlatList,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import Feather from "@expo/vector-icons/Feather";
@@ -15,8 +16,8 @@ import { AuthContext } from "../../contextApi";
 import { useContext, useState } from "react";
 
 export default function Profille() {
-    const { user, LogOut, AddName } = useContext(AuthContext);
-    const [Modal, setModal] = useState(false);
+    const { user, LogOut, AddName, nameUser } = useContext(AuthContext);
+
     const [name, setName] = useState("");
 
     async function Sair() {
@@ -38,19 +39,32 @@ export default function Profille() {
             <Animatable.View animation="fadeIn" style={s.header}>
                 <View style={s.modal}>
                     <View style={s.areaEmail}>
-                        <View style={s.areaNome}>
-                            <TextInput
-                                placeholder="Seu nome"
-                                value={name}
-                                onChangeText={setName}
-                                style={s.input}
-                            />
-                            <TouchableOpacity style={s.bntAddName} onPress={NameSave}>
-                                <Text style={s.textAddName}>Adicionar seu Nome</Text>
-                            </TouchableOpacity>
-                        </View>
+                        {nameUser.length > 0 ? (
+                            <Text style={s.textInfo}>Seu Nome:</Text>
+                        ) : (
+                            <View style={s.areaNome}>
+                                <TextInput
+                                    placeholder="Seu nome"
+                                    value={name}
+                                    onChangeText={setName}
+                                    style={s.input}
+                                />
+                                <TouchableOpacity style={s.bntAddName} onPress={NameSave}>
+                                    <Text style={s.textAddName}>Adicionar Nome</Text>
+                                </TouchableOpacity>
+                            </View>
+                        )}
 
-                        <Text style={s.textInfoEmail}>Seu E-mail</Text>
+                        <FlatList
+                            data={nameUser}
+                            renderItem={({ item }) => (
+                                <View>
+                                    <Text style={s.textEmail}>{item.name}</Text>
+                                </View>
+                            )}
+                        />
+
+                        <Text style={s.textInfo}>Seu E-mail:</Text>
                         <Text style={s.textEmail}>{user.email}</Text>
                     </View>
 
@@ -104,12 +118,12 @@ const s = StyleSheet.create({
     },
     input: {
         width: "50%",
-        backgroundColor: "white",
+        backgroundColor: "#ccc",
         padding: 10,
         borderRadius: 5,
     },
     bntAddName: {
-        backgroundColor: "white",
+        backgroundColor: "#ccc",
         padding: 10,
         borderRadius: 5,
     },
@@ -120,18 +134,23 @@ const s = StyleSheet.create({
     },
     areaEmail: {
         width: "100%",
-        padding: 5,
+        padding: 10,
+        backgroundColor: "#ccc",
+        borderRadius: 5,
+        marginBottom: 10,
+
     },
-    textInfoEmail: {
+    textInfo: {
         fontFamily: "Arial",
         fontSize: 15,
         fontWeight: "bold",
+        color: "black",
     },
 
     textEmail: {
         fontFamily: "Arial",
-        marginBottom: 40,
-        fontSize: 15,
+        fontSize: 18,
+        color: "black",
     },
     viewBntinfo: {
         marginRight: 25,
@@ -178,7 +197,7 @@ const s = StyleSheet.create({
         borderRadius: 5,
         alignItems: "center",
         justifyContent: "center",
-        marginBottom: 10,
+        marginTop: 30,
     },
     textbntfechar: {
         fontFamily: "Arial",

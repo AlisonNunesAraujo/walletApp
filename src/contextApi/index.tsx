@@ -37,7 +37,7 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [load, setLoading] = useState(false);
   const [loading, setLoad] = useState(false);
   const [account, setAccount] = useState<listAccount[]>();
-  const [name, setName] = useState<nome[]>([]);
+  const [nameUser, setNameUser] = useState<nome[]>([]);
 
   useEffect(() => {
     async function VerUser() {
@@ -128,7 +128,9 @@ export function AuthProvider({ children }: ChildrenProp) {
     async function GetName() {
       const ref = collection(db, 'users')
 
-      getDocs(ref).then((snapshot) => {
+      const queryName = query(ref, where('uid', '==', user.uid))
+
+      getDocs(queryName).then((snapshot) => {
         let getName: nome[] = []
 
         snapshot.forEach((doc) => {
@@ -137,6 +139,7 @@ export function AuthProvider({ children }: ChildrenProp) {
             uid: doc.id
           })
         })
+        setNameUser(getName)
 
       })
 
@@ -158,9 +161,13 @@ export function AuthProvider({ children }: ChildrenProp) {
     try {
       const data = await createUserWithEmailAndPassword(auth, email, senha);
 
+
+
+
       setUser({
         email: data.user.email,
         uid: data.user.uid,
+
       });
 
       const dados = {
@@ -390,9 +397,9 @@ export function AuthProvider({ children }: ChildrenProp) {
         addAccount,
         account,
         deleteAccountfixed,
+        AddName,
+        nameUser
 
-
-        AddName
       }}
     >
       {children}

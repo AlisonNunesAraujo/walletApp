@@ -6,7 +6,8 @@ import {
   SafeAreaView,
   Modal as RnModal,
   Image,
-  TextInput
+  TextInput,
+  FlatList
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import Feather from "@expo/vector-icons/Feather";
@@ -17,9 +18,8 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 
 export default function HeaderComponent() {
-  const { user, LogOut, AddName } = useContext(AuthContext);
-  const [Modal, setModal] = useState(false);
-  const [name, setName] = useState("");
+  const { user, LogOut, nameUser } = useContext(AuthContext);
+
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
@@ -29,7 +29,16 @@ export default function HeaderComponent() {
     <SafeAreaView >
       <Animatable.View animation="fadeIn" style={s.header}>
         <View style={s.viewInfo}>
-          <Text style={s.title}>Olá!</Text>
+
+          <Text style={s.text}>Olá</Text>
+          <FlatList
+
+            data={nameUser}
+            renderItem={({ item }) => (
+              <Text style={s.textName}> {item.name}!</Text>
+
+            )}
+          />
 
           <TouchableOpacity
             style={s.viewBntinfo}
@@ -59,44 +68,22 @@ const s = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 10,
   },
-  areaNome: {
-    alignItems: "center",
-    flexDirection: "row",
-    marginBottom: 10,
-    gap: 20
-  },
-  input: {
-    width: "50%",
-    backgroundColor: "white",
-    padding: 10,
-    borderRadius: 5,
 
-  },
-  bntAddName: {
-    backgroundColor: "white",
-    padding: 10,
-    borderRadius: 5,
-  },
-  textAddName: {
+  text: {
     fontFamily: "Arial",
-    fontWeight: "bold",
-    fontSize: 15
-  },
-  areaEmail: {
-    width: "100%",
-    padding: 5,
-  },
-  textInfoEmail: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    fontWeight: "bold",
+    fontSize: 20,
+    fontWeight: "700",
+    marginLeft: 20,
   },
 
-  textEmail: {
+  textName: {
     fontFamily: "Arial",
-    marginBottom: 40,
-    fontSize: 15,
+    fontSize: 20,
+    fontWeight: "700",
+    marginLeft: 5,
   },
+
+
   viewBntinfo: {
     marginRight: 25,
     alignItems: "center",

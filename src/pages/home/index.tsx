@@ -82,12 +82,7 @@ export default function Home() {
         </TouchableOpacity>
       </Animatable.View>
 
-      <TouchableOpacity
-        style={s.bntChat}
-        onPress={() => navigation.navigate("Chat")}
-      >
-        <Feather name="user" size={30} color="black" />
-      </TouchableOpacity>
+
     </SafeAreaView>
   );
 }
@@ -154,16 +149,5 @@ const s = StyleSheet.create({
     fontFamily: "Arial",
     color: "black",
     textAlign: "center",
-  },
-  bntChat: {
-    width: "18%",
-    height: "9%",
-    position: "absolute",
-    bottom: 70,
-    right: 50,
-    backgroundColor: "#ccc",
-    borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
   },
 });

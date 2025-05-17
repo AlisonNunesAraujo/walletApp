@@ -7,7 +7,6 @@ import AreaDescGastos from "../pages/areaDescGastos";
 import AccoutFixed from "../pages/accoutFixed";
 import ViewRegister from "../pages/ViewRegister";
 import AddRegister from "../pages/AddRegister";
-import Chat from "../pages/chat";
 import Profille from "../pages/Profille";
 
 export type ParamList = {
@@ -68,7 +67,7 @@ export function StackFree() {
       <Nav.Screen
         name="ViewRegister"
         component={ViewRegister}
-        options={{ title: "Voltar" }}
+        options={{ title: "Registros" }}
       />
       <Nav.Screen
         name="AddRegister"
@@ -76,12 +75,9 @@ export function StackFree() {
         options={{ title: "Criar um novo registro" }}
       />
       <Nav.Screen
-        name="Chat"
-        component={Chat}
-      />
-      <Nav.Screen
         name="Profille"
         component={Profille}
+        options={{ title: "Perfil" }}
       />
     </Nav.Navigator>
   );

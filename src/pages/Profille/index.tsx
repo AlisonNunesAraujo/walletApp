@@ -124,9 +124,10 @@ const s = StyleSheet.create({
         backgroundColor: "#ccc",
         padding: 10,
         borderRadius: 5,
+        borderWidth: 1,
     },
     bntAddName: {
-        backgroundColor: "#ccc",
+        backgroundColor: "black",
         padding: 10,
         borderRadius: 5,
     },
@@ -134,6 +135,7 @@ const s = StyleSheet.create({
         fontFamily: "Arial",
         fontWeight: "bold",
         fontSize: 15,
+        color: "white",
     },
     areaEmail: {
         width: "100%",

@@ -30,7 +30,12 @@ export default function HeaderComponent() {
       <Animatable.View animation="fadeIn" style={s.header}>
         <View style={s.viewInfo}>
 
-          <Text style={s.text}>Olá</Text>
+          {nameUser.length > 0 ? (
+            <Text style={s.text}>Olá</Text>
+          ) : (
+            <Text style={s.text}>Bem Vindo!</Text>
+          )}
+
           <FlatList
 
             data={nameUser}

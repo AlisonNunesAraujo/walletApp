@@ -82,8 +82,6 @@ const s = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: "100%",
-    borderEndEndRadius: 20,
-    borderStartEndRadius: 20,
   },
   Title: {
     fontSize: 30,

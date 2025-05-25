@@ -79,6 +79,7 @@ export function AuthProvider({ children }: ChildrenProp) {
       });
     }
 
+
     buscarDados();
 
     async function RendleGastos() {

@@ -29,7 +29,7 @@ export default function Profille() {
             new showMessage({
                 message: "Preencha o Nome",
                 type: "warning",
-            })
+            });
             return;
         }
         Keyboard.dismiss();
@@ -83,16 +83,7 @@ export default function Profille() {
                             real, criar um lembrete de uma conta fixa do mês!
                         </Text>
 
-                        <View style={s.areaApresentar}>
-                            <Text style={s.textCargo}>Desenvolvedor</Text>
-                            <Text style={s.nome}>Alison Araújo</Text>
-                            <Image
-                                style={s.image}
-                                source={{
-                                    uri: "https://avatars.githubusercontent.com/u/166415022?v=4",
-                                }}
-                            />
-                        </View>
+
                     </View>
                 </View>
             </Animatable.View>
@@ -143,7 +134,6 @@ const s = StyleSheet.create({
         backgroundColor: "#ccc",
         borderRadius: 5,
         marginBottom: 10,
-
     },
     textInfo: {
         fontFamily: "Arial",

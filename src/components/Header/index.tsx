@@ -5,8 +5,6 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Modal as RnModal,
-  Image,
-  TextInput,
   FlatList
 } from "react-native";
 import * as Animatable from "react-native-animatable";
@@ -17,8 +15,10 @@ import { ParamList } from "../../routs/authfree";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 
+import { s } from './style';
+
 export default function HeaderComponent() {
-  const { user, LogOut, nameUser } = useContext(AuthContext);
+  const { nameUser } = useContext(AuthContext);
 
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
@@ -49,7 +49,7 @@ export default function HeaderComponent() {
             style={s.viewBntinfo}
             onPress={() => navigation.navigate("Profille")}
           >
-            <Feather name="user" color={"black"} size={20} />
+            <Feather name="user" color={"black"} size={16} />
             <Text style={s.textviewInfo}>Perfil</Text>
           </TouchableOpacity>
         </View>
@@ -60,51 +60,4 @@ export default function HeaderComponent() {
   );
 }
 
-const s = StyleSheet.create({
-  header: {
-    width: "100%",
-    height: "auto",
-    backgroundColor: "#ccc",
-    boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
-  },
-  viewInfo: {
-    alignItems: "center",
-    justifyContent: "space-between",
-    flexDirection: "row",
-    marginBottom: 10,
-  },
 
-  text: {
-    fontFamily: "Arial",
-    fontSize: 20,
-    fontWeight: "700",
-    marginLeft: 20,
-  },
-
-  textName: {
-    fontFamily: "Arial",
-    fontSize: 20,
-    fontWeight: "700",
-    marginLeft: 5,
-  },
-
-
-  viewBntinfo: {
-    marginRight: 25,
-    alignItems: "center",
-  },
-  textviewInfo: {
-    fontSize: 14,
-    fontFamily: "Arial",
-    fontWeight: "700",
-  },
-
-  title: {
-    marginTop: 10,
-    fontSize: 25,
-    fontFamily: "Arial",
-    marginLeft: 20,
-    fontWeight: "bold",
-    opacity: 0.8,
-  },
-});

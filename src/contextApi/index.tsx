@@ -57,7 +57,7 @@ export function AuthProvider({ children }: ChildrenProp) {
 
     async function buscarDados() {
       const ref = collection(db, "receita");
-
+    
       const receitaQuery = query(ref, where("uid", "==", user.uid));
 
       getDocs(receitaQuery).then((snapshot) => {

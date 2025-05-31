@@ -5,7 +5,7 @@ export default function HeaderListGastos() {
     <View style={{ width: "100%", alignItems: "center" }}>
       <Text
         style={{
-          fontSize: 18,
+          fontSize: 15,
           fontFamily: "Arial",
           fontWeight: "700",
           marginBottom: 10,

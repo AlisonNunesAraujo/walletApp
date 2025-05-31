@@ -54,13 +54,14 @@ const s = StyleSheet.create({
   },
 
   textValor: {
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: "Arial,",
     padding: 2,
   },
   textbnt: {
     fontFamily: "Arial",
     fontWeight: "700",
+    fontSize: 14,
   },
   textVerMais: {
     fontSize: 14,

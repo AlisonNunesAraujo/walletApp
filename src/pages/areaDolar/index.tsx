@@ -38,7 +38,7 @@ export default function Dolar() {
                         <View style={{ marginTop: 50 }}>
 
                             <ActivityIndicator size="large" color="blue" />
-                            <Text style={{ fontFamily: "Arial", fontSize: 20 }}>Carregando...</Text>
+                            <Text style={{ fontFamily: "Arial", fontSize: 14 }}>Carregando...</Text>
                         </View>
                     );
                 }}

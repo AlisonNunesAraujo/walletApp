@@ -35,7 +35,14 @@ const Nav = createNativeStackNavigator<ParamList>();
 
 export function StackFree() {
   return (
-    <Nav.Navigator>
+    <Nav.Navigator
+      screenOptions={{
+        headerTitleStyle: {
+          fontSize: 16,
+        }
+
+      }}
+    >
       <Nav.Screen
         name="Home"
         component={Home}

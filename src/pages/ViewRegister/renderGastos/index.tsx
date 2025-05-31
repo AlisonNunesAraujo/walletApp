@@ -43,7 +43,7 @@ export default function RenderGastos({ data }: { data: TypesGastos }) {
 const s = StyleSheet.create({
   areaRender: {
     width: "100%",
-    height: "auto",
+    height: 'auto',
     backgroundColor: "#ccc",
     justifyContent: "center",
     alignItems: "center",
@@ -54,13 +54,14 @@ const s = StyleSheet.create({
   },
   textValor: {
     fontFamily: "Arial",
-    fontSize: 16,
+    fontSize: 14,
     padding: 2,
   },
 
   textbnt: {
     fontFamily: "Arial",
     fontWeight: "700",
+    fontSize: 14,
   },
   textVerMais: {
     fontSize: 14,

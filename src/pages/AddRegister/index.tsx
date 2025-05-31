@@ -19,6 +19,9 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
 import * as Animatable from "react-native-animatable";
 import { TextInputMask } from "react-native-masked-text";
+
+import { s } from './style'
+
 export default function AddRegister() {
   const { user, receita, gastos, AddReceita, AddGastos, load, loading } =
     useContext(AuthContext);
@@ -102,53 +105,4 @@ export default function AddRegister() {
   );
 }
 
-const s = StyleSheet.create({
-  conteiner: {
-    flex: 1,
-    backgroundColor: "#fff4ff",
-    alignItems: "center",
-  },
 
-  areaAdd: {
-    width: "90%",
-    marginTop: 20,
-    backgroundColor: "#ccc",
-    padding: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 5,
-    boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
-  },
-  title: {
-    fontFamily: "Arial",
-    fontSize: 20,
-  },
-  inputAdd: {
-    width: "90%",
-    height: 50,
-    padding: 13,
-    borderRadius: 5,
-    boxShadow: "1px 3px 3px 0px rgba(8, 8, 8, 0.25)",
-  },
-
-  areaBntAdd: {
-    width: "100%",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    flexDirection: "row",
-    margin: 10,
-  },
-  bnt: {
-    width: "30%",
-    backgroundColor: "white",
-    padding: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 5,
-  },
-
-  textbntAdd: {
-    fontSize: 15,
-    fontFamily: "Arial",
-  },
-});

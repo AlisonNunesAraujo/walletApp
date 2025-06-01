@@ -17,16 +17,17 @@ export const s = StyleSheet.create({
 
   text: {
     fontFamily: "Arial",
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: "700",
     marginLeft: 20,
   },
 
   textName: {
     fontFamily: "Arial",
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: "700",
     marginLeft: 5,
+    
   },
 
 
@@ -40,12 +41,5 @@ export const s = StyleSheet.create({
     fontWeight: "700",
   },
 
-  title: {
-    marginTop: 10,
-    fontSize: 25,
-    fontFamily: "Arial",
-    marginLeft: 20,
-    fontWeight: "bold",
-    opacity: 0.8,
-  },
+  
 });

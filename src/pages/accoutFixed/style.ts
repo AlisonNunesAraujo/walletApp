@@ -11,7 +11,7 @@ export const s = StyleSheet.create({
     padding: 20,
   },
   Title: {
-    fontSize: 15,
+    fontSize: 17,
     fontFamily: "Arial",
     fontWeight: "bold",
   },
@@ -39,7 +39,7 @@ export const s = StyleSheet.create({
   titleModal: {
     fontFamily: "Arial",
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 20,
     marginBottom: 10,
   },
 
@@ -62,7 +62,7 @@ export const s = StyleSheet.create({
   },
   textButom: {
     fontFamily: "Arial",
-    fontSize: 11,
+    fontSize: 13,
   },
   flatList: {
     marginLeft: 10,
@@ -78,13 +78,13 @@ export const s = StyleSheet.create({
     marginTop: 30,
     borderRadius: 5,
     padding: 10,
-    marginRight: 10,
+    marginRight: 20,
     overflow: "hidden",
   },
   text: {
     fontFamily: "Arial",
     fontWeight: "bold",
-    fontSize: 11,
+    fontSize: 12,
   },
  
   bntFlat: {

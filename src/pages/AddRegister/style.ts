@@ -19,7 +19,7 @@ export const s = StyleSheet.create({
   },
   title: {
     fontFamily: "Arial",
-    fontSize: 15,
+    fontSize: 18,
   },
   inputAdd: {
     width: "90%",
@@ -47,7 +47,7 @@ export const s = StyleSheet.create({
   },
 
   textbntAdd: {
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: "Arial",
   },
 });

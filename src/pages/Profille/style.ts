@@ -46,7 +46,7 @@ export const s = StyleSheet.create({
     },
     textInfo: {
         fontFamily: "Arial",
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: "bold",
         color: "black",
     },

@@ -24,8 +24,11 @@ export type States = {
   account: listAccount[] | undefined;
   deleteAccountfixed: (info: { uid: string }) => Promise<void>;
   AddName:(info: { name: string }) => Promise<void>;
-  nameUser: nome[] 
+  nameUser: nome[];
+  saldoReceita: number[]|null;
+  saldoGastos: number[]|null;
 };
+
 
 
 export interface nome {

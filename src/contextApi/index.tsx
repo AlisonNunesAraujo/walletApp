@@ -16,15 +16,12 @@ import { ChildrenProp } from "./types";
 import { stateUser } from "./types";
 import { TypesReceita } from "./types";
 import { TypesGastos } from "./types";
-import { DeletarProp, listAccount, UidDelete } from "./types";
+import { DeletarProp, listAccount, nome } from "./types";
 import { useNavigation } from "@react-navigation/native";
 import { Alert } from "react-native";
 export const AuthContext = createContext({} as States);
 
-type nome = {
-  name: string;
-  uid: string;
-}
+
 
 export function AuthProvider({ children }: ChildrenProp) {
   const [user, setUser] = useState<stateUser>({
@@ -38,9 +35,11 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [loading, setLoad] = useState(false);
   const [account, setAccount] = useState<listAccount[]>();
   const [nameUser, setNameUser] = useState<nome[]>([]);
+  const [saldoReceita, setSaldoReceita] = useState([0])
+  const [saldoGastos, setSaldoGastos] = useState([0])
 
   useEffect(() => {
-    async function VerUser() {
+    async function ViewUser() {
       try {
         const response = await AsyncStorage.getItem("@userAppwallet");
         if (response) {
@@ -53,11 +52,11 @@ export function AuthProvider({ children }: ChildrenProp) {
       }
     }
 
-    VerUser();
+    ViewUser();
 
     async function buscarDados() {
       const ref = collection(db, "receita");
-    
+
       const receitaQuery = query(ref, where("uid", "==", user.uid));
 
       getDocs(receitaQuery).then((snapshot) => {
@@ -72,6 +71,9 @@ export function AuthProvider({ children }: ChildrenProp) {
           });
         });
         setReceita(lista);
+
+        const saldo = lista.reduce((acc, item) => acc + item.receita, 0);
+        setSaldoReceita([saldo]);
 
 
 
@@ -97,6 +99,8 @@ export function AuthProvider({ children }: ChildrenProp) {
           });
         });
         setGastos(lista);
+        const saldo = lista.reduce((acc, item) => acc + item.gastos, 0);
+        setSaldoGastos([saldo]);
 
 
 
@@ -402,7 +406,9 @@ export function AuthProvider({ children }: ChildrenProp) {
         account,
         deleteAccountfixed,
         AddName,
-        nameUser
+        nameUser,
+        saldoGastos,
+        saldoReceita
 
       }}
     >

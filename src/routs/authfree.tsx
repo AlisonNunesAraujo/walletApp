@@ -8,6 +8,8 @@ import AccoutFixed from "../pages/accoutFixed";
 import ViewRegister from "../pages/ViewRegister";
 import AddRegister from "../pages/AddRegister";
 import Profille from "../pages/Profille";
+import Metas from "../pages/metas";
+import Item from "../pages/metas/components/addMetas";
 
 export type ParamList = {
   Home: undefined;
@@ -23,12 +25,16 @@ export type ParamList = {
     date: string;
   };
   FixedAccout: undefined;
-  Extratos: undefined;
   AccountFixed: undefined;
   ViewRegister: undefined;
   AddRegister: undefined;
   Chat: undefined;
-  Profille: undefined
+  Profille: undefined;
+  Metas: undefined;
+  Item: {
+    title: string;
+    metas: React.ReactNode;
+  };
 };
 
 const Nav = createNativeStackNavigator<ParamList>();
@@ -85,6 +91,15 @@ export function StackFree() {
         name="Profille"
         component={Profille}
         options={{ title: "Perfil" }}
+      />
+      <Nav.Screen
+        name="Metas"
+        component={Metas}
+        options={{ title: "Metas" }}
+      />
+      <Nav.Screen
+        name="Item"
+        component={Item}
       />
     </Nav.Navigator>
   );

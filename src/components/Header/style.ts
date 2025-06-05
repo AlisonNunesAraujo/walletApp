@@ -4,7 +4,7 @@ export const s = StyleSheet.create({
   header: {
     width: "100%",
     height: 50,
-    backgroundColor: "#ccc",
+    backgroundColor: "#f0f0f0",
     boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
     alignItems: "center",
   },

@@ -17,7 +17,7 @@ export const s = StyleSheet.create({
   conteudoScroll: {
     width: 90,
     height: 80,
-    backgroundColor: "#ccc",
+    backgroundColor: "#f0f0f0",
     borderRadius: 10,
     margin: 8,
     alignItems: "center",

@@ -12,7 +12,6 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
 import { showMessage } from "react-native-flash-message";
-import * as Animatable from "react-native-animatable";
 import { TextInputMask } from 'react-native-masked-text'
 
 import { s } from './style'
@@ -64,7 +63,7 @@ export default function AccoutFixed() {
           style={s.flatList}
           data={account}
           renderItem={({ item }) => (
-            <Animatable.View animation='fadeInDown' style={s.grupoAccount}>
+            <View style={s.grupoAccount}>
               <Text style={s.text}>Conta: {item.nameAccount}
               </Text>
               <Text style={s.text}>
@@ -79,7 +78,7 @@ export default function AccoutFixed() {
               >
                 <Text style={s.textBnt}>Excluir</Text>
               </TouchableOpacity>
-            </Animatable.View>
+            </View>
           )}
           ListEmptyComponent={() => {
             return (

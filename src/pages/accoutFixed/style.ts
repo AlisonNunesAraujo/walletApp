@@ -71,7 +71,7 @@ export const s = StyleSheet.create({
     backgroundColor: "#ccc",
   },
   grupoAccount: {
-    width: 200,
+    width: 250,
     height: 130,
     gap: 5,
     backgroundColor: "white",

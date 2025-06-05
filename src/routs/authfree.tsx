@@ -9,7 +9,9 @@ import ViewRegister from "../pages/ViewRegister";
 import AddRegister from "../pages/AddRegister";
 import Profille from "../pages/Profille";
 import Metas from "../pages/metas";
-import Item from "../pages/metas/components/addMetas";
+import Item from "../pages/metas/addMetas";
+import AddMetasOutros from "../pages/metas/addMetasOutros";
+import ViewMetas from "../pages/metas/viewMetas";
 
 export type ParamList = {
   Home: undefined;
@@ -35,6 +37,8 @@ export type ParamList = {
     title: string;
     metas: React.ReactNode;
   };
+  AddMetasOutros: undefined;
+  ViewMetas: undefined;
 };
 
 const Nav = createNativeStackNavigator<ParamList>();
@@ -100,6 +104,16 @@ export function StackFree() {
       <Nav.Screen
         name="Item"
         component={Item}
+      />
+      <Nav.Screen
+        name="AddMetasOutros"
+        component={AddMetasOutros}
+        options={{ title: "Adicionar Metas" }}
+      />
+      <Nav.Screen
+        name="ViewMetas"
+        component={ViewMetas}
+        options={{ title: "Minhas Metas" }}
       />
     </Nav.Navigator>
   );

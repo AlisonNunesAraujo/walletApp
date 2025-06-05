@@ -13,18 +13,16 @@ export default function Cards({ title, metas }: CardsProps) {
 
     return (
         <View style={s.conteiner}>
-
             <View style={s.areaCard}>
-                <TouchableOpacity style={s.cards} onPress={() => navigate.navigate("Item", { title, metas })}>
+                <TouchableOpacity
+                    style={s.cards}
+                    onPress={() => navigate.navigate("Item", { title, metas })}
+                >
                     <Text>{title}</Text>
                     <Text>{metas}</Text>
                 </TouchableOpacity>
-
-
             </View>
         </View>
-
-
     );
 }
 
@@ -47,10 +45,7 @@ const s = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         marginVertical: 10,
-        marginLeft: '2.5%',
+        marginLeft: "2.5%",
         justifyContent: "space-between",
-
-    }
-
-})
-
+    },
+});

@@ -23,7 +23,7 @@ export default function Home() {
 
   return (
     <SafeAreaView style={s.conteiner}>
-      <StatusBar backgroundColor="#ccc" barStyle={"dark-content"} />
+      <StatusBar backgroundColor="#f0f0f0" barStyle={"dark-content"} />
       <HeaderComponent />
       <ScrollHome />
 

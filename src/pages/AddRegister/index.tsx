@@ -64,7 +64,7 @@ export default function AddRegister() {
       <SafeAreaView style={s.conteiner}>
         <StatusBar backgroundColor="white" barStyle={"dark-content"} />
 
-        <Animatable.View animation="fadeInDown" style={s.areaAdd}>
+        <View style={s.areaAdd}>
           <Text style={s.title}>Adicionar um registro!</Text>
 
           <TextInputMask
@@ -99,7 +99,7 @@ export default function AddRegister() {
               )}
             </TouchableOpacity>
           </View>
-        </Animatable.View>
+        </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );

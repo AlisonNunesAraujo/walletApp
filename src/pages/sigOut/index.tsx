@@ -39,9 +39,6 @@ export default function SigIn() {
 
 
 
-
-
-
           <TextInput
             placeholder="E-Mail"
             value={email}

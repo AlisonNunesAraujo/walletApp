@@ -7,7 +7,8 @@ import {
   StyleSheet,
   TextInput,
   FlatList,
-  StatusBar
+  StatusBar,
+  Keyboard,
 } from "react-native";
 import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
@@ -28,10 +29,13 @@ export default function AccoutFixed() {
     deleteAccountfixed({ uid });
   }
   function Add() {
+    Keyboard.dismiss();
+
     if (nameAccount === "" || valor === "" || vencimento === "") {
       showMessage({
         message: "Preencha todos os campos",
       });
+      setModal(false);
       return;
     }
 
@@ -40,6 +44,7 @@ export default function AccoutFixed() {
     setNameAccount("");
     setValor("");
     setVencimento("");
+    Keyboard.dismiss();
   }
 
   return (

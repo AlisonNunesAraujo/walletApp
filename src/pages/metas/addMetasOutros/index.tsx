@@ -11,6 +11,7 @@ import { showMessage } from "react-native-flash-message";
 import { AuthContext } from "../../../contextApi";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../services/firebase/firebaseConextion";
+import { TextInputMask } from "react-native-masked-text";
 
 export default function AddMetasOutros() {
     const { user } = useContext(AuthContext);
@@ -60,7 +61,8 @@ export default function AddMetasOutros() {
                 autoCapitalize="none"
                 onChangeText={setTitle}
             />
-            <TextInput
+            <TextInputMask
+                type={"money"}
                 style={s.input}
                 placeholder="Valor desejado"
                 value={valor}

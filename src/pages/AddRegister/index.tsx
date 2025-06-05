@@ -60,48 +60,47 @@ export default function AddRegister() {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <SafeAreaView style={s.conteiner}>
-        <StatusBar backgroundColor="white" barStyle={"dark-content"} />
 
-        <View style={s.areaAdd}>
-          <Text style={s.title}>Adicionar um registro!</Text>
+    <SafeAreaView style={s.conteiner} onTouchStart={Keyboard.dismiss}>
+      <StatusBar backgroundColor="white" barStyle={"dark-content"} />
 
-          <TextInputMask
-            type={"money"}
-            value={addValor}
-            onChangeText={setAddValor}
-            style={s.inputAdd}
-            placeholder="Valor"
-          />
+      <View style={s.areaAdd}>
+        <Text style={s.title}>Adicionar um registro!</Text>
 
-          <TextInput
-            placeholder="Descrição"
-            value={addDesc}
-            onChangeText={setAdddesc}
-            style={s.inputAdd}
-          />
+        <TextInputMask
+          type={"money"}
+          value={addValor}
+          onChangeText={setAddValor}
+          style={s.inputAdd}
+          placeholder="Valor"
+        />
 
-          <View style={s.areaBntAdd}>
-            <TouchableOpacity style={s.bnt} onPress={AddvalorReceita}>
-              {load ? (
-                <ActivityIndicator size={20} color="black" />
-              ) : (
-                <Text style={s.textbntAdd}>Receita</Text>
-              )}
-            </TouchableOpacity>
+        <TextInput
+          placeholder="Descrição"
+          value={addDesc}
+          onChangeText={setAdddesc}
+          style={s.inputAdd}
+        />
 
-            <TouchableOpacity style={s.bnt} onPress={AddvalorGastos}>
-              {loading ? (
-                <ActivityIndicator size={20} color="black" />
-              ) : (
-                <Text style={s.textbntAdd}>Gastos</Text>
-              )}
-            </TouchableOpacity>
-          </View>
+        <View style={s.areaBntAdd}>
+          <TouchableOpacity style={s.bnt} onPress={AddvalorReceita}>
+            {load ? (
+              <ActivityIndicator size={20} color="black" />
+            ) : (
+              <Text style={s.textbntAdd}>Receita</Text>
+            )}
+          </TouchableOpacity>
+
+          <TouchableOpacity style={s.bnt} onPress={AddvalorGastos}>
+            {loading ? (
+              <ActivityIndicator size={20} color="black" />
+            ) : (
+              <Text style={s.textbntAdd}>Gastos</Text>
+            )}
+          </TouchableOpacity>
         </View>
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
+      </View>
+    </SafeAreaView>
   );
 }
 

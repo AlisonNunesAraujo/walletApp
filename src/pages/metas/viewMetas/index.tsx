@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc, where, query } from "firebase/firestore";
 import { db } from "../../../services/firebase/firebaseConextion";
 import { showMessage } from "react-native-flash-message";
 
+import { AuthContext } from "../../../contextApi";
 type ListMetas = {
     title: string;
     valor: string;
@@ -13,13 +14,17 @@ type ListMetas = {
 
 export default function ViewMetas() {
     const [metas, setMetas] = useState<ListMetas[]>([]);
+    const { user } = useContext(AuthContext);
+
+
 
     useEffect(() => {
         async function GetMetas() {
             try {
                 const data = collection(db, "metasCards");
+                const queryMetas = query(data, where("uid", "==", user.uid));
 
-                getDocs(data).then((snapshot) => {
+                getDocs(queryMetas).then((snapshot) => {
                     let lista: ListMetas[] = [];
 
                     snapshot.forEach((doc) => {
@@ -30,10 +35,6 @@ export default function ViewMetas() {
                         });
                     });
                     setMetas(lista);
-                });
-                showMessage({
-                    message: "Metas carregadas com sucesso!",
-                    type: "success",
                 });
             } catch (err) {
                 showMessage({
@@ -75,35 +76,40 @@ export default function ViewMetas() {
             <View style={s.createMeta}>
                 <View style={s.viewIcone}>
                     <Feather name="dollar-sign" size={24} color="#4CAF50" />
+
                 </View>
-                <Text style={s.textTitle}>Minhas Metas</Text>
+                <Text style={s.textTitle}>Minhas Metas <Feather name="dollar-sign" size={24} color="#4CAF50" /></Text>
                 <Text style={s.textDescription}>
                     O seu esforço reflete no seu amanhã
                 </Text>
 
                 <View>
 
-                    <FlatList
-                        data={metas}
+                    {metas.length === 0 ? (
+                        <Text style={s.textDescription}>Nenhuma meta cadastrada</Text>
+                    ) : (
+                        <FlatList
+                            data={metas}
 
-                        keyExtractor={(item) => item.uid}
-                        style={s.flatList}
-                        ListHeaderComponent={<Text style={s.titleFlat}>Suas metas a atingir!</Text>}
-                        renderItem={({ item }) => (
-                            <View style={s.metas}>
-                                <Text style={s.textNome}>
-                                    Nome: {item.title}
-                                </Text>
-                                <Text style={s.textValor}>
-                                    R$ {item.valor}
-                                </Text>
-                                <TouchableOpacity style={s.buttonExcluir} onPress={() => Delete(item.uid)}>
-                                    <Text style={s.textbuttonExcluir}>Excluir sua meta</Text>
-                                </TouchableOpacity>
+                            keyExtractor={(item) => item.uid}
+                            style={s.flatList}
+                            ListHeaderComponent={<Text style={s.titleFlat}>Suas metas a atingir!</Text>}
+                            renderItem={({ item }) => (
+                                <View style={s.metas}>
+                                    <Text style={s.textNome}>
+                                        Nome: {item.title}
+                                    </Text>
+                                    <Text style={s.textValor}>
+                                        {item.valor}
+                                    </Text>
+                                    <TouchableOpacity style={s.buttonExcluir} onPress={() => Delete(item.uid)}>
+                                        <Text style={s.textbuttonExcluir}>Excluir sua meta</Text>
+                                    </TouchableOpacity>
 
-                            </View>
-                        )}
-                    />
+                                </View>
+                            )}
+                        />
+                    )}
                 </View>
             </View>
         </View>
@@ -176,14 +182,14 @@ const s = StyleSheet.create({
     },
     textNome: {
         fontSize: 14,
-        color: "black",
+        color: "white",
         fontFamily: "Arial",
         marginLeft: 10,
         fontWeight: "bold",
     },
     textValor: {
         fontSize: 14,
-        color: "black",
+        color: "white",
         fontFamily: "Arial",
         marginLeft: 10,
         fontWeight: "bold",

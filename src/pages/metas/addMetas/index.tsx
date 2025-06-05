@@ -12,7 +12,7 @@ import { showMessage } from "react-native-flash-message";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../services/firebase/firebaseConextion";
 import { AuthContext } from "../../../contextApi";
-
+import { TextInputMask } from 'react-native-masked-text'
 type dados = {
     data: {
         title: string;
@@ -62,11 +62,12 @@ export default function Item() {
             <View style={s.createMeta}>
                 <View style={s.formInput}>
                     <Text style={s.title}>Adicione um valor para sua meta!</Text>
-                    <TextInput
+                    <TextInputMask
                         placeholder="Qual valor que deseja adicionar a meta?"
                         value={valor}
                         onChangeText={setValor}
                         style={s.input}
+                        type={"money"}
                     />
                     <TouchableOpacity style={s.button} onPress={PostMeta}>
                         <Text style={s.textButton}>Adicionar</Text>

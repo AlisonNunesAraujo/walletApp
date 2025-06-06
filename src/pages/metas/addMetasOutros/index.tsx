@@ -19,6 +19,8 @@ export default function AddMetasOutros() {
     const [valor, setValor] = useState("");
 
 
+    // Função para adicionar a meta
+
     async function AddMeta() {
         if (title === "" || valor === "") {
             showMessage({

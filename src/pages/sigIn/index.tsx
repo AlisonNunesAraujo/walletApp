@@ -30,6 +30,7 @@ export default function SigIn() {
   const [senha, setSenha] = useState("");
 
 
+  //  chama a função de login
   async function Logar() {
     Login({ email, senha });
   }

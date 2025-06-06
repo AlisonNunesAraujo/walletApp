@@ -25,9 +25,12 @@ export default function AccoutFixed() {
   const [valor, setValor] = useState("");
   const [vencimento, setVencimento] = useState("");
 
+  // Função para deletar a conta fixa
   function Delete(uid: string) {
     deleteAccountfixed({ uid });
   }
+
+  // Função para adicionar a conta fixa
   function Add() {
     Keyboard.dismiss();
 

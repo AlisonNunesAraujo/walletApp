@@ -39,6 +39,7 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [saldoGastos, setSaldoGastos] = useState([0])
 
   useEffect(() => {
+    // verificar se o usuário está logado
     async function ViewUser() {
       try {
         const response = await AsyncStorage.getItem("@userAppwallet");
@@ -54,6 +55,7 @@ export function AuthProvider({ children }: ChildrenProp) {
 
     ViewUser();
 
+    // buscar os dados das receitas do usuário logado
     async function buscarDados() {
       const ref = collection(db, "receita");
 
@@ -84,6 +86,7 @@ export function AuthProvider({ children }: ChildrenProp) {
 
     buscarDados();
 
+    // buscar os dados dos gastos do usuário logado
     async function RendleGastos() {
       const ref = collection(db, "gastos");
       const gastosQuery = query(ref, where("uid", "==", user.uid));
@@ -110,6 +113,7 @@ export function AuthProvider({ children }: ChildrenProp) {
 
     RendleGastos();
 
+    // buscar os dados da conta do usuário logado
     async function BuscarAccount() {
       const ref = collection(db, "Account");
       const queryAccount = query(ref, where("uid", "==", user.uid));
@@ -130,6 +134,7 @@ export function AuthProvider({ children }: ChildrenProp) {
 
     BuscarAccount();
 
+    // buscar o nome do usuário logado
     async function GetName() {
       const ref = collection(db, 'users')
 
@@ -155,6 +160,7 @@ export function AuthProvider({ children }: ChildrenProp) {
 
   }, [Deletar, deleteAccountfixed]);
 
+  // criar uma conta de usuário
   async function CreateUser({
     email,
     senha,
@@ -196,6 +202,7 @@ export function AuthProvider({ children }: ChildrenProp) {
     }
   }
 
+  // fazer login com email e senha
   async function Login({ email, senha }: { email: string; senha: string }) {
     setLoading(true);
     try {
@@ -223,6 +230,7 @@ export function AuthProvider({ children }: ChildrenProp) {
     }
   }
 
+  // deletar receita
   async function Deletar({ uid }: DeletarProp) {
     setLoading(true);
     const data = doc(db, "receita", uid);
@@ -244,6 +252,7 @@ export function AuthProvider({ children }: ChildrenProp) {
       });
   }
 
+  // deletar gastos
   async function DeletarGastos({ uid }: DeletarProp) {
     const data = doc(db, "gastos", uid);
 
@@ -261,6 +270,7 @@ export function AuthProvider({ children }: ChildrenProp) {
       });
   }
 
+  // adicionar receita
   async function AddReceita({
     addValor,
     addDesc,
@@ -290,6 +300,7 @@ export function AuthProvider({ children }: ChildrenProp) {
     }
   }
 
+  // adicionar gastos
   async function AddGastos({
     addValor,
     addDesc,
@@ -319,6 +330,7 @@ export function AuthProvider({ children }: ChildrenProp) {
     }
   }
 
+  // adicionar conta fixa
   async function addAccount({
     nameAccount,
     valor,
@@ -336,6 +348,7 @@ export function AuthProvider({ children }: ChildrenProp) {
     });
   }
 
+  // deletar conta fixa
   async function deleteAccountfixed({ uid }: { uid: string }) {
     const data = doc(db, "Account", uid);
 
@@ -352,6 +365,7 @@ export function AuthProvider({ children }: ChildrenProp) {
       });
   }
 
+  // fazer logout
   async function LogOut() {
     AsyncStorage.removeItem('@userAppwallet');
     await signOut(auth)
@@ -369,6 +383,7 @@ export function AuthProvider({ children }: ChildrenProp) {
       });
   }
 
+  // adicionar nome do usuário
   async function AddName({ name }: { name: string }) {
     try {
       const data = await addDoc(collection(db, "users"), {

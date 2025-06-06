@@ -26,6 +26,7 @@ export default function SigIn() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
+  //  chamar a função de criar usuário
   function Create() {
     CreateUser({ email, senha });
   }

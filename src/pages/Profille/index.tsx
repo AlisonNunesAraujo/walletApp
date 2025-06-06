@@ -23,10 +23,14 @@ export default function Profille() {
 
     const [name, setName] = useState("");
 
-    async function Sair() {
+    // chamar a função de logout
+    // e limpar os dados do usuário
+    async function Exit() {
         LogOut();
     }
 
+    // Função para adicionar o nome do usuário
+    // Verifica se o nome está vazio, se sim, exibe uma mensagem de aviso
     async function NameSave() {
         if (name === "") {
             new showMessage({
@@ -74,7 +78,7 @@ export default function Profille() {
                         <Text style={s.textEmail}>{user.email}</Text>
                     </View>
 
-                    <TouchableOpacity onPress={Sair} style={s.bntSair}>
+                    <TouchableOpacity onPress={Exit} style={s.bntSair}>
                         <Feather name="log-out" size={20} color="black" />
                     </TouchableOpacity>
 

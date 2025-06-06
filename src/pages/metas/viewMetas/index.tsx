@@ -19,6 +19,7 @@ export default function ViewMetas() {
 
 
     useEffect(() => {
+        // Função para buscar as metas do usuário
         async function GetMetas() {
             try {
                 const data = collection(db, "metasCards");
@@ -48,6 +49,8 @@ export default function ViewMetas() {
         GetMetas();
     }, [Delete]);
 
+    // Função para deletar a meta
+    // Utiliza o uid para identificar qual meta deletar
     function Delete(uid: string) {
         try {
             const data = doc(db, "metasCards", uid);

@@ -31,6 +31,7 @@ export default function AddRegister() {
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
+  // Função para adicionar receita
   async function AddvalorReceita() {
     if (addValor === "") {
       showMessage({
@@ -45,6 +46,7 @@ export default function AddRegister() {
     setAdddesc("");
   }
 
+  // Função para adicionar gastos
   async function AddvalorGastos() {
     if (addValor === "") {
       showMessage({

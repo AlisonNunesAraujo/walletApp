@@ -3,12 +3,11 @@ import {StyleSheet} from 'react-native';
 export const s = StyleSheet.create({
     conteiner: {
         width: "100%",
-        backgroundColor: "white",
+        backgroundColor: "#f0f0f0",
         padding: 10,
         marginBottom: 20,
         flexDirection: "column",
         borderRadius: 5,
-        marginTop: 30,
     },
 
     render: {
@@ -17,15 +16,18 @@ export const s = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        gap: 15,
     },
 
     textTitile: {
         fontFamily: "Arial",
         fontSize: 15,
+        fontWeight: "bold",
     },
 
     textValor: {
         fontFamily: "Arial",
         fontSize: 13,
+        fontWeight: "bold",
     },
 });

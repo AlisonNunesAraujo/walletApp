@@ -15,7 +15,7 @@ export type States = {
     addDesc: string;
   }) => Promise<void>;
   AddGastos: (info: {
-    addValor: string | number;
+    addValor:  number| string;
     addDesc: string;
   }) => Promise<void>;
   load: boolean;

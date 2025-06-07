@@ -35,8 +35,8 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [loading, setLoad] = useState(false);
   const [account, setAccount] = useState<listAccount[]>();
   const [nameUser, setNameUser] = useState<nome[]>([]);
-  const [saldoReceita, setSaldoReceita] = useState([0])
-  const [saldoGastos, setSaldoGastos] = useState([0])
+  const [saldoReceita, setSaldoReceita] = useState([0.00]);
+  const [saldoGastos, setSaldoGastos] = useState([0.00]);
 
   useEffect(() => {
     // verificar se o usuário está logado
@@ -104,6 +104,9 @@ export function AuthProvider({ children }: ChildrenProp) {
         setGastos(lista);
         const saldo = lista.reduce((acc, item) => acc + item.gastos, 0);
         setSaldoGastos([saldo]);
+        // console.log(saldo);
+
+
 
 
 
@@ -279,10 +282,15 @@ export function AuthProvider({ children }: ChildrenProp) {
     addDesc: string;
   }) {
     setLoading(true);
+
+    const valorNumerico = parseFloat(
+      String(addValor).replace('R$', '').replace(/\./g, '').replace(',', '.').trim()
+    );
+
     try {
       const data = await addDoc(collection(db, "receita"), {
         uid: user.uid,
-        valor: addValor,
+        valor: valorNumerico,
         descricao: addDesc,
         date: format(new Date(), "dd/MM/yyyy"),
       });
@@ -309,10 +317,15 @@ export function AuthProvider({ children }: ChildrenProp) {
     addDesc: string;
   }) {
     setLoad(true);
+
+    const valorNumerico = parseFloat(
+      String(addValor).replace('R$', '').replace(/\./g, '').replace(',', '.').trim()
+    );
+
     try {
       const data = await addDoc(collection(db, "gastos"), {
         uid: user.uid,
-        valor: addValor,
+        valor: valorNumerico,
         descricao: addDesc,
         date: format(new Date(), "dd/MM/yyyy"),
       });

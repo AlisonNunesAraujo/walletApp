@@ -5,8 +5,8 @@ export const s = StyleSheet.create({
     width: "100%",
     height: 50,
     backgroundColor: "#f0f0f0",
-    boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
-    alignItems: "center",
+    boxShadow: "0px 4px 4px rgba(9, 9, 9, 0.25)",
+    justifyContent: "space-between"
   },
   viewInfo: {
     alignItems: "center",
@@ -14,7 +14,7 @@ export const s = StyleSheet.create({
     flexDirection: "row",
 
   },
-
+  
   text: {
     fontFamily: "Arial",
     fontSize: 18,

@@ -14,6 +14,7 @@ import HeaderComponent from "../../components/header";
 import * as Animatable from "react-native-animatable";
 
 import ScrollHome from "../../components/scrollHome";
+import CardSaldo from "../../components/cardSaldo";
 
 
 export default function Home() {
@@ -26,6 +27,7 @@ export default function Home() {
       <StatusBar backgroundColor="#f0f0f0" barStyle={"dark-content"} />
       <HeaderComponent />
       <ScrollHome />
+      <CardSaldo />
 
 
 

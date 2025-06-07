@@ -30,7 +30,7 @@ export default function RenderGastos({ data }: { data: TypesGastos }) {
           })
         }
       >
-        <Text style={s.textValor}>{data.gastos}</Text>
+        <Text style={s.textValor}>R$ {data.gastos}</Text>
         <Text style={s.textValor}>{data.date}</Text>
         <Text style={s.textVerMais}>Ver mais</Text>
         <TouchableOpacity onPress={() => Deletar(data.uid)}>

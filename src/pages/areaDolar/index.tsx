@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, FlatList, Text } from "react-native";
+import { View, FlatList, Text, StyleSheet } from "react-native";
 import { api } from "../../services";
 import Render from "./render";
 import { showMessage } from "react-native-flash-message";
@@ -13,7 +13,14 @@ export default function Dolar() {
     useEffect(() => {
         async function BuscarApi() {
             try {
-                const response = await api.get("USD-BRL,EUR-BRL,BTC-BRL");
+                const response = await api.get("USD-BRL,EUR-BRL,BTC-BRL,CAD-BRL,GBP-BRL,ARS-BRL,JPY-BRL,CHF-BRL,ILS-BRL,ETH-BRL");
+                if (response.status !== 200) {
+                    showMessage({
+                        message: "Erro ao buscar dados",
+                        type: "danger",
+                    });
+                    return;
+                }
                 setDadosapi(Object.values(response.data));
             } catch (error) {
                 alert("Algo deu errado!");
@@ -35,17 +42,31 @@ export default function Dolar() {
             <FlatList
                 data={dadosapi}
                 renderItem={({ item }) => <Render data={item} />}
-                ListEmptyComponent={() => {
-                    return (
-                        <View style={{ marginTop: 50 }}>
+                style={s.conteiner}
+            // ListEmptyComponent={() => {
+            //     return (
+            //         <View style={{ marginTop: 50 }}>
 
-                            <ActivityIndicator size="large" color="blue" />
-                            <Text style={{ fontFamily: "Arial", fontSize: 14 }}>Carregando...</Text>
-                        </View>
-                    );
-                }}
+            //             <ActivityIndicator size="large" color="blue" />
+            //             <Text style={{ fontFamily: "Arial", fontSize: 14 }}>Carregando...</Text>
+            //         </View>
+            //     );
+            // }}
             />
 
         </View>
     );
 }
+
+const s = StyleSheet.create({
+    conteiner: {
+        width: "90%",
+        padding: 10,
+        flexDirection: "column",
+        borderRadius: 5,
+        marginTop: 30,
+        marginBottom: 20,
+    },
+
+
+});

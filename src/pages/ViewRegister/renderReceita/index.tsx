@@ -30,7 +30,7 @@ export default function RenderReceita({ data }: { data: TypesReceita }) {
           })
         }
       >
-        <Text style={s.textValor}>{data.receita}</Text>
+        <Text style={s.textValor}>R$ {data.receita}</Text>
         <Text style={s.textValor}>{data.date}</Text>
         <Text style={s.textVerMais}>Ver mais</Text>
         <TouchableOpacity onPress={() => Delete(data.uid)}>

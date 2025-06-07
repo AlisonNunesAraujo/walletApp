@@ -10,7 +10,7 @@ import {
 import * as Animatable from "react-native-animatable";
 import Feather from "@expo/vector-icons/Feather";
 import { AuthContext } from "../../contextApi";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ParamList } from "../../routs/authfree";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";

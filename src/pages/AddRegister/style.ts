@@ -10,7 +10,7 @@ export const s = StyleSheet.create({
   areaAdd: {
     width: "90%",
     marginTop: 20,
-    backgroundColor: "#ccc",
+    backgroundColor: "#00cc73",
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
@@ -19,15 +19,18 @@ export const s = StyleSheet.create({
   },
   title: {
     fontFamily: "Arial",
-    fontSize: 18,
+    fontSize: 20,
+    color: "white",
+    marginBottom: 20,
   },
   inputAdd: {
     width: "90%",
     height: 40,
     padding: 10,
     borderRadius: 5,
-    boxShadow: "1px 3px 3px 0px rgba(8, 8, 8, 0.25)",
+    boxShadow: "1px 3px 3px 0px rgba(122, 119, 119, 0.25)",
     marginBottom: 20,
+    backgroundColor: "white",
   },
 
   areaBntAdd: {
@@ -49,5 +52,22 @@ export const s = StyleSheet.create({
   textbntAdd: {
     fontSize: 14,
     fontFamily: "Arial",
+    color: "black",
+    fontWeight: "bold",
   },
+  buttonVoltar:{
+    width: "90%",
+    height: 40,
+    backgroundColor: "#00cc73",
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 30,
+  },
+  textButtonVoltar: {
+    fontSize: 14,
+    fontFamily: "Arial",
+    color: "white",
+    fontWeight: "bold",
+  }
 });

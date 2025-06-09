@@ -12,6 +12,7 @@ import Metas from "../pages/metas";
 import Item from "../pages/metas/addMetas";
 import AddMetasOutros from "../pages/metas/addMetasOutros";
 import ViewMetas from "../pages/metas/viewMetas";
+import InfoMetas from "../pages/metas/infoMetas";
 
 export type ParamList = {
   Home: undefined;
@@ -39,6 +40,10 @@ export type ParamList = {
   };
   AddMetasOutros: undefined;
   ViewMetas: undefined;
+  InfoMetas: {
+    title: string;
+    metas: React.ReactNode;
+  };
 };
 
 const Nav = createNativeStackNavigator<ParamList>();
@@ -114,6 +119,11 @@ export function StackFree() {
         name="ViewMetas"
         component={ViewMetas}
         options={{ title: "Minhas Metas" }}
+      />
+      <Nav.Screen
+        name="InfoMetas"
+        component={InfoMetas}
+        options={{ title: "Informações" }}
       />
     </Nav.Navigator>
   );

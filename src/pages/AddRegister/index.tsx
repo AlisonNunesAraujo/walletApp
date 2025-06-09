@@ -26,8 +26,7 @@ export default function AddRegister() {
   const { user, receita, gastos, AddReceita, AddGastos, load, loading } =
     useContext(AuthContext);
   const [addValor, setAddValor] = useState("");
-  const [addDesc, setAdddesc] = useState("");
-  const [valor, setValor] = useState("");
+  const [addDesc, setAdddesc] = useState("")
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
@@ -101,7 +100,20 @@ export default function AddRegister() {
             )}
           </TouchableOpacity>
         </View>
+
       </View>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("ViewRegister")}
+        style={s.buttonVoltar}
+      >
+        <Text style={s.textButtonVoltar}>Ver meus registros</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={s.buttonVoltar}
+      >
+        <Text style={s.textButtonVoltar}>Voltar para Home</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }

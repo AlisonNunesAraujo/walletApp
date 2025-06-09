@@ -148,6 +148,7 @@ const s = StyleSheet.create({
         borderRadius: 10,
         flexDirection: "row",
         alignItems: "center",
+        justifyContent: 'space-between',
         paddingHorizontal: 10,
         gap: 20,
     },

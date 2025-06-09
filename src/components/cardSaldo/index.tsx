@@ -2,7 +2,9 @@ import React, { useContext, useState } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { AuthContext } from '../../contextApi'
 import AntDesign from '@expo/vector-icons/AntDesign';
-import Octicons from '@expo/vector-icons/Octicons';
+import Fontisto from '@expo/vector-icons/Fontisto';
+
+
 export default function CardSaldo() {
 
     const { saldoReceita, saldoGastos } = useContext(AuthContext)
@@ -26,7 +28,7 @@ export default function CardSaldo() {
                                 <Text style={s.textSaldo}> Saldo: {formatarValor(item)}</Text>
                             </View>
                             <View>
-                                <Octicons name="thumbsup" size={24} color="black" />
+                                <Fontisto name="checkbox-active" size={24} color="white" />
                             </View>
                         </View>
                     )}
@@ -39,10 +41,10 @@ export default function CardSaldo() {
                         <View style={s.areaSaldo}>
                             <View>
                                 <Text style={s.textType}> Gastos</Text>
-                                <Text style={s.textSaldoGastos}> Saldo:  {formatarValor(item)}</Text>
+                                <Text style={s.textSaldoGastos}> Saldo: - {formatarValor(item)}</Text>
                             </View>
                             <View>
-                                <AntDesign name="warning" size={24} color="black" />
+                                <AntDesign name="warning" size={24} color="white" />
                             </View>
                         </View>
                     )}
@@ -57,7 +59,7 @@ const s = StyleSheet.create({
         width: '90%',
         height: 200,
         padding: 20,
-        backgroundColor: '#f0f0f0',
+        backgroundColor: '#00cc73',
         borderRadius: 10,
         marginLeft: '5%',
         marginTop: 20,
@@ -71,20 +73,20 @@ const s = StyleSheet.create({
     },
     textType: {
         fontSize: 17,
-        fontWeight: 'bold',
-        color: '#333',
+        color: 'white',
+
     },
     textSaldo: {
         fontSize: 16,
-        color: 'green',
+        color: 'white',
         fontFamily: 'Arial',
-        fontWeight: "700"
+        letterSpacing: 1.5
     },
     textSaldoGastos: {
         fontSize: 16,
-        color: 'red',
+        color: 'white',
         fontFamily: 'Arial',
-        fontWeight: "700"
+        letterSpacing: 1.5
 
 
     }

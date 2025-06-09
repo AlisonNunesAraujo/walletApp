@@ -39,6 +39,7 @@ export const s = StyleSheet.create({
     },
     areaEmail: {
         width: "100%",
+        height: 'auto',
         padding: 10,
         backgroundColor: "#ccc",
         borderRadius: 5,
@@ -56,10 +57,6 @@ export const s = StyleSheet.create({
         fontSize: 14,
         color: "black",
     },
-    
-
-   
-
     Profile: {
         width: "100%",
         height: "100%",

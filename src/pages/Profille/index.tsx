@@ -9,6 +9,7 @@ import {
     TextInput,
     Keyboard,
     FlatList,
+    Alert
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import Feather from "@expo/vector-icons/Feather";
@@ -26,7 +27,24 @@ export default function Profille() {
     // chamar a função de logout
     // e limpar os dados do usuário
     async function Exit() {
-        LogOut();
+        Alert.alert(
+            "Deseja realmente sair?",
+            "",
+            [
+                {
+                    text: "Cancelar",
+                    style: "cancel",
+                },
+                {
+                    text: "Sair",
+                    style: "destructive",
+                    onPress: () => {
+                        LogOut();
+                    },
+                },
+            ],
+            { cancelable: true }
+        )
     }
 
     // Função para adicionar o nome do usuário

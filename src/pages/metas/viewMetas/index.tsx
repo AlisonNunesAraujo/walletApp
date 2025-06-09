@@ -5,6 +5,7 @@ import {
     StyleSheet,
     FlatList,
     TouchableOpacity,
+    Alert,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import {
@@ -17,8 +18,11 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../services/firebase/firebaseConextion";
 import { showMessage } from "react-native-flash-message";
-
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { ParamList } from "../../../routs/authfree";
 import { AuthContext } from "../../../contextApi";
+
 type ListMetas = {
     title: string;
     valor: string;
@@ -28,6 +32,7 @@ type ListMetas = {
 export default function ViewMetas() {
     const [metas, setMetas] = useState<ListMetas[]>([]);
     const { user } = useContext(AuthContext);
+    const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
     useEffect(() => {
         // Função para buscar as metas do usuário
@@ -62,27 +67,36 @@ export default function ViewMetas() {
     // Função para deletar a meta
     // Utiliza o uid para identificar qual meta deletar
     function Delete(uid: string) {
-        try {
-            const data = doc(db, "metasCards", uid);
-            deleteDoc(data)
-                .then(() => {
-                    showMessage({
-                        message: "Meta deletada com sucesso!",
-                        type: "success",
-                    });
-                })
-                .catch((err) => {
-                    showMessage({
-                        message: "Erro ao deletar meta",
-                        type: "danger",
-                    });
-                });
-        } catch (err) {
-            showMessage({
-                message: "Erro ao deletar meta",
-                type: "danger",
-            });
-        }
+        Alert.alert(
+            "Deseja realmente deletar essa meta?",
+            "",
+            [
+                {
+                    text: "Cancelar",
+                    style: "cancel",
+                },
+                {
+                    text: "Deletar",
+                    style: "destructive",
+                    onPress: async () => {
+                        try {
+                            const data = doc(db, "metasCards", uid);
+                            await deleteDoc(data);
+                            showMessage({
+                                message: "Meta deletada com sucesso!",
+                                type: "success",
+                            });
+                        } catch (err) {
+                            showMessage({
+                                message: "Erro ao deletar meta",
+                                type: "danger",
+                            });
+                        }
+                    },
+                },
+            ],
+
+        );
     }
 
     return (
@@ -100,7 +114,15 @@ export default function ViewMetas() {
 
                 <View>
                     {metas.length === 0 ? (
-                        <Text style={s.textDescription}>Nenhuma meta cadastrada</Text>
+                        <View>
+                            <Text style={s.textDescription}>Nenhuma meta cadastrada</Text>
+                            <TouchableOpacity
+                                style={s.buttonCreateMeta}
+                                onPress={() => navigation.navigate("Metas")}
+                            >
+                                <Text style={s.textButtonCreateMeta}>Criar uma meta</Text>
+                            </TouchableOpacity>
+                        </View>
                     ) : (
                         <FlatList
                             data={metas}
@@ -114,11 +136,20 @@ export default function ViewMetas() {
                                     <Text style={s.textNome}>Nome: {item.title}</Text>
                                     <Text style={s.textValor}>{item.valor}</Text>
                                     <TouchableOpacity
+                                        style={s.buttonInfo}
+                                        onPress={() =>
+                                            navigation.navigate("InfoMetas", { title: item.title, metas: item.valor })
+                                        }
+                                    >
+                                        <Text style={s.textButtonInfo}>Mais informações</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
                                         style={s.buttonExcluir}
                                         onPress={() => Delete(item.uid)}
                                     >
                                         <Text style={s.textbuttonExcluir}>Excluir sua meta</Text>
                                     </TouchableOpacity>
+
                                 </View>
                             )}
                         />
@@ -169,6 +200,22 @@ const s = StyleSheet.create({
         marginBottom: 10,
         marginLeft: 10,
     },
+    buttonCreateMeta: {
+        width: "100%",
+        height: 30,
+        backgroundColor: "#4CAF50",
+        padding: 5,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 10,
+        borderRadius: 5,
+    },
+    textButtonCreateMeta: {
+        fontSize: 15,
+        color: "white",
+        fontFamily: "Arial",
+        fontWeight: "700",
+    },
     flatList: {
         width: "100%",
         height: 500,
@@ -186,11 +233,12 @@ const s = StyleSheet.create({
     },
     metas: {
         width: "90%",
-        height: 90,
+        height: "auto",
         backgroundColor: "#4CAF50",
         marginLeft: "5%",
         borderRadius: 8,
         marginTop: 20,
+        padding: 10,
     },
     textNome: {
         fontSize: 14,
@@ -217,6 +265,22 @@ const s = StyleSheet.create({
         marginLeft: 10,
     },
     textbuttonExcluir: {
+        fontSize: 14,
+        color: "white",
+        fontFamily: "Arial",
+        textAlign: "center",
+    },
+    buttonInfo: {
+        width: "50%",
+        height: 30,
+        backgroundColor: "blue",
+        borderRadius: 5,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 10,
+        marginLeft: 10,
+    },
+    textButtonInfo: {
         fontSize: 14,
         color: "white",
         fontFamily: "Arial",

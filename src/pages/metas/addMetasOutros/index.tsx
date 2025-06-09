@@ -12,11 +12,14 @@ import { AuthContext } from "../../../contextApi";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../services/firebase/firebaseConextion";
 import { TextInputMask } from "react-native-masked-text";
-
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { ParamList } from "../../../routs/authfree";
 export default function AddMetasOutros() {
     const { user } = useContext(AuthContext);
     const [title, setTitle] = useState("");
     const [valor, setValor] = useState("");
+    const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
 
     // Função para adicionar a meta
@@ -74,6 +77,9 @@ export default function AddMetasOutros() {
             <TouchableOpacity style={s.button} onPress={AddMeta}>
                 <Text style={s.buttonText}>Adicionar Meta</Text>
             </TouchableOpacity>
+            <TouchableOpacity style={s.button} onPress={() => navigation.goBack()}>
+                <Text style={s.buttonText}>Voltar</Text>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -112,6 +118,7 @@ const s = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         alignItems: "center",
+        marginBottom: 10,
     },
     buttonText: {
         color: "white",

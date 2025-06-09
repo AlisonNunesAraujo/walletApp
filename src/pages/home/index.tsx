@@ -26,8 +26,9 @@ export default function Home() {
     <SafeAreaView style={s.conteiner}>
       <StatusBar backgroundColor="#f0f0f0" barStyle={"dark-content"} />
       <HeaderComponent />
-      <ScrollHome />
       <CardSaldo />
+      <ScrollHome />
+
 
 
 

@@ -6,21 +6,18 @@ import {
   SafeAreaView,
   StatusBar,
 } from "react-native";
-import { s } from './style'
+import { s } from "./style";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
-import HeaderComponent from "../../components/header";
+import HeaderComponent from "../../components/Header";
 import * as Animatable from "react-native-animatable";
 
 import ScrollHome from "../../components/scrollHome";
 import CardSaldo from "../../components/cardSaldo";
 
-
 export default function Home() {
-
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
-
 
   return (
     <SafeAreaView style={s.conteiner}>
@@ -28,9 +25,6 @@ export default function Home() {
       <HeaderComponent />
       <CardSaldo />
       <ScrollHome />
-
-
-
 
       <Animatable.View animation="fadeIn" style={s.areaView}>
         <TouchableOpacity
@@ -52,10 +46,6 @@ export default function Home() {
           </Text>
         </TouchableOpacity>
       </Animatable.View>
-
-
     </SafeAreaView>
   );
 }
-
-

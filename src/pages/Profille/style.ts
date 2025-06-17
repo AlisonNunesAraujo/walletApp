@@ -76,6 +76,7 @@ export const s = StyleSheet.create({
         marginBottom: 20,
         color: "black",
         fontSize: 12,
+        textAlign: "center",
     },
     bntSair: {
         width: "20%",
@@ -97,6 +98,7 @@ export const s = StyleSheet.create({
         bottom: 50,
         position: "absolute",
         padding: 20,
+        
     },
     
    

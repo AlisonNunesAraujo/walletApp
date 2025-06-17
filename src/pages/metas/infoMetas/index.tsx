@@ -51,14 +51,14 @@ const s = StyleSheet.create({
         margin: 8,
     },
     textTitle: {
-        fontSize: 19,
+        fontSize: 18,
         fontFamily: "Arial",
         fontWeight: "bold",
         color: "white",
         marginBottom: 10,
     },
     textSaldo: {
-        fontSize: 19,
+        fontSize: 17,
         fontFamily: "Arial",
         fontWeight: "bold",
         letterSpacing: 1.5,
@@ -78,7 +78,7 @@ const s = StyleSheet.create({
         fontSize: 14,
         fontFamily: "Arial",
         fontWeight: "bold",
-        letterSpacing: 1.5,
+        textAlign: "center",
 
     },
     buttonVoltar: {

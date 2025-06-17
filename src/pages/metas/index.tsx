@@ -45,16 +45,17 @@ const s = StyleSheet.create({
         backgroundColor: "white",
     },
     title: {
-        fontSize: 20,
+        fontSize: 17,
         fontWeight: "bold",
         textAlign: "center",
         marginVertical: 20,
         color: "black",
         fontFamily: "Arial",
+
     },
     bntAdicionar: {
         width: "90%",
-        height: 50,
+        height: 30,
         backgroundColor: "#4CAF50",
         borderRadius: 10,
         justifyContent: "center",
@@ -63,7 +64,7 @@ const s = StyleSheet.create({
         marginTop: 20,
     },
     textBntAdicionar: {
-        fontSize: 18,
+        fontSize: 15,
         color: "white",
         fontFamily: "Arial",
     },

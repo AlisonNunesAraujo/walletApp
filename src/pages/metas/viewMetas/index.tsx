@@ -65,7 +65,6 @@ export default function ViewMetas() {
     }, [Delete]);
 
     // Função para deletar a meta
-    // Utiliza o uid para identificar qual meta deletar
     function Delete(uid: string) {
         Alert.alert(
             "Deseja realmente deletar essa meta?",
@@ -109,7 +108,7 @@ export default function ViewMetas() {
                     Minhas Metas <Feather name="dollar-sign" size={24} color="#4CAF50" />
                 </Text>
                 <Text style={s.textDescription}>
-                    O seu esforço reflete no seu amanhã
+                    O seu esforço de hoje reflete no seu amanhã!
                 </Text>
 
                 <View>
@@ -193,7 +192,7 @@ const s = StyleSheet.create({
         marginLeft: 10,
     },
     textDescription: {
-        fontSize: 18,
+        fontSize: 14,
         color: "black",
         fontFamily: "Arial",
         fontWeight: "bold",

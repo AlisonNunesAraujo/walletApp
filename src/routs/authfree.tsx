@@ -99,7 +99,7 @@ export function StackFree() {
       <Nav.Screen
         name="Profille"
         component={Profille}
-        options={{ title: "Perfil" }}
+        options={{ title: "Informações" }}
       />
       <Nav.Screen
         name="Metas"

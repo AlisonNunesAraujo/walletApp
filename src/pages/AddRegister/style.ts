@@ -53,7 +53,6 @@ export const s = StyleSheet.create({
     fontSize: 14,
     fontFamily: "Arial",
     color: "black",
-    fontWeight: "bold",
   },
   buttonVoltar:{
     width: "90%",

@@ -25,7 +25,6 @@ export default function Profille() {
     const [name, setName] = useState("");
 
     // chamar a função de logout
-    // e limpar os dados do usuário
     async function Exit() {
         Alert.alert(
             "Deseja realmente sair?",
@@ -48,7 +47,7 @@ export default function Profille() {
     }
 
     // Função para adicionar o nome do usuário
-    // Verifica se o nome está vazio, se sim, exibe uma mensagem de aviso
+
     async function NameSave() {
         if (name === "") {
             new showMessage({

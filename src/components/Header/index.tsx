@@ -27,23 +27,17 @@ export default function HeaderComponent() {
 
   return (
     <SafeAreaView >
-      <Animatable.View animation="fadeIn" style={s.header}>
+      <View style={s.header}>
         <View style={s.viewInfo}>
 
+
           {nameUser.length > 0 ? (
-            <Text style={s.text}>Olá</Text>
+            nameUser.map((item, index) => (
+              <Text style={s.text} key={index}>Olá {item.name}</Text>
+            ))
           ) : (
-            <Text style={s.text}>Bem Vindo!</Text>
+            <Text style={s.text}>Olá</Text>
           )}
-
-          <FlatList
-
-            data={nameUser}
-            renderItem={({ item }) => (
-              <Text style={s.textName}> {item.name}!</Text>
-
-            )}
-          />
 
           <TouchableOpacity
             style={s.viewBntinfo}
@@ -55,7 +49,7 @@ export default function HeaderComponent() {
         </View>
 
 
-      </Animatable.View>
+      </View>
     </SafeAreaView>
   );
 }

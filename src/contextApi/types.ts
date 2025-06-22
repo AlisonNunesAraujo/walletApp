@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 export type States = {
   user: stateUser;
   logado: boolean;
-  CreateUser: (info: { email: string; senha: string }) => Promise<void>;
+  CreateUser: (info: { email: string; senha: string; name: string }) => Promise<void>;
   Login: (info: { email: string; senha: string }) => Promise<void>;
   receita: TypesReceita[] | undefined;
   gastos: TypesGastos[] | undefined;

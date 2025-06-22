@@ -4,12 +4,12 @@ import {
     StyleSheet,
     TouchableOpacity,
     SafeAreaView,
-    Modal as RnModal,
+    Modal,
     Image,
     TextInput,
     Keyboard,
     FlatList,
-    Alert
+    Alert,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import Feather from "@expo/vector-icons/Feather";
@@ -17,7 +17,7 @@ import { AuthContext } from "../../contextApi";
 import { useContext, useState } from "react";
 import showMessage from "react-native-flash-message";
 
-import { s } from './style'
+import { s } from "./style";
 
 export default function Profille() {
     const { user, LogOut, AddName, nameUser } = useContext(AuthContext);
@@ -43,22 +43,7 @@ export default function Profille() {
                 },
             ],
             { cancelable: true }
-        )
-    }
-
-    // Função para adicionar o nome do usuário
-
-    async function NameSave() {
-        if (name === "") {
-            new showMessage({
-                message: "Preencha o Nome",
-                type: "warning",
-            });
-            return;
-        }
-        Keyboard.dismiss();
-        AddName({ name });
-        setName("");
+        );
     }
 
     return (
@@ -66,30 +51,12 @@ export default function Profille() {
             <Animatable.View animation="fadeIn" style={s.header}>
                 <View style={s.Profile}>
                     <View style={s.areaEmail}>
-                        {nameUser.length > 0 ? (
-                            <Text style={s.textInfo}>Seu Nome:</Text>
-                        ) : (
-                            <View style={s.areaNome}>
-                                <TextInput
-                                    placeholder="Seu nome"
-                                    value={name}
-                                    onChangeText={setName}
-                                    style={s.input}
-                                />
-                                <TouchableOpacity style={s.bntAddName} onPress={NameSave}>
-                                    <Text style={s.textAddName}>Adicionar Nome</Text>
-                                </TouchableOpacity>
+                        {nameUser.map((item, index) => (
+                            <View key={index}>
+                                <Text style={s.textInfo}>Seu nome:</Text>
+                                <Text style={s.textEmail}>{item.name}</Text>
                             </View>
-                        )}
-
-                        <FlatList
-                            data={nameUser}
-                            renderItem={({ item }) => (
-                                <View>
-                                    <Text style={s.textEmail}>{item.name}</Text>
-                                </View>
-                            )}
-                        />
+                        ))}
 
                         <Text style={s.textInfo}>Seu E-mail:</Text>
                         <Text style={s.textEmail}>{user.email}</Text>
@@ -106,13 +73,9 @@ export default function Profille() {
                             Aplicaivo, caso deseje! Também pode conferir a cotação em tempo
                             real, criar um lembrete de uma conta fixa do mês!
                         </Text>
-
-
                     </View>
                 </View>
             </Animatable.View>
         </SafeAreaView>
     );
 }
-
-

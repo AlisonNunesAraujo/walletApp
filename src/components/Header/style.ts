@@ -18,7 +18,6 @@ export const s = StyleSheet.create({
   text: {
     fontFamily: "Arial",
     fontSize: 18,
-    fontWeight: "700",
     marginLeft: 20,
   },
 

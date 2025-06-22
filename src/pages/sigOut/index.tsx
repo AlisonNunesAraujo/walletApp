@@ -25,34 +25,51 @@ export default function SigIn() {
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [name, setName] = useState("");
 
   //  chamar a função de criar usuário
   function Create() {
-    CreateUser({ email, senha });
+    CreateUser({ email, senha, name });
   }
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={s.areaLogin}>
         <View style={s.form}>
-          <Feather name="user" size={30} color="black" />
+          <Feather name="user" size={30} color="white" />
           <Text style={s.Title}>Criar sua conta!</Text>
 
-
-
-          <TextInput
-            placeholder="E-Mail"
-            value={email}
-            onChangeText={setEmail}
-            style={s.formInput}
-          />
-          <TextInput
-            placeholder="Password"
-            value={senha}
-            onChangeText={setSenha}
-            secureTextEntry
-            style={s.formInput}
-          />
+          <View style={s.areaInputs}>
+            <Text style={s.label}>Nome:</Text>
+            <TextInput
+              placeholder="Nome"
+              value={name}
+              onChangeText={setName}
+              placeholderTextColor={"#ccc"}
+              style={s.formInput}
+            />
+            <Text style={s.label}>
+              Email:
+            </Text>
+            <TextInput
+              placeholder="E-Mail"
+              value={email}
+              onChangeText={setEmail}
+              placeholderTextColor={"#ccc"}
+              style={s.formInput}
+            />
+            <Text style={s.label}>
+              Senha:
+            </Text>
+            <TextInput
+              placeholder="Password"
+              value={senha}
+              onChangeText={setSenha}
+              secureTextEntry
+              placeholderTextColor={"#ccc"}
+              style={s.formInput}
+            />
+          </View>
           <TouchableOpacity style={s.bnts} onPress={Create}>
             {load ? (
               <ActivityIndicator size={20} color='black' />

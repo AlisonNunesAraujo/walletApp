@@ -48,7 +48,6 @@ export const s = StyleSheet.create({
     textInfo: {
         fontFamily: "Arial",
         fontSize: 16,
-        fontWeight: "bold",
         color: "black",
     },
 

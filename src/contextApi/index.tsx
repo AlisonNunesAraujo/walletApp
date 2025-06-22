@@ -167,13 +167,20 @@ export function AuthProvider({ children }: ChildrenProp) {
   async function CreateUser({
     email,
     senha,
+    name
   }: {
     email: string;
     senha: string;
+    name: string;
   }) {
     setLoading(true);
     try {
-      const data = await createUserWithEmailAndPassword(auth, email, senha);
+      const data = await createUserWithEmailAndPassword(auth, email, senha)
+
+      const ref = addDoc(collection(db, "users"), {
+        name: name,
+        uid: data.user.uid
+      })
 
 
 

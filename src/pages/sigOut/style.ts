@@ -8,7 +8,7 @@ export const s = StyleSheet.create({
 
   form: {
     width: "100%",
-    backgroundColor: "#cccccc",
+    backgroundColor: "#1D393C",
     justifyContent: "center",
     alignItems: "center",
     height: "100%",
@@ -22,6 +22,17 @@ export const s = StyleSheet.create({
     color: 'white'
 
   },
+  areaInputs:{
+    width: "100%",
+  },
+
+   label:{
+    marginLeft: "5%",
+    fontSize: 16,
+    fontFamily: "Arial",
+    color: 'white',
+    letterSpacing: 1.5
+  },
 
   formInput: {
     width: "90%",
@@ -29,6 +40,8 @@ export const s = StyleSheet.create({
     boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
     padding: 10,
     marginBottom: 20,
+    marginLeft: "5%",
+    color: "white"
   },
 
   bnts: {

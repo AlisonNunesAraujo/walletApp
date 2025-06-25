@@ -3,8 +3,9 @@ import {
   View,
   Text,
   TouchableOpacity,
-  SafeAreaView,
   StatusBar,
+  ScrollView,
+  SafeAreaView,
 } from "react-native";
 import { s } from "./style";
 import { useNavigation } from "@react-navigation/native";
@@ -12,12 +13,31 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
 import HeaderComponent from "../../components/Header";
 import * as Animatable from "react-native-animatable";
-
 import ScrollHome from "../../components/scrollHome";
 import CardSaldo from "../../components/cardSaldo";
 
+import { GoogleGenAI } from "@google/genai";
+
 export default function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
+
+  const ai = new GoogleGenAI({
+    apiKey: "AIzaSyCveaBX494NX4tYaWkwMjxC0lRpIVr9L6A",
+  });
+
+  async function main() {
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: "Explain how AI works in a few words",
+      });
+      alert("deu certo");
+      console.log(response.text);
+    } catch (err) {
+      console.log(err);
+      alert("erro");
+    }
+  }
 
   return (
     <SafeAreaView style={s.conteiner}>
@@ -46,6 +66,13 @@ export default function Home() {
           </Text>
         </TouchableOpacity>
       </Animatable.View>
+
+      <TouchableOpacity
+        style={s.buttonIA}
+        onPress={() => navigation.navigate("ChatIA")}
+      >
+        <Text>IA</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }

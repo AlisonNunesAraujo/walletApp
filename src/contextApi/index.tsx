@@ -10,7 +10,7 @@ import { getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
-import { format } from 'date-fns'
+import { format } from "date-fns";
 import { States } from "./types";
 import { ChildrenProp } from "./types";
 import { stateUser } from "./types";
@@ -20,8 +20,6 @@ import { DeletarProp, listAccount, nome } from "./types";
 import { useNavigation } from "@react-navigation/native";
 import { Alert } from "react-native";
 export const AuthContext = createContext({} as States);
-
-
 
 export function AuthProvider({ children }: ChildrenProp) {
   const [user, setUser] = useState<stateUser>({
@@ -35,8 +33,8 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [loading, setLoad] = useState(false);
   const [account, setAccount] = useState<listAccount[]>();
   const [nameUser, setNameUser] = useState<nome[]>([]);
-  const [saldoReceita, setSaldoReceita] = useState([0.00]);
-  const [saldoGastos, setSaldoGastos] = useState([0.00]);
+  const [saldoReceita, setSaldoReceita] = useState([0.0]);
+  const [saldoGastos, setSaldoGastos] = useState([0.0]);
 
   useEffect(() => {
     // verificar se o usuário está logado
@@ -69,20 +67,15 @@ export function AuthProvider({ children }: ChildrenProp) {
             receita: doc.data().valor,
             desc: doc.data().descricao,
             uid: doc.id,
-            date: doc.data().date
+            date: doc.data().date,
           });
         });
         setReceita(lista);
 
         const saldo = lista.reduce((acc, item) => acc + item.receita, 0);
         setSaldoReceita([saldo]);
-
-
-
-
       });
     }
-
 
     buscarDados();
 
@@ -98,19 +91,13 @@ export function AuthProvider({ children }: ChildrenProp) {
             gastos: doc.data().valor,
             desc: doc.data().descricao,
             uid: doc.id,
-            date: doc.data().date
+            date: doc.data().date,
           });
         });
         setGastos(lista);
         const saldo = lista.reduce((acc, item) => acc + item.gastos, 0);
         setSaldoGastos([saldo]);
         // console.log(saldo);
-
-
-
-
-
-
       });
     }
 
@@ -139,35 +126,31 @@ export function AuthProvider({ children }: ChildrenProp) {
 
     // buscar o nome do usuário logado
     async function GetName() {
-      const ref = collection(db, 'users')
+      const ref = collection(db, "users");
 
-      const queryName = query(ref, where('uid', '==', user.uid))
+      const queryName = query(ref, where("uid", "==", user.uid));
 
       getDocs(queryName).then((snapshot) => {
-        let getName: nome[] = []
+        let getName: nome[] = [];
 
         snapshot.forEach((doc) => {
           getName.push({
             name: doc.data().name,
-            uid: doc.id
-          })
-        })
-        setNameUser(getName)
-
-      })
-
+            uid: doc.id,
+          });
+        });
+        setNameUser(getName);
+      });
     }
 
     GetName();
-
-
   }, [Deletar, deleteAccountfixed]);
 
   // criar uma conta de usuário
   async function CreateUser({
     email,
     senha,
-    name
+    name,
   }: {
     email: string;
     senha: string;
@@ -175,20 +158,16 @@ export function AuthProvider({ children }: ChildrenProp) {
   }) {
     setLoading(true);
     try {
-      const data = await createUserWithEmailAndPassword(auth, email, senha)
+      const data = await createUserWithEmailAndPassword(auth, email, senha);
 
       const ref = addDoc(collection(db, "users"), {
         name: name,
-        uid: data.user.uid
-      })
-
-
-
+        uid: data.user.uid,
+      });
 
       setUser({
         email: data.user.email,
         uid: data.user.uid,
-
       });
 
       const dados = {
@@ -291,7 +270,11 @@ export function AuthProvider({ children }: ChildrenProp) {
     setLoading(true);
 
     const valorNumerico = parseFloat(
-      String(addValor).replace('R$', '').replace(/\./g, '').replace(',', '.').trim()
+      String(addValor)
+        .replace("R$", "")
+        .replace(/\./g, "")
+        .replace(",", ".")
+        .trim()
     );
 
     try {
@@ -326,7 +309,11 @@ export function AuthProvider({ children }: ChildrenProp) {
     setLoad(true);
 
     const valorNumerico = parseFloat(
-      String(addValor).replace('R$', '').replace(/\./g, '').replace(',', '.').trim()
+      String(addValor)
+        .replace("R$", "")
+        .replace(/\./g, "")
+        .replace(",", ".")
+        .trim()
     );
 
     try {
@@ -387,16 +374,14 @@ export function AuthProvider({ children }: ChildrenProp) {
 
   // fazer logout
   async function LogOut() {
-    AsyncStorage.removeItem('@userAppwallet');
+    AsyncStorage.removeItem("@userAppwallet");
     await signOut(auth)
       .then(() => {
-
-        setUser({ email: '', uid: '' });
+        setUser({ email: "", uid: "" });
 
         showMessage({
           message: "Volte sempre!",
         });
-
       })
       .catch(() => {
         alert("erro");
@@ -413,9 +398,8 @@ export function AuthProvider({ children }: ChildrenProp) {
       showMessage({
         message: "Adicionado com sucesso!",
         type: "success",
-      })
-    }
-    catch {
+      });
+    } catch {
       Alert.alert("Algo deu errado!");
     }
   }
@@ -443,8 +427,7 @@ export function AuthProvider({ children }: ChildrenProp) {
         AddName,
         nameUser,
         saldoGastos,
-        saldoReceita
-
+        saldoReceita,
       }}
     >
       {children}

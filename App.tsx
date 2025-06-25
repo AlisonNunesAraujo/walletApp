@@ -1,3 +1,4 @@
+
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthProvider } from "./src/contextApi";
 import { Private } from "./src/routs/prive";
@@ -7,12 +8,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <AuthProvider>
-        <StatusBar backgroundColor='#ccc'barStyle={"dark-content"}/>
+        <StatusBar backgroundColor='#ccc' barStyle={"dark-content"} />
         <Private />
-        <FlashMessage position={"top"}/>
+        <FlashMessage position={"top"} />
       </AuthProvider>
     </NavigationContainer>
-    
+
   );
 }
 

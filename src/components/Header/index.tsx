@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Modal as RnModal,
-  FlatList
+  FlatList,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import Feather from "@expo/vector-icons/Feather";
@@ -15,25 +15,22 @@ import { ParamList } from "../../routs/authfree";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 
-import { s } from './style';
+import { s } from "./style";
 
 export default function HeaderComponent() {
   const { nameUser } = useContext(AuthContext);
 
-
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
-
-
   return (
-    <SafeAreaView >
+    <SafeAreaView>
       <View style={s.header}>
         <View style={s.viewInfo}>
-
-
           {nameUser.length > 0 ? (
             nameUser.map((item, index) => (
-              <Text style={s.text} key={index}>Olá {item.name}</Text>
+              <Text style={s.text} key={index}>
+                Olá {item.name}
+              </Text>
             ))
           ) : (
             <Text style={s.text}>Olá</Text>
@@ -47,11 +44,7 @@ export default function HeaderComponent() {
             <Text style={s.textviewInfo}>Perfil</Text>
           </TouchableOpacity>
         </View>
-
-
       </View>
     </SafeAreaView>
   );
 }
-
-

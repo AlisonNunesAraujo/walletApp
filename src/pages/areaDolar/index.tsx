@@ -13,7 +13,9 @@ export default function Dolar() {
     useEffect(() => {
         async function BuscarApi() {
             try {
-                const response = await api.get("USD-BRL,EUR-BRL,BTC-BRL,CAD-BRL,GBP-BRL,ARS-BRL,JPY-BRL,CHF-BRL,ILS-BRL,ETH-BRL");
+                const response = await api.get(
+                    "USD-BRL,EUR-BRL,BTC-BRL,CAD-BRL,GBP-BRL,ARS-BRL,JPY-BRL,CHF-BRL,ILS-BRL,ETH-BRL"
+                );
                 if (response.status !== 200) {
                     showMessage({
                         message: "Erro ao buscar dados",
@@ -43,17 +45,7 @@ export default function Dolar() {
                 data={dadosapi}
                 renderItem={({ item }) => <Render data={item} />}
                 style={s.conteiner}
-            // ListEmptyComponent={() => {
-            //     return (
-            //         <View style={{ marginTop: 50 }}>
-
-            //             <ActivityIndicator size="large" color="blue" />
-            //             <Text style={{ fontFamily: "Arial", fontSize: 14 }}>Carregando...</Text>
-            //         </View>
-            //     );
-            // }}
             />
-
         </View>
     );
 }
@@ -67,6 +59,4 @@ const s = StyleSheet.create({
         marginTop: 30,
         marginBottom: 20,
     },
-
-
 });

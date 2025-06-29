@@ -3,8 +3,9 @@ import {
   View,
   Text,
   TouchableOpacity,
-  SafeAreaView,
   StatusBar,
+  ScrollView,
+  SafeAreaView,
 } from "react-native";
 import { s } from "./style";
 import { useNavigation } from "@react-navigation/native";
@@ -12,12 +13,16 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
 import HeaderComponent from "../../components/Header";
 import * as Animatable from "react-native-animatable";
-
 import ScrollHome from "../../components/scrollHome";
 import CardSaldo from "../../components/cardSaldo";
 
+
+
+
 export default function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
+
+
 
   return (
     <SafeAreaView style={s.conteiner}>
@@ -46,6 +51,14 @@ export default function Home() {
           </Text>
         </TouchableOpacity>
       </Animatable.View>
+
+
+      <TouchableOpacity
+        style={s.buttonIA}
+        onPress={() => navigation.navigate("ChatIA")}
+      >
+        <Text>IA</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }

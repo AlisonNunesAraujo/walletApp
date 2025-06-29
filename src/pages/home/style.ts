@@ -36,5 +36,16 @@ export const s = StyleSheet.create({
     alignItems: "center",
     textAlign: "center",
   },
+  buttonIA: {
+    position: "absolute",
+    bottom: 20,
+    right: 40,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#00cc73",
+  }
  
 });

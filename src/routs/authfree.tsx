@@ -131,7 +131,7 @@ export function StackFree() {
       <Nav.Screen
         name="ChatIA"
         component={ChatIA}
-        options={{ title: "Converse com a IA" }}
+        options={{ title: "Chat" }}
       />
     </Nav.Navigator>
   );

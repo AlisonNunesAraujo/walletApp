@@ -9,7 +9,6 @@ export const s = StyleSheet.create({
     fontFamily: "Arial",
       fontSize: 18,
       textAlign: "center",
-      fontWeight: "700",
       marginTop: 10,
   },
   textSend: {

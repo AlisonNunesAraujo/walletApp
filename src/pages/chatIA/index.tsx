@@ -6,7 +6,7 @@ import {
     TextInput,
     ScrollView,
     Keyboard,
-    ActivityIndicator
+    ActivityIndicator,
 } from "react-native";
 import { s } from "./style";
 import Feather from "@expo/vector-icons/Feather";
@@ -36,7 +36,7 @@ export default function ChatIA() {
                 model: "gemini-2.5-flash",
                 contents: message,
             });
-            setMessage("")
+            setMessage("");
             setResposta(response.text ?? "");
             setLoading(false);
         } catch (err) {
@@ -50,22 +50,17 @@ export default function ChatIA() {
     return (
         <View style={s.container} onTouchStart={() => Keyboard.dismiss()}>
             <View>
-                {nameUser.map((item) => (
-                    <Text key={item.uid} style={s.textName}>
-                        Olá {item.name}
-                    </Text>
-                ))}
+
+                <Text style={s.textName}>Converse com a IA sobre finanças</Text>
                 <ScrollView style={s.areaResposta}>
                     <Text style={s.textSend}>{message}</Text>
-                    {loading ? (
-                        <ActivityIndicator size="large" color="black" />
-                    ) : (
-                        <Text style={s.textResposta}>{resposta}</Text>
-                    )}
+
+                    <Text style={s.textResposta}>{resposta}</Text>
                 </ScrollView>
             </View>
 
             <View style={s.footer}>
+                {loading && <ActivityIndicator size="large" color="#4CAF50" />}
                 <TextInput
                     placeholder="Mensagem"
                     value={message}

@@ -21,7 +21,7 @@
 ### Depois só rodar o app no emulador apertando a tecla A ou pelo celular mesmo apontando a camero do celular para o qrCode
 
 ## Apresentaçao do aplicativo!
-![foto do app](https://play-lh.googleusercontent.com/bye0Pap5Img5kHR69ZkCYSmKG7GtycWGVxkR1NsbzRPYKm51g7_jy4FeeWcsxAp5tg=w526-h296-rw)
+![foto do app](https://play-lh.googleusercontent.com/R-lfn4p2L0cUlymlhB_sgEgjbt8oA3HacO81x0b_NvtgJPMFl3TlhcUsqqgsPRUY9Sk=w526-h296-rw)
 
 
 ![foto do app](https://play-lh.googleusercontent.com/EH4wiRC2Ar7_SZJLYZqp82YRqMTEXzXBeUpR-hVNi152C791xbi9yEaL4r27QEHKBTs=w526-h296-rw)
@@ -34,4 +34,4 @@
 
 ![foto do app](https://play-lh.googleusercontent.com/EFhE17CGIkcz05is8_yXpjpCmtlqipRzE4bSkHaoJ98Y-0dGitwXeKR7qoJ6WtV7S1Y=w526-h296-rw)
 
-![foto do app](https://play-lh.googleusercontent.com/ur4kuwqjTYGqMblP_UA9MDc9je2nTgGtvepPC3PgL6oZvLhjWGjGGXA3jAYA7DPKyWs=w526-h296-rw)
+![foto do app](https://play-lh.googleusercontent.com/BG1uwRPSizy6KASnWQRLSlqmOPCXgY-mK9nJgaRj2-Wc3s_clc1rp1Xs-EP4Apu8QFZ7=w526-h296-rw)

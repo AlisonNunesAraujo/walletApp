@@ -6,6 +6,7 @@ import {
   StatusBar,
   ScrollView,
   SafeAreaView,
+  Alert,
 } from "react-native";
 import { s } from "./style";
 import { useNavigation } from "@react-navigation/native";
@@ -16,13 +17,8 @@ import * as Animatable from "react-native-animatable";
 import ScrollHome from "../../components/scrollHome";
 import CardSaldo from "../../components/cardSaldo";
 
-
-
-
 export default function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
-
-
 
   return (
     <SafeAreaView style={s.conteiner}>
@@ -52,10 +48,9 @@ export default function Home() {
         </TouchableOpacity>
       </Animatable.View>
 
-
       <TouchableOpacity
         style={s.buttonIA}
-        onPress={() => navigation.navigate("ChatIA")}
+        onPress={() => Alert.alert("Disponivel em breve!")}
       >
         <Text>IA</Text>
       </TouchableOpacity>

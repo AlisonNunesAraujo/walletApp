@@ -28,7 +28,7 @@
     "react-native-mask-text": "^0.14.2",
     "react-native-masked-text": "^1.12.5",
     "react-native-reanimated": "3.17.4",
-    "react-native-safe-area-context": "^5.4.0",
+    "react-native-safe-area-context": "^5.5.1",
     "react-native-screens": "4.11.1",
     "victory-native": "^41.17.4"
   },

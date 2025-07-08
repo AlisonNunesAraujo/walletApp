@@ -158,5 +158,6 @@ const s = StyleSheet.create({
   },
   textListVazia: {
     fontFamily: "Arial",
+    textAlign: "center",
   },
 });

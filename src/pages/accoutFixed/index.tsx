@@ -13,13 +13,12 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
 import { showMessage } from "react-native-flash-message";
-import { TextInputMask } from 'react-native-masked-text'
+import { TextInputMask } from "react-native-masked-text";
 
-import { s } from './style'
-
+import { s } from "./style";
 
 export default function AccoutFixed() {
-  const { addAccount, account, deleteAccountfixed, } = useContext(AuthContext);
+  const { addAccount, account, deleteAccountfixed } = useContext(AuthContext);
   const [modal, setModal] = useState(false);
   const [nameAccount, setNameAccount] = useState("");
   const [valor, setValor] = useState("");
@@ -54,7 +53,6 @@ export default function AccoutFixed() {
     <View style={s.conteiner}>
       <StatusBar backgroundColor={"white"} />
       <View style={s.header}>
-
         <Text style={s.Title}>Voçe quer adicionar uma conta fixa?</Text>
         <TouchableOpacity
           onPress={() => setModal(true)}
@@ -64,7 +62,6 @@ export default function AccoutFixed() {
         </TouchableOpacity>
       </View>
 
-
       <View style={s.areaRender}>
         <FlatList
           horizontal
@@ -72,14 +69,9 @@ export default function AccoutFixed() {
           data={account}
           renderItem={({ item }) => (
             <View style={s.grupoAccount}>
-              <Text style={s.text}>Conta: {item.nameAccount}
-              </Text>
-              <Text style={s.text}>
-                {item.valor}
-              </Text>
-              <Text style={s.text}>
-                Vencimento: {item.vencimento}
-              </Text>
+              <Text style={s.text}>Conta: {item.nameAccount}</Text>
+              <Text style={s.text}>{item.valor}</Text>
+              <Text style={s.text}>Vencimento: {item.vencimento}</Text>
               <TouchableOpacity
                 style={s.bntFlat}
                 onPress={() => Delete(item.uid)}
@@ -98,8 +90,6 @@ export default function AccoutFixed() {
             );
           }}
         />
-
-
       </View>
 
       <Modal visible={modal} animationType="slide">
@@ -146,5 +136,3 @@ export default function AccoutFixed() {
     </View>
   );
 }
-
-

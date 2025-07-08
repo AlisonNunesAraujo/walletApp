@@ -97,7 +97,6 @@ export function AuthProvider({ children }: ChildrenProp) {
         setGastos(lista);
         const saldo = lista.reduce((acc, item) => acc + item.gastos, 0);
         setSaldoGastos([saldo]);
-        // console.log(saldo);
       });
     }
 

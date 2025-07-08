@@ -3,11 +3,11 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  SafeAreaView,
-  Modal as RnModal,
   FlatList,
+  StatusBar,
+  Platform,
+  SafeAreaView,
 } from "react-native";
-import * as Animatable from "react-native-animatable";
 import Feather from "@expo/vector-icons/Feather";
 import { AuthContext } from "../../contextApi";
 import { useContext } from "react";
@@ -23,7 +23,12 @@ export default function HeaderComponent() {
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
   return (
-    <SafeAreaView>
+    <SafeAreaView
+      style={{
+        backgroundColor: "#f0f0f0",
+      }}
+    >
+      <StatusBar backgroundColor="#f0f0f0" barStyle={"dark-content"} />
       <View style={s.header}>
         <View style={s.viewInfo}>
           {nameUser.length > 0 ? (

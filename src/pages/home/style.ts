@@ -38,8 +38,8 @@ export const s = StyleSheet.create({
   },
   buttonIA: {
     position: "absolute",
-    bottom: 20,
-    right: 40,
+    bottom: 35,
+    right: 50,
     width: 50,
     height: 50,
     borderRadius: 25,

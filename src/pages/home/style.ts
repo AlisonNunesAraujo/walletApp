@@ -38,7 +38,7 @@ export const s = StyleSheet.create({
   },
   buttonIA: {
     position: "absolute",
-    bottom: 35,
+    bottom: 60,
     right: 50,
     width: 50,
     height: 50,
@@ -46,6 +46,11 @@ export const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#00cc73",
+  },
+  ViewRede:{
+    width: "100%",
+    bottom: 0,
+    position: "absolute"
   }
  
 });

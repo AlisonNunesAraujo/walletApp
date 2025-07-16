@@ -19,6 +19,7 @@ import { TypesGastos } from "./types";
 import { DeletarProp, listAccount, nome } from "./types";
 import { useNavigation } from "@react-navigation/native";
 import { Alert } from "react-native";
+
 export const AuthContext = createContext({} as States);
 
 export function AuthProvider({ children }: ChildrenProp) {
@@ -37,10 +38,6 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [saldoGastos, setSaldoGastos] = useState([0.0]);
   const [saldoTotal, setSaldoTotal] = useState([0.0]);
 
-  
-
-
-
   useEffect(() => {
     async function ViewUser() {
       try {
@@ -57,7 +54,6 @@ export function AuthProvider({ children }: ChildrenProp) {
 
     ViewUser();
 
-    
     async function buscarDados() {
       const ref = collection(db, "receita");
 
@@ -105,7 +101,6 @@ export function AuthProvider({ children }: ChildrenProp) {
 
     RendleGastos();
 
-    
     async function BuscarAccount() {
       const ref = collection(db, "Account");
       const queryAccount = query(ref, where("uid", "==", user.uid));
@@ -121,15 +116,11 @@ export function AuthProvider({ children }: ChildrenProp) {
           });
         });
         setAccount(lista);
-        
-     
-        
       });
     }
 
     BuscarAccount();
 
- 
     async function GetName() {
       const ref = collection(db, "users");
 
@@ -150,7 +141,6 @@ export function AuthProvider({ children }: ChildrenProp) {
 
     GetName();
   }, [Deletar, deleteAccountfixed]);
-
 
   async function CreateUser({
     email,
@@ -196,7 +186,6 @@ export function AuthProvider({ children }: ChildrenProp) {
     }
   }
 
-
   async function Login({ email, senha }: { email: string; senha: string }) {
     setLoading(true);
     try {
@@ -224,7 +213,6 @@ export function AuthProvider({ children }: ChildrenProp) {
     }
   }
 
- 
   async function Deletar({ uid }: DeletarProp) {
     setLoading(true);
     const data = doc(db, "receita", uid);
@@ -246,7 +234,6 @@ export function AuthProvider({ children }: ChildrenProp) {
       });
   }
 
-
   async function DeletarGastos({ uid }: DeletarProp) {
     const data = doc(db, "gastos", uid);
 
@@ -263,7 +250,6 @@ export function AuthProvider({ children }: ChildrenProp) {
         });
       });
   }
-
 
   async function AddReceita({
     addValor,
@@ -295,16 +281,15 @@ export function AuthProvider({ children }: ChildrenProp) {
         type: "success",
       });
       setLoading(false);
-    } catch(err) {
+    } catch (err) {
       showMessage({
         message: "Algo deu errado!",
       });
       setLoading(false);
-      console.log(err)
+      console.log(err);
     }
   }
 
-  
   async function AddGastos({
     addValor,
     addDesc,
@@ -343,7 +328,6 @@ export function AuthProvider({ children }: ChildrenProp) {
     }
   }
 
- 
   async function addAccount({
     nameAccount,
     valor,
@@ -361,7 +345,6 @@ export function AuthProvider({ children }: ChildrenProp) {
     });
   }
 
-  
   async function deleteAccountfixed({ uid }: { uid: string }) {
     const data = doc(db, "Account", uid);
 
@@ -393,7 +376,6 @@ export function AuthProvider({ children }: ChildrenProp) {
       });
   }
 
- 
   async function AddName({ name }: { name: string }) {
     try {
       const data = await addDoc(collection(db, "users"), {
@@ -433,7 +415,7 @@ export function AuthProvider({ children }: ChildrenProp) {
         nameUser,
         saldoGastos,
         saldoReceita,
-        saldoTotal
+        saldoTotal,
       }}
     >
       {children}

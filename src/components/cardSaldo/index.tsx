@@ -34,6 +34,7 @@ export default function CardSaldo() {
       </View>
       <View>
         <FlatList
+        
           data={saldoGastos}
           renderItem={({ item }) => (
             <View style={s.areaSaldo}>
@@ -66,6 +67,7 @@ const s = StyleSheet.create({
     marginTop: 20,
     justifyContent: "space-between",
   },
+  
   areaSaldo: {
     flexDirection: "row",
     justifyContent: "space-between",

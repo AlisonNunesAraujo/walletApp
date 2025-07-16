@@ -6,6 +6,7 @@ import {
   StatusBar,
   SafeAreaView,
   Alert,
+  ScrollView
 } from "react-native";
 import { s } from "./style";
 import { useNavigation } from "@react-navigation/native";
@@ -15,33 +16,34 @@ import HeaderComponent from "../../components/Header";
 import * as Animatable from "react-native-animatable";
 import ScrollHome from "../../components/scrollHome";
 import CardSaldo from "../../components/cardSaldo";
-import NetInfo from '@react-native-community/netinfo';
+import NetInfo from "@react-native-community/netinfo";
+import VerifiquedRede from "../../components/verifiquedRede";
 export default function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
-
   const [isConnected, setIsConnected] = useState(true);
-  
-    useEffect(() => {
-      const unsubscribe = NetInfo.addEventListener((state) => {
-        setIsConnected( state.isConnected ?? true);
-  
-        if (!state.isConnected) {
-          Alert.alert('Sem internet', 'Você está offline.');
-        }
-      })
+
+  useEffect(() => {
+    const verifiquedRede = NetInfo.addEventListener((state) => {
+      setIsConnected(state.isConnected ?? true);
+
+      if (!state.isConnected) {
+        Alert.alert("Sem internet", "Você está offline.");
+      }
+      
      
-  
-     
-    }, []);
-  
+    });
+     return () => verifiquedRede();
+  }, []);
 
   return (
     <SafeAreaView style={s.conteiner}>
-      <StatusBar backgroundColor="#f0f0f0" barStyle={"dark-content"} />
+    
+        <StatusBar backgroundColor="#f0f0f0" barStyle={"dark-content"} />
       <HeaderComponent />
       <CardSaldo />
       <ScrollHome />
+    
 
       <Animatable.View animation="fadeIn" style={s.areaView}>
         <TouchableOpacity
@@ -64,12 +66,16 @@ export default function Home() {
         </TouchableOpacity>
       </Animatable.View>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={s.buttonIA}
         onPress={() => navigation.navigate("ChatIA")}
       >
         <Text>IA</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+      <View style={s.ViewRede}>
+          {isConnected ? null : <VerifiquedRede />}
+      </View>
+     
     </SafeAreaView>
   );
 }

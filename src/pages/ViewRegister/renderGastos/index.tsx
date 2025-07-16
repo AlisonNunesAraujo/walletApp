@@ -13,7 +13,7 @@ export default function RenderGastos({ data }: { data: TypesGastos }) {
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
-  // Função para deletar gastos
+ 
   function Deletar(uid: string) {
     DeletarGastos({ uid });
   }

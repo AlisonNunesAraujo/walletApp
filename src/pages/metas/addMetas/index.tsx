@@ -27,7 +27,7 @@ export default function Item() {
     const route = useRoute<DadosProps>();
     const [valor, setValor] = useState("");
 
-    // Função para adicionar a meta
+   
     async function PostMeta() {
         if (valor === "") {
             showMessage({

@@ -13,7 +13,7 @@ export default function RenderReceita({ data }: { data: TypesReceita }) {
   const { Deletar } = useContext(AuthContext);
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
-  // Função para deletar receita
+  
   function Delete(uid: string) {
     Deletar({ uid });
   }

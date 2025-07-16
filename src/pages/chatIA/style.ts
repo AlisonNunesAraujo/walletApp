@@ -3,43 +3,44 @@ import { StyleSheet } from "react-native";
 export const s = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "#000",
   },
   textName: {
     fontFamily: "Arial",
-      fontSize: 18,
-      textAlign: "center",
-      marginTop: 10,
+    fontSize: 18,
+    textAlign: "center",
+    marginTop: 10,
+  },
+  areaResposta: {
+    width: "100%",
+    paddingHorizontal: 20,
+    backgroundColor: "#000",
   },
   textSend: {
     fontSize: 14,
-    color: "black",
+    color: "white",
     fontFamily: "Arial",
     letterSpacing: 1.5,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   textResposta: {
     fontSize: 15,
-    color: "green",
+    color: "#fff",
     fontFamily: "Arial",
+    marginBottom: 5,
     letterSpacing: 1.5,
-      marginBottom: 10,
+    
   },
   footer: {
     width: "100%",
     height: 100,
-    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
     paddingHorizontal: 20,
     position: "absolute",
     bottom: 0,
-  },
-  areaResposta: {
-    width: "100%",
-    height: "80%",
-    paddingHorizontal: 20,
+    backgroundColor: "#000",
   },
 
   input: {

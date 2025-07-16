@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
   SafeAreaView,
-  StyleSheet,
+  Alert,
   StatusBar,
-  TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
 import { showMessage } from "react-native-flash-message";
@@ -17,21 +16,43 @@ import { ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
-import * as Animatable from "react-native-animatable";
 import { TextInputMask } from "react-native-masked-text";
+import NetInfo from '@react-native-community/netinfo';
+import { s } from "./style";
 
-import { s } from './style'
+
 
 export default function AddRegister() {
   const { user, receita, gastos, AddReceita, AddGastos, load, loading } =
     useContext(AuthContext);
   const [addValor, setAddValor] = useState("");
-  const [addDesc, setAdddesc] = useState("")
+  const [addDesc, setAdddesc] = useState("");
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
-  // Função para adicionar receita
+
+   const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected( state.isConnected ?? true);
+
+      if (!state.isConnected) {
+        Alert.alert('Sem internet', 'Você está offline.');
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+
+
+
   async function AddvalorReceita() {
+    if (!isConnected) {
+      Alert.alert('Sem internet', 'Você está offline.');
+      return;
+    }
     if (addValor === "") {
       showMessage({
         message: "Digite algo!",
@@ -45,7 +66,6 @@ export default function AddRegister() {
     setAdddesc("");
   }
 
-  // Função para adicionar gastos
   async function AddvalorGastos() {
     if (addValor === "") {
       showMessage({
@@ -61,7 +81,6 @@ export default function AddRegister() {
   }
 
   return (
-
     <SafeAreaView style={s.conteiner} onTouchStart={Keyboard.dismiss}>
       <StatusBar backgroundColor="white" barStyle={"dark-content"} />
 
@@ -100,7 +119,6 @@ export default function AddRegister() {
             )}
           </TouchableOpacity>
         </View>
-
       </View>
       <TouchableOpacity
         onPress={() => navigation.navigate("ViewRegister")}
@@ -117,5 +135,3 @@ export default function AddRegister() {
     </SafeAreaView>
   );
 }
-
-

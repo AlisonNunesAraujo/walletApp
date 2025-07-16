@@ -24,7 +24,7 @@ export default function Profille() {
 
     const [name, setName] = useState("");
 
-    // chamar a função de logout
+ 
     async function Exit() {
         Alert.alert(
             "Deseja realmente sair?",

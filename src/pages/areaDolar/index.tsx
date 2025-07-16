@@ -10,8 +10,7 @@ export default function Dolar() {
   const [dadosapi, setDadosapi] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Função para buscar dados da API
-  // Utilizando useEffect para chamar a API quando o componente for montado
+  
   useEffect(() => {
     async function BuscarApi() {
         setLoading(true);

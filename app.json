@@ -20,7 +20,8 @@
         "foregroundImage": "./assets/appIcone.jpg",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.alisonaraujo.Wallet"
+      "package": "com.alisonaraujo.Wallet",
+      "targetSdkVersion": 35
     },
     "web": {
       "favicon": "./assets/appIcone.jpg"

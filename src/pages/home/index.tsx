@@ -1,10 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   StatusBar,
-  ScrollView,
   SafeAreaView,
   Alert,
 } from "react-native";
@@ -16,9 +15,26 @@ import HeaderComponent from "../../components/Header";
 import * as Animatable from "react-native-animatable";
 import ScrollHome from "../../components/scrollHome";
 import CardSaldo from "../../components/cardSaldo";
-
+import NetInfo from '@react-native-community/netinfo';
 export default function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
+
+
+  const [isConnected, setIsConnected] = useState(true);
+  
+    useEffect(() => {
+      const unsubscribe = NetInfo.addEventListener((state) => {
+        setIsConnected( state.isConnected ?? true);
+  
+        if (!state.isConnected) {
+          Alert.alert('Sem internet', 'Você está offline.');
+        }
+      })
+     
+  
+     
+    }, []);
+  
 
   return (
     <SafeAreaView style={s.conteiner}>
@@ -50,7 +66,7 @@ export default function Home() {
 
       <TouchableOpacity
         style={s.buttonIA}
-        onPress={() => Alert.alert("Disponivel em breve!")}
+        onPress={() => navigation.navigate("ChatIA")}
       >
         <Text>IA</Text>
       </TouchableOpacity>

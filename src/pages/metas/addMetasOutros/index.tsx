@@ -22,7 +22,7 @@ export default function AddMetasOutros() {
     const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
 
-    // Função para adicionar a meta
+
 
     async function AddMeta() {
         if (title === "" || valor === "") {

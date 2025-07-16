@@ -27,6 +27,7 @@ export type States = {
   nameUser: nome[];
   saldoReceita: number[]|null;
   saldoGastos: number[]|null;
+  saldoTotal: number[]|null;
 };
 
 

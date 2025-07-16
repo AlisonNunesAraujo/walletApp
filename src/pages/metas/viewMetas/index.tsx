@@ -35,7 +35,7 @@ export default function ViewMetas() {
     const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
     useEffect(() => {
-        // Função para buscar as metas do usuário
+    
         async function GetMetas() {
             try {
                 const data = collection(db, "metasCards");

@@ -18,18 +18,17 @@ import { TextInputMask } from "react-native-masked-text";
 import { s } from "./style";
 
 export default function AccoutFixed() {
-  const { addAccount, account, deleteAccountfixed } = useContext(AuthContext);
+  const { addAccount, account, deleteAccountfixed, saldoTotal } =
+    useContext(AuthContext);
   const [modal, setModal] = useState(false);
   const [nameAccount, setNameAccount] = useState("");
   const [valor, setValor] = useState("");
   const [vencimento, setVencimento] = useState("");
 
-  // Função para deletar a conta fixa
   function Delete(uid: string) {
     deleteAccountfixed({ uid });
   }
 
-  // Função para adicionar a conta fixa
   function Add() {
     Keyboard.dismiss();
 
@@ -52,6 +51,7 @@ export default function AccoutFixed() {
   return (
     <View style={s.conteiner}>
       <StatusBar backgroundColor={"white"} />
+
       <View style={s.header}>
         <Text style={s.Title}>Voçe quer adicionar uma conta fixa?</Text>
         <TouchableOpacity
@@ -89,6 +89,16 @@ export default function AccoutFixed() {
               </View>
             );
           }}
+        />
+      </View>
+      <View>
+        <FlatList
+          data={saldoTotal}
+          renderItem={({ item }) => (
+            <View style={s.grupoAccount}>
+              <Text style={s.text}>Saldo: {item}</Text>
+            </View>
+          )}
         />
       </View>
 

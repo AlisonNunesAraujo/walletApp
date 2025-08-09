@@ -6,15 +6,12 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   SafeAreaView,
-  StyleSheet,
 } from "react-native";
 import { ActivityIndicator } from "react-native";
 import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
-
 import { AuthContext } from "../../contextApi";
-
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RoutAuthProp } from "../../routs/auth";
 import { useState } from "react";
@@ -36,10 +33,12 @@ export default function SigIn() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={s.areaLogin}>
-        <View style={s.form}>
-          <Feather name="user" size={30} color="white" />
+      <View style={s.header}>
+      
+        <Feather name="user" size={40} color="black" />
           <Text style={s.Title}>Entre na sua conta!</Text>
-
+      </View>
+        <View style={s.form}>
           <View style={s.areaInputs}>
             <Text style={s.label}>
               Email:

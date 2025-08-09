@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -6,7 +6,7 @@ import {
   StatusBar,
   SafeAreaView,
   Alert,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import { s } from "./style";
 import { useNavigation } from "@react-navigation/native";
@@ -18,9 +18,11 @@ import ScrollHome from "../../components/scrollHome";
 import CardSaldo from "../../components/cardSaldo";
 import NetInfo from "@react-native-community/netinfo";
 import VerifiquedRede from "../../components/verifiquedRede";
+import { AuthContext } from "../../contextApi";
+
 export default function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
-
+  const { nameUser } = useContext(AuthContext);
   const [isConnected, setIsConnected] = useState(true);
 
   useEffect(() => {
@@ -30,20 +32,16 @@ export default function Home() {
       if (!state.isConnected) {
         Alert.alert("Sem internet", "Você está offline.");
       }
-      
-     
     });
-     return () => verifiquedRede();
+    return () => verifiquedRede();
   }, []);
 
   return (
     <SafeAreaView style={s.conteiner}>
-    
-        <StatusBar backgroundColor="#f0f0f0" barStyle={"dark-content"} />
+      <StatusBar backgroundColor="#f0f0f0" barStyle={"dark-content"} />
       <HeaderComponent />
       <CardSaldo />
       <ScrollHome />
-    
 
       <Animatable.View animation="fadeIn" style={s.areaView}>
         <TouchableOpacity
@@ -72,9 +70,8 @@ export default function Home() {
       >
         <Text>IA</Text>
       </TouchableOpacity> */}
-      <View style={s.ViewRede}>
-          {isConnected ? null : <VerifiquedRede />}
-      </View>
+      <View style={s.ViewRede}>{isConnected ? null : <VerifiquedRede />}</View>
+
      
     </SafeAreaView>
   );

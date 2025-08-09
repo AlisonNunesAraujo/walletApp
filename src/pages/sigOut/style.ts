@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from "react-native";
 
 export const s = StyleSheet.create({
   areaLogin: {
@@ -6,32 +6,41 @@ export const s = StyleSheet.create({
     backgroundColor: "white",
   },
 
-  form: {
+  header: {
     width: "100%",
-    backgroundColor: "#1D393C",
+    height: "20%",
+    backgroundColor: "white",
+    padding: 20,
     justifyContent: "center",
     alignItems: "center",
-    height: "100%",
+  },
+
+  form: {
+    width: "100%",
+    height: "80%",
+    backgroundColor: "#1D393C",
+    alignItems: "center",
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
   },
   Title: {
     fontSize: 20,
     fontFamily: "Arial",
     margin: 20,
-    opacity: 0.7,
-    fontWeight: '700',
-    color: 'white'
-
+    color: "black",
+    opacity: 0.8,
+    fontWeight: "700",
   },
-  areaInputs:{
+  areaInputs: {
     width: "100%",
+    marginTop: 30,
   },
-
-   label:{
+  label: {
     marginLeft: "5%",
     fontSize: 16,
     fontFamily: "Arial",
-    color: 'white',
-    letterSpacing: 1.5
+    color: "white",
+    letterSpacing: 1.5,
   },
 
   formInput: {
@@ -41,7 +50,7 @@ export const s = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
     marginLeft: "5%",
-    color: "white"
+    color: "white",
   },
 
   bnts: {

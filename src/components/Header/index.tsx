@@ -38,7 +38,7 @@ export default function HeaderComponent() {
               </Text>
             ))
           ) : (
-            <Text style={s.text}>Olá</Text>
+            <Text style={s.text}>Olá, Bem Vindo!</Text>
           )}
 
           <TouchableOpacity

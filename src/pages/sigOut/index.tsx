@@ -35,10 +35,13 @@ export default function SigIn() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={s.areaLogin}>
+        <View style={s.header}>
+      
+        <Feather name="user" size={40} color="black" />
+          <Text style={s.Title}>Entre na sua conta!</Text>
+      </View>
         <View style={s.form}>
-          <Feather name="user" size={30} color="white" />
-          <Text style={s.Title}>Criar sua conta!</Text>
-
+      
           <View style={s.areaInputs}>
             <Text style={s.label}>Nome:</Text>
             <TextInput

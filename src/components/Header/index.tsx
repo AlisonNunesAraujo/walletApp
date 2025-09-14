@@ -6,8 +6,8 @@ import {
   FlatList,
   StatusBar,
   Platform,
-  SafeAreaView,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Feather from "@expo/vector-icons/Feather";
 import { AuthContext } from "../../contextApi";
 import { useContext } from "react";

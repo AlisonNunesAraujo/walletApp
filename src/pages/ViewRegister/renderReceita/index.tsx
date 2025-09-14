@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import { Text,  TouchableOpacity, StyleSheet } from "react-native";
 import { TypesReceita } from "../../../contextApi/types";
 import * as Animateble from "react-native-animatable";
 import { useContext } from "react";

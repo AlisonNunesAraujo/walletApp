@@ -1,4 +1,3 @@
-import { SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthProvider } from "./src/contextApi";
 import { Private } from "./src/routs/prive";

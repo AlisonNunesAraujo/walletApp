@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  SafeAreaView,
   StyleSheet,
   StatusBar,
   FlatList,
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
 import RenderReceita from "./renderReceita";

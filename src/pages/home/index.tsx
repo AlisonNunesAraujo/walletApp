@@ -4,10 +4,10 @@ import {
   Text,
   TouchableOpacity,
   StatusBar,
-  SafeAreaView,
   Alert,
   ScrollView,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { s } from "./style";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -64,12 +64,7 @@ export default function Home() {
         </TouchableOpacity>
       </Animatable.View>
 
-      {/* <TouchableOpacity
-        style={s.buttonIA}
-        onPress={() => navigation.navigate("ChatIA")}
-      >
-        <Text>IA</Text>
-      </TouchableOpacity> */}
+      
       <View style={s.ViewRede}>{isConnected ? null : <VerifiquedRede />}</View>
 
      

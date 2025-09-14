@@ -3,7 +3,6 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    SafeAreaView,
     Modal,
     Image,
     TextInput,
@@ -11,6 +10,7 @@ import {
     FlatList,
     Alert,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import * as Animatable from "react-native-animatable";
 import Feather from "@expo/vector-icons/Feather";
 import { AuthContext } from "../../contextApi";

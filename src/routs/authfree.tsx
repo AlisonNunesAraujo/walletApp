@@ -13,7 +13,7 @@ import Item from "../pages/metas/addMetas";
 import AddMetasOutros from "../pages/metas/addMetasOutros";
 import ViewMetas from "../pages/metas/viewMetas";
 import InfoMetas from "../pages/metas/infoMetas";
-import ChatIA from "../pages/chatIA";
+
 
 export type ParamList = {
   Home: undefined;
@@ -45,7 +45,7 @@ export type ParamList = {
     title: string;
     metas: React.ReactNode;
   };
-  ChatIA: undefined;
+
 };
 
 const Nav = createNativeStackNavigator<ParamList>();
@@ -128,11 +128,7 @@ export function StackFree() {
         options={{ title: "Informações" }}
       />
 
-      <Nav.Screen
-        name="ChatIA"
-        component={ChatIA}
-        options={{ title: "Chat" }}
-      />
+      
     </Nav.Navigator>
   );
 }

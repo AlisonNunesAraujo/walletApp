@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
-import { View, FlatList, Text, StyleSheet } from "react-native";
+import { View, FlatList, Text, StyleSheet, } from "react-native";
 import { api } from "../../services";
 import Render from "./render";
 import { showMessage } from "react-native-flash-message";
 import { ActivityIndicator } from "react-native";
-import { se } from "date-fns/locale";
 
 export default function Dolar() {
   const [dadosapi, setDadosapi] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  
   useEffect(() => {
     async function BuscarApi() {
-        setLoading(true);
+      setLoading(true);
       try {
         const response = await api.get(
           "USD-BRL,EUR-BRL,BTC-BRL,CAD-BRL,GBP-BRL,ARS-BRL,JPY-BRL,CHF-BRL,ILS-BRL,ETH-BRL"
@@ -23,12 +21,9 @@ export default function Dolar() {
             message: "Erro ao buscar dados",
             type: "danger",
           });
-          return;
-          
         }
         setDadosapi(Object.values(response.data));
       } catch (error) {
-        alert("Algo deu errado!");
         setLoading(false);
       }
       setLoading(false);
@@ -46,13 +41,22 @@ export default function Dolar() {
         justifyContent: "center",
       }}
     >
-     {loading ? (
+      {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <FlatList
           data={dadosapi}
-          renderItem={({ item }) => <Render data={item}/>}
-          keyExtractor={(item: {code: string}) => item.code}
+          renderItem={({ item }) => <Render data={item} />}
+          keyExtractor={(item: { code: string }) => item.code}
+          ListEmptyComponent={() => {
+            return (
+              <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <Text style={{ fontFamily: "Arial" }}>
+                  Algo deu errado, estamos resolvendo!
+                </Text>
+              </View>
+            );
+          }}
           style={s.conteiner}
         />
       )}

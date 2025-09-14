@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { TypesGastos } from "../../../contextApi/types";
 import { useContext } from "react";
 import * as Animatebale from "react-native-animatable";

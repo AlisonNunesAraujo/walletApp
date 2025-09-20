@@ -1,11 +1,8 @@
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
-  FlatList,
   StatusBar,
-  Platform,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Feather from "@expo/vector-icons/Feather";
@@ -23,13 +20,10 @@ export default function HeaderComponent() {
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
   return (
-    <SafeAreaView
-      style={{
-        backgroundColor: "#f0f0f0",
-      }}
-    >
-      <StatusBar backgroundColor="#f0f0f0" barStyle={"dark-content"} />
+    
+     
       <View style={s.header}>
+         <StatusBar backgroundColor="#f0f0f0" barStyle={"dark-content"} />
         <View style={s.viewInfo}>
           {nameUser.length > 0 ? (
             nameUser.map((item, index) => (
@@ -50,6 +44,5 @@ export default function HeaderComponent() {
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
   );
 }

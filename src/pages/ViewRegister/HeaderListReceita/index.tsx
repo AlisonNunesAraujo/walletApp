@@ -7,7 +7,6 @@ export default function HeaderListReceita() {
         style={{
           fontSize: 15,
           fontFamily: "Arial",
-          fontWeight: "700",
           marginBottom: 10,
         }}
       >

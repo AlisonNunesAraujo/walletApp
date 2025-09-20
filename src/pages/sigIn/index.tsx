@@ -25,7 +25,6 @@ export default function SigIn() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
- 
   async function Logar() {
     Login({ email, senha });
   }
@@ -33,16 +32,13 @@ export default function SigIn() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={s.areaLogin}>
-      <View style={s.header}>
-      
-        <Feather name="user" size={40} color="black" />
+        <View style={s.header}>
+          <Feather name="user" size={40} color="black" />
           <Text style={s.Title}>Entre na sua conta!</Text>
-      </View>
+        </View>
         <View style={s.form}>
           <View style={s.areaInputs}>
-            <Text style={s.label}>
-              Email:
-            </Text>
+            <Text style={s.label}>Email:</Text>
             <TextInput
               placeholder="E-Mail"
               value={email}
@@ -50,9 +46,7 @@ export default function SigIn() {
               placeholderTextColor={"#ccc"}
               style={s.formInput}
             />
-            <Text style={s.label}>
-              Senha:
-            </Text>
+            <Text style={s.label}>Senha:</Text>
             <TextInput
               placeholder="Password"
               value={senha}

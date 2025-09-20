@@ -37,8 +37,7 @@ export default function Home() {
   }, []);
 
   return (
-    <SafeAreaView style={s.conteiner}>
-      <StatusBar backgroundColor="#f0f0f0" barStyle={"dark-content"} />
+    <SafeAreaView style={s.container}>
       <HeaderComponent />
       <CardSaldo />
       <ScrollHome />
@@ -64,10 +63,7 @@ export default function Home() {
         </TouchableOpacity>
       </Animatable.View>
 
-      
       <View style={s.ViewRede}>{isConnected ? null : <VerifiquedRede />}</View>
-
-     
     </SafeAreaView>
   );
 }

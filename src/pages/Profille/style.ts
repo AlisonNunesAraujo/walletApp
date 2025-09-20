@@ -1,12 +1,6 @@
 import {StyleSheet} from 'react-native';
 
 export const s = StyleSheet.create({
-    header: {
-        width: "100%",
-        height: "auto",
-        backgroundColor: "#ccc",
-        boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
-    },
     viewInfo: {
         alignItems: "center",
         justifyContent: "space-between",
@@ -62,6 +56,7 @@ export const s = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "white",
         padding: 20,
+        
     },
     Title: {
         fontFamily: "Arial",
@@ -99,7 +94,4 @@ export const s = StyleSheet.create({
         padding: 20,
         
     },
-    
-   
-    
 });

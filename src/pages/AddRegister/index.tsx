@@ -23,8 +23,7 @@ import { s } from "./style";
 
 
 export default function AddRegister() {
-  const { user, receita, gastos, AddReceita, AddGastos, load, loading } =
-    useContext(AuthContext);
+  const {  AddReceita, AddGastos, load, loading } = useContext(AuthContext);
   const [addValor, setAddValor] = useState("");
   const [addDesc, setAdddesc] = useState("");
 
@@ -82,7 +81,7 @@ export default function AddRegister() {
 
   return (
     <SafeAreaView style={s.conteiner} onTouchStart={Keyboard.dismiss}>
-      <StatusBar backgroundColor="white" barStyle={"dark-content"} />
+   
 
       <View style={s.areaAdd}>
         <Text style={s.title}>Adicionar um registro!</Text>

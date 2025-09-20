@@ -9,7 +9,6 @@ export const s = StyleSheet.create({
 
   areaAdd: {
     width: "90%",
-    marginTop: 20,
     backgroundColor: "#00cc73",
     padding: 10,
     justifyContent: "center",

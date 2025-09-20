@@ -50,7 +50,7 @@ export default function AccoutFixed() {
 
   return (
     <View style={s.conteiner}>
-      <StatusBar backgroundColor={"white"} />
+  
 
       <View style={s.header}>
         <Text style={s.Title}>Voçe quer adicionar uma conta fixa?</Text>

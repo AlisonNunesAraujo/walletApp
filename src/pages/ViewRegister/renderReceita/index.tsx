@@ -1,10 +1,9 @@
-import { Text,  TouchableOpacity, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { TypesReceita } from "../../../contextApi/types";
 import * as Animateble from "react-native-animatable";
 import { useContext } from "react";
 import { AuthContext } from "../../../contextApi";
 import Feather from "@expo/vector-icons/Feather";
-
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../../routs/authfree";
 import { useNavigation } from "@react-navigation/native";
@@ -13,7 +12,6 @@ export default function RenderReceita({ data }: { data: TypesReceita }) {
   const { Deletar } = useContext(AuthContext);
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
-  
   function Delete(uid: string) {
     Deletar({ uid });
   }

@@ -20,14 +20,12 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
 import * as Animatable from "react-native-animatable";
 export default function ViewRegister() {
-  const { user, receita, gastos, load, loading } = useContext(AuthContext);
+  const { user, receita, gastos } = useContext(AuthContext);
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <SafeAreaView style={s.conteiner}>
-        <StatusBar backgroundColor={"white"} />
-
+      <SafeAreaView style={s.container}>
         <Animatable.View animation="fadeIn" style={s.areaFlat}>
           <FlatList
             ListHeaderComponent={<HeaderListReceita />}
@@ -67,7 +65,7 @@ export default function ViewRegister() {
 }
 
 const s = StyleSheet.create({
-  conteiner: {
+  container: {
     flex: 1,
     backgroundColor: "#fff4ff",
     alignItems: "center",

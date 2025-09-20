@@ -101,7 +101,7 @@ export function StackFree() {
       <Nav.Screen
         name="Profille"
         component={Profille}
-        options={{ title: "Informações" }}
+        options={{ title: "Informações", headerShown: false }}
       />
       <Nav.Screen
         name="Metas"

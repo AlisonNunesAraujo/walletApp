@@ -31,8 +31,8 @@ export default function Profille() {
   }
 
   return (
-    <SafeAreaView>
-      <Animatable.View animation="fadeIn">
+    <SafeAreaView style={s.container}>
+      <View >
         <View style={s.Profile}>
           <View style={s.areaEmail}>
             {nameUser.map((item, index) => (
@@ -52,14 +52,15 @@ export default function Profille() {
 
           <View style={s.infoSobre}>
             <Text style={s.Title}>Sobre o Aplicativo</Text>
-            <Text style={s.modalText}>
+            <Text style={s.textSobre}>
               Voçe pode registrar despesas e receitas ao criar uma conta no
               Aplicaivo, caso deseje! Também pode conferir a cotação em tempo
               real, criar um lembrete de uma conta fixa do mês!
             </Text>
           </View>
         </View>
-      </Animatable.View>
+
+      </View>
     </SafeAreaView>
   );
 }

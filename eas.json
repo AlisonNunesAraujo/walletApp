@@ -16,11 +16,20 @@
     },
     "production": {
       "autoIncrement": true
-      
     }
-    
   },
   "submit": {
     "production": {}
+  },
+
+  "android": {
+    "useNextNotificationsApi": true,
+    "permissions": ["NOTIFICATIONS"]
+  },
+  "ios": {
+    "supportsTablet": true,
+    "infoPlist": {
+      "UIBackgroundModes": ["remote-notification"]
+    }
   }
 }

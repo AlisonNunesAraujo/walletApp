@@ -1,9 +1,4 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StatusBar,
-} from "react-native";
+import { View, Text, TouchableOpacity, StatusBar } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Feather from "@expo/vector-icons/Feather";
 import { AuthContext } from "../../contextApi";
@@ -20,29 +15,26 @@ export default function HeaderComponent() {
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
   return (
-    
-     
-      <View style={s.header}>
-         <StatusBar backgroundColor="#f0f0f0" barStyle={"dark-content"} />
-        <View style={s.viewInfo}>
-          {nameUser.length > 0 ? (
-            nameUser.map((item, index) => (
-              <Text style={s.text} key={index}>
-                Olá {item.name}
-              </Text>
-            ))
-          ) : (
-            <Text style={s.text}>Olá, Bem Vindo!</Text>
-          )}
+    <View style={s.header}>
+      <View style={s.viewInfo}>
+        {nameUser.length > 0 ? (
+          nameUser.map((item, index) => (
+            <Text style={s.text} key={index}>
+              Olá {item.name}
+            </Text>
+          ))
+        ) : (
+          <Text style={s.text}>Olá, Bem Vindo!</Text>
+        )}
 
-          <TouchableOpacity
-            style={s.viewBntinfo}
-            onPress={() => navigation.navigate("Profille")}
-          >
-            <Feather name="user" color={"black"} size={16} />
-            <Text style={s.textviewInfo}>Perfil</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={s.viewBntinfo}
+          onPress={() => navigation.navigate("Profille")}
+        >
+          <Feather name="user" color={"black"} size={16} />
+          <Text style={s.textviewInfo}>Perfil</Text>
+        </TouchableOpacity>
       </View>
+    </View>
   );
 }

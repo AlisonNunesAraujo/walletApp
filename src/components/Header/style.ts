@@ -4,7 +4,7 @@ export const s = StyleSheet.create({
   header: {
     width: "100%",
     height: 50,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "#ccc",
     boxShadow: "0px 4px 4px rgba(9, 9, 9, 0.25)",
     justifyContent: "space-between",
   },

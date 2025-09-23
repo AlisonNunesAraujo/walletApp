@@ -10,7 +10,7 @@ export default function App() {
       <AuthProvider>
         <StatusBar backgroundColor="#ccc" barStyle={"dark-content"} />
         <Private />
-        <FlashMessage position={"top"} />
+        <FlashMessage position={"center"} />
       </AuthProvider>
     </NavigationContainer>
   );

@@ -15,6 +15,7 @@ export const s = StyleSheet.create({
     alignItems: "center",
     borderRadius: 5,
     boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
+    marginTop: 20,
   },
   title: {
     fontFamily: "Arial",

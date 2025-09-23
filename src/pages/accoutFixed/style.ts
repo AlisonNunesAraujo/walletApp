@@ -3,11 +3,11 @@ import {StyleSheet} from 'react-native';
 export const s = StyleSheet.create({
   conteiner: {
     flex: 1,
-    backgroundColor: "black",
+     backgroundColor: "#ffff",
   },
   header: {
     width: "100%",
-    backgroundColor: "#ccc",
+    backgroundColor: "#ffff",
     padding: 20,
   },
   Title: {
@@ -28,7 +28,7 @@ export const s = StyleSheet.create({
   areaRender: {
     width: "100%",
     height: "100%",
-    backgroundColor: "#ccc",
+     backgroundColor: "#ffff",
   },
   modal: {
     alignItems: "center",
@@ -68,7 +68,7 @@ export const s = StyleSheet.create({
     marginLeft: 10,
     width: "100%",
     height: 200,
-    backgroundColor: "#ccc",
+  backgroundColor: "#ffff",
   },
   grupoAccount: {
     width: 250,

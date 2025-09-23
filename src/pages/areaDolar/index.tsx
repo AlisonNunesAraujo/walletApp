@@ -34,7 +34,7 @@ export default function Dolar() {
   return (
     <View
       style={{
-        backgroundColor: "#ccc",
+         backgroundColor: "#ffff",
         width: "100%",
         flex: 1,
         alignItems: "center",
@@ -72,5 +72,6 @@ const s = StyleSheet.create({
     borderRadius: 5,
     marginTop: 30,
     marginBottom: 20,
+     backgroundColor: "#ffff",
   },
 });

@@ -85,7 +85,7 @@ export function StackFree() {
       <Nav.Screen
         name="AccountFixed"
         component={AccoutFixed}
-        options={{ title: "Contas fixas" }}
+        options={{ title: "Contas fixas"}}
       />
 
       <Nav.Screen

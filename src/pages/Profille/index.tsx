@@ -5,7 +5,7 @@ import Feather from "@expo/vector-icons/Feather";
 import { AuthContext } from "../../contextApi";
 import { useContext } from "react";
 import { s } from "./style";
-
+import Toast from "react-native-toast-message";
 export default function Profille() {
   const { user, LogOut, nameUser } = useContext(AuthContext);
 
@@ -32,7 +32,7 @@ export default function Profille() {
 
   return (
     <SafeAreaView style={s.container}>
-      <View >
+      <View>
         <View style={s.Profile}>
           <View style={s.areaEmail}>
             {nameUser.map((item, index) => (
@@ -59,7 +59,6 @@ export default function Profille() {
             </Text>
           </View>
         </View>
-
       </View>
     </SafeAreaView>
   );

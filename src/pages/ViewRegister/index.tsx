@@ -113,7 +113,7 @@ const s = StyleSheet.create({
   areaFlat: {
     flexDirection: "row",
     width: "100%",
-    height: "40%",
+    height: "90%",
     justifyContent: "center",
     padding: 15,
     gap: 20,

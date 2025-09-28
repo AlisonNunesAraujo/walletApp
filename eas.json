@@ -9,10 +9,8 @@
       "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal",
-      "android": {
-        "buildType": "apk"
-      }
+      "distribution": "internal"
+      
     },
     "production": {
       "autoIncrement": true
@@ -20,16 +18,7 @@
   },
   "submit": {
     "production": {}
-  },
-
-  "android": {
-    "useNextNotificationsApi": true,
-    "permissions": ["NOTIFICATIONS"]
-  },
-  "ios": {
-    "supportsTablet": true,
-    "infoPlist": {
-      "UIBackgroundModes": ["remote-notification"]
-    }
   }
+
+  
 }

@@ -14,19 +14,44 @@ import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RoutAuthProp } from "../../routs/auth";
-import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { s } from "./style";
+
+type FormData = {
+  email: string;
+  senha: string;
+};
+
+const schema = yup
+  .object({
+    email: yup
+      .string()
+      .email("Email inválido")
+      .required("O email é obrigatório"),
+    senha: yup
+      .string()
+      .min(6, "A senha deve ter pelo menos 6 caracteres")
+      .required("A senha é obrigatória"),
+  })
+  .required();
 
 export default function SigIn() {
   const navigation = useNavigation<NativeStackNavigationProp<RoutAuthProp>>();
   const { Login, load } = useContext(AuthContext);
 
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  async function Logar() {
-    Login({ email, senha });
+  async function Logar(data: FormData) {
+    Login({ email: data.email, senha: data.senha });
   }
 
   return (
@@ -39,24 +64,63 @@ export default function SigIn() {
         <View style={s.form}>
           <View style={s.areaInputs}>
             <Text style={s.label}>Email:</Text>
-            <TextInput
-              placeholder="E-Mail"
-              value={email}
-              onChangeText={setEmail}
-              placeholderTextColor={"#ccc"}
-              style={s.formInput}
+
+            <Controller
+              control={control}
+              name="email"
+              render={({ field: { onChange, value } }) => (
+                <TextInput
+                  placeholder="E-Mail"
+                  value={value}
+                  onChangeText={onChange}
+                  placeholderTextColor={"#ccc"}
+                  style={s.formInput}
+                />
+              )}
             />
+            {errors.email && (
+              <Text
+                style={{
+                  color: "red",
+                  fontSize: 12,
+                  marginLeft: "5%",
+                  fontWeight: "bold",
+                }}
+              >
+                {errors.email.message}
+              </Text>
+            )}
+
             <Text style={s.label}>Senha:</Text>
-            <TextInput
-              placeholder="Password"
-              value={senha}
-              onChangeText={setSenha}
-              secureTextEntry
-              placeholderTextColor={"#ccc"}
-              style={s.formInput}
+            <Controller
+              control={control}
+              name="senha"
+              render={({ field: { onChange, value } }) => (
+                <TextInput
+                  placeholder="Password"
+                  value={value}
+                  onChangeText={onChange}
+                  secureTextEntry
+                  placeholderTextColor={"#ccc"}
+                  style={s.formInput}
+                />
+              )}
             />
+            {errors.senha && (
+              <Text
+                style={{
+                  color: "red",
+                  fontSize: 12,
+                  marginLeft: "5%",
+                  fontWeight: "bold",
+                  marginBottom: "5%",
+                }}
+              >
+                {errors.senha.message}
+              </Text>
+            )}
           </View>
-          <TouchableOpacity style={s.bnts} onPress={Logar}>
+          <TouchableOpacity style={s.bnts} onPress={handleSubmit(Logar)}>
             {load ? (
               <ActivityIndicator size={20} color="black" />
             ) : (

@@ -1,11 +1,10 @@
 import React, { createContext, useEffect, useState } from "react";
-import { auth } from "../services/firebase/firebaseConextion";
+import { auth, db } from "../services/firebase/firebaseConextion";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { collection, query, where } from "firebase/firestore";
-import { db } from "../services/firebase/firebaseConextion";
 import { getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -19,7 +18,7 @@ import { TypesGastos } from "./types";
 import { DeletarProp, listAccount, nome } from "./types";
 import { useNavigation } from "@react-navigation/native";
 import { Alert } from "react-native";
-
+import Toast from "react-native-toast-message"; 
 export const AuthContext = createContext({} as States);
 
 export function AuthProvider({ children }: ChildrenProp) {
@@ -46,9 +45,10 @@ export function AuthProvider({ children }: ChildrenProp) {
           setUser(JSON.parse(response));
         }
       } catch {
-        showMessage({
-          message: "Algo deu errado!",
-        });
+        Toast.show({
+          type: 'danger',
+          text1: 'Algo deu errado',
+        })
       }
     }
 
@@ -170,11 +170,10 @@ export function AuthProvider({ children }: ChildrenProp) {
         uid: data.user.uid,
       };
 
-      showMessage({
-        message: "Bem vindo!",
-        duration: 2000,
-        type: "success",
-      });
+      Toast.show({
+        type: 'success',
+        text1: 'Cadastrado com sucesso',
+      })
       setLoading(false);
 
       await AsyncStorage.setItem("@userAppwallet", JSON.stringify(dados));
@@ -200,15 +199,16 @@ export function AuthProvider({ children }: ChildrenProp) {
       };
       setLoading(false);
       await AsyncStorage.setItem("@userAppwallet", JSON.stringify(dados));
-      showMessage({
-        message: "Bem vindo!",
-        type: "success",
-      });
+         Toast.show({
+          type: 'success',
+          text1: 'Logado com sucesso',
+        
+        });
     } catch {
-      showMessage({
-        message: "Algo deu errado!",
-        type: "danger",
-      });
+      Toast.show({
+        type: 'danger',
+        text1: 'Algo deu errado',
+      })
       setLoading(false);
     }
   }
@@ -219,17 +219,18 @@ export function AuthProvider({ children }: ChildrenProp) {
 
     await deleteDoc(data)
       .then(() => {
-        showMessage({
-          message: "Deletado com sucesso!",
-          type: "success",
-        });
+        Toast.show({
+          type: 'success',
+          text1: 'Deletado com sucesso',
+        })
         setLoading(false);
       })
 
       .catch(() => {
-        showMessage({
-          message: "Algo deu errado!",
-        });
+        Toast.show({
+          type: 'danger',
+          text1: 'Algo deu errado',
+        })
         setLoading(false);
       });
   }
@@ -239,15 +240,16 @@ export function AuthProvider({ children }: ChildrenProp) {
 
     await deleteDoc(data)
       .then(() => {
-        showMessage({
-          message: "Deletado com sucesso!",
-          type: "success",
-        });
+        Toast.show({
+          type: 'success',
+          text1: 'Deletado com sucesso',
+        })
       })
       .catch((err) => {
-        showMessage({
-          message: "Algo deu errado!",
-        });
+        Toast.show({
+          type: 'danger',
+          text1: 'Algo deu errado',
+        })
       });
   }
 
@@ -276,15 +278,16 @@ export function AuthProvider({ children }: ChildrenProp) {
         date: format(new Date(), "dd/MM/yyyy"),
       });
 
-      showMessage({
-        message: "Adicionado com sucesso!",
-        type: "success",
-      });
+      Toast.show({
+        type: 'success',
+        text1: 'Adicionado com sucesso',
+      })
       setLoading(false);
     } catch (err) {
-      showMessage({
-        message: "Algo deu errado!",
-      });
+      Toast.show({
+        type: 'danger',
+        text1: 'Algo deu errado',
+      })
       setLoading(false);
       console.log(err);
     }
@@ -315,15 +318,16 @@ export function AuthProvider({ children }: ChildrenProp) {
         date: format(new Date(), "dd/MM/yyyy"),
       });
 
-      showMessage({
-        message: "Adicionado com sucesso!",
-        type: "success",
-      });
+      Toast.show({
+        type: 'success',
+        text1: 'Adicionado com sucesso',
+      })
       setLoad(false);
     } catch {
-      showMessage({
-        message: "Algo deu errado!",
-      });
+      Toast.show({
+        type: 'danger',
+        text1: 'Algo deu errado',
+      })
       setLoad(false);
     }
   }
@@ -350,14 +354,16 @@ export function AuthProvider({ children }: ChildrenProp) {
 
     await deleteDoc(data)
       .then(() => {
-        showMessage({
-          message: "Deletado com sucesso!",
-        });
+        Toast.show({
+          type: 'success',
+          text1: 'Deletado com sucesso',
+        })
       })
       .catch(() => {
-        showMessage({
-          message: "Algo deu errado!",
-        });
+        Toast.show({
+          type: 'danger',
+          text1: 'Algo deu errado',
+        })
       });
   }
 
@@ -367,12 +373,16 @@ export function AuthProvider({ children }: ChildrenProp) {
       .then(() => {
         setUser({ email: "", uid: "" });
 
-        showMessage({
-          message: "Volte sempre!",
-        });
+        Toast.show({
+          type: 'success',
+          text1: 'Deslogado com sucesso',
+        })
       })
       .catch(() => {
-        alert("erro");
+        Toast.show({
+          type: 'danger',
+          text1: 'Algo deu errado',
+        })
       });
   }
 
@@ -382,10 +392,10 @@ export function AuthProvider({ children }: ChildrenProp) {
         uid: user.uid,
         name: name,
       });
-      showMessage({
-        message: "Adicionado com sucesso!",
-        type: "success",
-      });
+      Toast.show({
+        type: 'success',
+        text1: 'Adicionado com sucesso',
+      })
     } catch {
       Alert.alert("Algo deu errado!");
     }

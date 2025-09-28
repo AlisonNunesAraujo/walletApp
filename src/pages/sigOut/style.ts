@@ -61,6 +61,7 @@ export const s = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     borderRadius: 10,
+    marginTop: 20,
   },
 
   textBnts: {

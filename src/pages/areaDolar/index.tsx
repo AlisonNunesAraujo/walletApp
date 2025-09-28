@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { View, FlatList, Text, StyleSheet, } from "react-native";
-import { api } from "../../services";
+import { View, FlatList, Text, StyleSheet } from "react-native";
+// import { api } from "../../services";
 import Render from "./render";
 import { showMessage } from "react-native-flash-message";
 import { ActivityIndicator } from "react-native";
@@ -9,32 +9,32 @@ export default function Dolar() {
   const [dadosapi, setDadosapi] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function BuscarApi() {
-      setLoading(true);
-      try {
-        const response = await api.get(
-          "USD-BRL,EUR-BRL,BTC-BRL,CAD-BRL,GBP-BRL,ARS-BRL,JPY-BRL,CHF-BRL,ILS-BRL,ETH-BRL"
-        );
-        if (response.status !== 200) {
-          showMessage({
-            message: "Erro ao buscar dados",
-            type: "danger",
-          });
-        }
-        setDadosapi(Object.values(response.data));
-      } catch (error) {
-        setLoading(false);
-      }
-      setLoading(false);
-    }
-    BuscarApi();
-  }, []);
+  // useEffect(() => {
+  //   async function BuscarApi() {
+  //     setLoading(true);
+  //     try {
+  //       const response = await api.get(
+  //         "USD-BRL,EUR-BRL,BTC-BRL,CAD-BRL,GBP-BRL,ARS-BRL,JPY-BRL,CHF-BRL,ILS-BRL,ETH-BRL"
+  //       );
+  //       if (response.status !== 200) {
+  //         showMessage({
+  //           message: "Erro ao buscar dados",
+  //           type: "danger",
+  //         });
+  //       }
+  //       setDadosapi(Object.values(response.data));
+  //     } catch (error) {
+  //       setLoading(false);
+  //     }
+  //     setLoading(false);
+  //   }
+  //   BuscarApi();
+  // }, []);
 
   return (
     <View
       style={{
-         backgroundColor: "#ffff",
+        backgroundColor: "#ffff",
         width: "100%",
         flex: 1,
         alignItems: "center",
@@ -42,7 +42,8 @@ export default function Dolar() {
       }}
     >
       {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
+        // <ActivityIndicator size="large" color="#0000ff" />
+        <Text style={{ fontFamily: "Arial" }}>Serviço indisponível!</Text>
       ) : (
         <FlatList
           data={dadosapi}
@@ -72,6 +73,6 @@ const s = StyleSheet.create({
     borderRadius: 5,
     marginTop: 30,
     marginBottom: 20,
-     backgroundColor: "#ffff",
+    backgroundColor: "#ffff",
   },
 });

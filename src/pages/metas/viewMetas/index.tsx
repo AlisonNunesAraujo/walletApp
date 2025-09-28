@@ -16,7 +16,7 @@ import {
   where,
   query,
 } from "firebase/firestore";
-import { db } from "../../../services/firebase/firebaseConextion";
+import { db } from "../../../services/firebaseConection";
 import { showMessage } from "react-native-flash-message";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";

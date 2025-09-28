@@ -10,7 +10,7 @@ import {
 import { useRoute, RouteProp } from "@react-navigation/native";
 import { showMessage } from "react-native-flash-message";
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../../services/firebase/firebaseConextion";
+import { db } from "../../../services/firebaseConection";
 import { AuthContext } from "../../../contextApi";
 import { TextInputMask } from 'react-native-masked-text'
 type dados = {

@@ -10,7 +10,7 @@ import {
 import { showMessage } from "react-native-flash-message";
 import { AuthContext } from "../../../contextApi";
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../../services/firebase/firebaseConextion";
+import { db } from "../../../services/firebaseConection";
 import { TextInputMask } from "react-native-masked-text";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";

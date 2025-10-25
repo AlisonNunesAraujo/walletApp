@@ -6,11 +6,7 @@ import Auth from "./auth";
 import { useNavigation } from "@react-navigation/native";
 
 export function Private() {
-    const { logado } = useContext(AuthContext);
-    const navigation = useNavigation()
+  const { logado } = useContext(AuthContext);
 
-
-
-
-    return logado ? <StackFree /> : <Auth />;
+  return logado ? <StackFree /> : <Auth />;
 }

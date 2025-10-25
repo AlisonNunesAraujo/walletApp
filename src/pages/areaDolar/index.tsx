@@ -24,8 +24,9 @@ export default function Dolar() {
                     return;
                 }
                 setDadosapi(Object.values(response.data));
+            
             } catch (error) {
-                alert("Algo deu errado!");
+                console.log("deu erro em dolar ")
             }
         }
         BuscarApi();
@@ -45,6 +46,19 @@ export default function Dolar() {
                 data={dadosapi}
                 renderItem={({ item }) => <Render data={item} />}
                 style={s.conteiner}
+                ListEmptyComponent={() => {
+                    return (
+                        <View
+                            style={{
+                                flex: 1,
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                         <Text style={{fontFamily: "Arial", fontSize: 15}}>Serviço indisponivel!</Text>
+                        </View>
+                    );
+                }}
             />
         </View>
     );

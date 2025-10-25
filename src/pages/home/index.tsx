@@ -4,8 +4,6 @@ import {
   Text,
   TouchableOpacity,
   StatusBar,
-  ScrollView,
-  SafeAreaView,
 } from "react-native";
 import { s } from "./style";
 import { useNavigation } from "@react-navigation/native";
@@ -15,7 +13,7 @@ import HeaderComponent from "../../components/Header";
 import * as Animatable from "react-native-animatable";
 import ScrollHome from "../../components/scrollHome";
 import CardSaldo from "../../components/cardSaldo";
-
+import {SafeAreaView} from "react-native-safe-area-context";
 
 
 
@@ -52,13 +50,13 @@ export default function Home() {
         </TouchableOpacity>
       </Animatable.View>
 
-
+{/* 
       <TouchableOpacity
         style={s.buttonIA}
         onPress={() => navigation.navigate("ChatIA")}
       >
         <Text>IA</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </SafeAreaView>
   );
 }

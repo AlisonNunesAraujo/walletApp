@@ -22,7 +22,7 @@ import { s } from "./style";
 export default function Profille() {
     const { user, LogOut, AddName, nameUser } = useContext(AuthContext);
 
-    const [name, setName] = useState("");
+    
 
     // chamar a função de logout
     async function Exit() {

@@ -1,3 +1,4 @@
+import React from "react";
 import { View, Text, Dimensions } from "react-native";
 import { s } from "./style";
 import { LineChart } from "react-native-chart-kit";

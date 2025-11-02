@@ -1,26 +1,15 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  SafeAreaView,
-  StyleSheet,
-  StatusBar,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Keyboard, ActivityIndicator } from "react-native";
 import { showMessage } from "react-native-flash-message";
 import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
-import { ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
-import * as Animatable from "react-native-animatable";
 import { TextInputMask } from "react-native-masked-text";
-
+import { SafeAreaView } from "react-native-safe-area-context";
 import { s } from './style'
+import { Feather } from "@expo/vector-icons";
 
 export default function AddRegister() {
   const { user, receita, gastos, AddReceita, AddGastos, load, loading } =
@@ -61,57 +50,74 @@ export default function AddRegister() {
   }
 
   return (
-
     <SafeAreaView style={s.conteiner} onTouchStart={Keyboard.dismiss}>
-      <StatusBar backgroundColor="white" barStyle={"dark-content"} />
-
       <View style={s.areaAdd}>
         <Text style={s.title}>Adicionar um registro!</Text>
 
-        <TextInputMask
-          type={"money"}
-          value={addValor}
-          onChangeText={setAddValor}
-          style={s.inputAdd}
-          placeholder="Valor"
-        />
+        <View style={s.inputRow}>
+          <View style={s.inputIcon}>
+            <Feather name="dollar-sign" size={20} color="#2563EB" />
+          </View>
+          <TextInputMask
+            type={"money"}
+            value={addValor}
+            onChangeText={setAddValor}
+            style={s.input}
+            placeholder="Valor"
+            keyboardType="numeric"
+          />
+        </View>
 
-        <TextInput
-          placeholder="Descrição"
-          value={addDesc}
-          onChangeText={setAdddesc}
-          style={s.inputAdd}
-        />
+        <View style={s.inputRow}>
+          <View style={s.inputIcon}>
+            <Feather name="type" size={20} color="#2563EB" />
+          </View>
+          <TextInput
+            placeholder="Descrição"
+            value={addDesc}
+            onChangeText={setAdddesc}
+            style={s.input}
+            placeholderTextColor="#9CA3AF"
+          />
+        </View>
 
         <View style={s.areaBntAdd}>
-          <TouchableOpacity style={s.bnt} onPress={AddvalorReceita}>
+          <TouchableOpacity
+            style={s.primaryBtn}
+            onPress={AddvalorReceita}
+            accessibilityRole="button"
+            accessibilityLabel="Adicionar como receita"
+          >
             {load ? (
-              <ActivityIndicator size={20} color="black" />
+              <ActivityIndicator size={20} color="#FFFFFF" />
             ) : (
               <Text style={s.textbntAdd}>Receita</Text>
             )}
           </TouchableOpacity>
 
-          <TouchableOpacity style={s.bnt} onPress={AddvalorGastos}>
+          <TouchableOpacity
+            style={s.dangerBtn}
+            onPress={AddvalorGastos}
+            accessibilityRole="button"
+            accessibilityLabel="Adicionar como gasto"
+          >
             {loading ? (
-              <ActivityIndicator size={20} color="black" />
+              <ActivityIndicator size={20} color="#FFFFFF" />
             ) : (
               <Text style={s.textbntAdd}>Gastos</Text>
             )}
           </TouchableOpacity>
         </View>
-
       </View>
+
       <TouchableOpacity
         onPress={() => navigation.navigate("ViewRegister")}
         style={s.buttonVoltar}
       >
         <Text style={s.textButtonVoltar}>Ver meus registros</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={s.buttonVoltar}
-      >
+
+      <TouchableOpacity onPress={() => navigation.goBack()} style={s.buttonVoltar}>
         <Text style={s.textButtonVoltar}>Voltar para Home</Text>
       </TouchableOpacity>
     </SafeAreaView>

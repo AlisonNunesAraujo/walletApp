@@ -1,12 +1,6 @@
-import {
-    SafeAreaView,
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-} from "react-native";
+import {  View, Text, TouchableOpacity } from "react-native";
 import { useRoute, RouteProp } from "@react-navigation/native";
-
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 
 import { AreaDescricao } from "./types";
@@ -15,21 +9,22 @@ import { s } from './style'
 
 type DadosProps = RouteProp<AreaDescricao, "dados">;
 
-export default function AreaDescReceita() {
+export default function AreaDescGastos() {
     const route = useRoute<DadosProps>();
     const navigation = useNavigation();
     return (
         <SafeAreaView style={s.conteiner}>
             <View style={s.areaInformacao}>
                 <Text style={s.textGastos}>
-                    Valor adicionado:{" "}
-                    <Text style={s.textValorGastos}> R$ {route.params?.gastos}</Text>
+                    Valor adicionado: <Text style={s.textValorGastos}>R$ {route.params?.gastos}</Text>
                 </Text>
+
                 <Text style={s.textDesc}>
-                    Sua descrição adicionada: <Text>{route.params?.desc}</Text>
+                    Sua descrição adicionada: <Text style={s.textDescValue}>{route.params?.desc}</Text>
                 </Text>
+
                 <Text style={s.textDesc}>
-                    Data do registro: <Text>{route.params?.date}</Text>
+                    Data do registro: <Text style={s.textDescValue}>{route.params?.date}</Text>
                 </Text>
             </View>
 

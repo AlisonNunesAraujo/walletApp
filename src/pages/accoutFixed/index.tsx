@@ -14,6 +14,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
 import { showMessage } from "react-native-flash-message";
 import { TextInputMask } from 'react-native-masked-text'
+import { Feather } from "@expo/vector-icons";
 
 import { s } from './style'
 
@@ -54,11 +55,12 @@ export default function AccoutFixed() {
     <View style={s.conteiner}>
       <StatusBar backgroundColor={"white"} />
       <View style={s.header}>
-
-        <Text style={s.Title}>Voçe quer adicionar uma conta fixa?</Text>
+        <Text style={s.Title}>Você quer adicionar uma conta fixa?</Text>
         <TouchableOpacity
           onPress={() => setModal(true)}
           style={s.bntCreateAccount}
+          accessibilityRole="button"
+          accessibilityLabel="Criar uma conta fixa"
         >
           <Text style={s.textcreateAccount}>Criar uma conta fixa</Text>
         </TouchableOpacity>
@@ -75,7 +77,7 @@ export default function AccoutFixed() {
               <Text style={s.text}>Conta: {item.nameAccount}
               </Text>
               <Text style={s.text}>
-                {item.valor}
+                R$ {item.valor}
               </Text>
               <Text style={s.text}>
                 Vencimento: {item.vencimento}
@@ -83,6 +85,8 @@ export default function AccoutFixed() {
               <TouchableOpacity
                 style={s.bntFlat}
                 onPress={() => Delete(item.uid)}
+                accessibilityRole="button"
+                accessibilityLabel={`Excluir conta fixa ${item.nameAccount}`}
               >
                 <Text style={s.textBnt}>Excluir</Text>
               </TouchableOpacity>
@@ -102,44 +106,65 @@ export default function AccoutFixed() {
 
       </View>
 
-      <Modal visible={modal} animationType="slide">
+      <Modal visible={modal} animationType="slide" transparent={false}>
         <View style={s.modal}>
           <Text style={s.titleModal}>Criar conta fixa!</Text>
 
-          <TextInput
-            placeholder="Nome da conta, Exp: Conta de luz!"
-            value={nameAccount}
-            onChangeText={setNameAccount}
-            maxLength={20}
-            style={s.Inputs}
-          />
-          <TextInputMask
-            type="money"
-            placeholder="Valor"
-            value={valor}
-            onChangeText={setValor}
-            keyboardType="numeric"
-            style={s.Inputs}
-          />
+          <View style={s.inputRow}>
+            <View style={s.inputIcon}>
+              <Feather name="credit-card" size={20} color="#2563EB" />
+            </View>
+            <TextInput
+              placeholder="Nome da conta (ex: Conta de luz)"
+              value={nameAccount}
+              onChangeText={setNameAccount}
+              maxLength={20}
+              style={s.input}
+              placeholderTextColor="#9CA3AF"
+            />
+          </View>
 
-          <TextInputMask
-            type="datetime"
-            placeholder="Dia de vencimento!"
-            value={vencimento}
-            onChangeText={setVencimento}
-            maxLength={10}
-            keyboardType="numeric"
-            style={s.Inputs}
-          />
-          <TouchableOpacity style={s.buttomModal} onPress={Add}>
-            <Text style={s.textButom}>Adicionar</Text>
+          <View style={s.inputRow}>
+            <View style={s.inputIcon}>
+              <Feather name="dollar-sign" size={20} color="#2563EB" />
+            </View>
+            <TextInputMask
+              type="money"
+              placeholder="Valor"
+              value={valor}
+              onChangeText={setValor}
+              keyboardType="numeric"
+              style={s.input}
+            />
+          </View>
+
+          <View style={s.inputRow}>
+            <View style={s.inputIcon}>
+              <Feather name="calendar" size={20} color="#2563EB" />
+            </View>
+            <TextInputMask
+              type="datetime"
+              options={{ format: 'DD/MM/YYYY' }}
+              placeholder="Dia de vencimento (DD/MM/AAAA)"
+              value={vencimento}
+              onChangeText={setVencimento}
+              maxLength={10}
+              keyboardType="numeric"
+              style={s.input}
+            />
+          </View>
+
+          <TouchableOpacity style={s.primaryBtn} onPress={Add} accessibilityRole="button" accessibilityLabel="Adicionar conta fixa">
+            <Text style={s.textPrimaryBtn}>Adicionar</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => setModal(false)}
-            style={s.buttomModal}
+            style={s.secondaryBtn}
+            accessibilityRole="button"
+            accessibilityLabel="Fechar modal"
           >
-            <Text style={s.textButom}>Fechar</Text>
+            <Text style={s.textSecondaryBtn}>Fechar</Text>
           </TouchableOpacity>
         </View>
       </Modal>

@@ -228,7 +228,8 @@ export function AuthProvider({ children }: ChildrenProp) {
       .then(() => {
         showMessage({
           message: "Deletado com sucesso!",
-          type: "success",
+          type: "danger",
+
         });
         setLoading(false);
       })
@@ -236,6 +237,7 @@ export function AuthProvider({ children }: ChildrenProp) {
       .catch(() => {
         showMessage({
           message: "Algo deu errado!",
+          type: "danger",
         });
         setLoading(false);
       });

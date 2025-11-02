@@ -8,6 +8,7 @@ import Feather from "@expo/vector-icons/Feather";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../../routs/authfree";
 import { useNavigation } from "@react-navigation/native";
+// usando estilos locais para evitar problemas de resolução de módulos
 
 export default function RenderReceita({ data }: { data: TypesReceita }) {
   const { Deletar } = useContext(AuthContext);
@@ -21,7 +22,8 @@ export default function RenderReceita({ data }: { data: TypesReceita }) {
   return (
     <Animateble.View animation="fadeInDown">
       <TouchableOpacity
-        style={s.areaRender}
+        style={s.card}
+        activeOpacity={0.8}
         onPress={() =>
           navigation.navigate("AreaDescReceita", {
             receita: data.receita,
@@ -29,45 +31,86 @@ export default function RenderReceita({ data }: { data: TypesReceita }) {
             date: data.date,
           })
         }
+        accessibilityRole="button"
+        accessibilityLabel="Ver detalhes da receita"
       >
-        <Text style={s.textValor}>R$ {data.receita}</Text>
-        <Text style={s.textValor}>{data.date}</Text>
-        <Text style={s.textVerMais}>Ver mais</Text>
-        <TouchableOpacity onPress={() => Delete(data.uid)}>
-          <Feather color="red" size={20} name="trash" />
-        </TouchableOpacity>
+        <View style={s.row}>
+          <View style={s.left}>
+            <Text style={s.valor}>R$ {data.receita}</Text>
+            <Text style={s.date}>{data.date}</Text>
+          </View>
+          <View style={s.actions}>
+            <TouchableOpacity
+              onPress={() => Delete(data.uid)}
+              style={s.deleteBtn}
+              accessibilityRole="button"
+              accessibilityLabel="Excluir receita"
+              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+            >
+              <Feather color="#EF4444" size={18} name="trash-2" />
+            </TouchableOpacity>
+          </View>
+        </View>
       </TouchableOpacity>
     </Animateble.View>
   );
 }
 
 const s = StyleSheet.create({
-  areaRender: {
-    width: "100%",
-    height: "auto",
-    backgroundColor: "#cccccc",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 10,
-    borderRadius: 5,
-    gap: 10,
-    boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
+  card: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
+    elevation: 2,
   },
-
-  textValor: {
-    fontSize: 14,
-    fontFamily: "Arial,",
-    padding: 2,
+  row: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  textbnt: {
-    fontFamily: "Arial",
-    fontWeight: "700",
-    fontSize: 14,
+  left: {
+    gap: 2,
   },
-  textVerMais: {
+  valor: {
+    fontSize: 16,
+    fontFamily: 'Arial',
+    fontWeight: '700',
+    color: '#10B981',
+  },
+  date: {
+    fontSize: 12,
+    fontFamily: 'Arial',
+    color: '#6B7280',
+  },
+  actions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  link: {
     fontSize: 14,
-    fontFamily: "Arial",
-    color: "red",
-    fontWeight: "bold",
+    fontFamily: 'Arial',
+    color: '#2563EB',
+    fontWeight: '700',
+  },
+  deleteBtn: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#FEF2F2',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#FECACA',
   },
 });
+

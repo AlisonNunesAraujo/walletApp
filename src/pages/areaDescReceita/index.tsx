@@ -1,12 +1,6 @@
-import {
-    SafeAreaView,
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-} from "react-native";
+import {  View, Text, TouchableOpacity } from "react-native";
 import { useRoute, RouteProp } from "@react-navigation/native";
-
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 
 import { AreaDescricao } from "./types";
@@ -23,14 +17,13 @@ export default function AreaDescReceita() {
         <SafeAreaView style={s.conteiner}>
             <View style={s.areaInformacao}>
                 <Text style={s.textReceita}>
-                    Valor adicionado:{" "}
-                    <Text style={s.textValorReceita}>R$ {route.params?.receita}</Text>
+                    Valor adicionado: <Text style={s.textValorReceita}>R$ {route.params?.receita}</Text>
                 </Text>
                 <Text style={s.textDesc}>
-                    Sua descrição adicionada: <Text>{route.params?.desc}</Text>
+                    Sua descrição adicionada: <Text style={s.textDescValue}>{route.params?.desc}</Text>
                 </Text>
                 <Text style={s.textDesc}>
-                    Data do registro: <Text>{route.params?.date}</Text>
+                    Data do registro: <Text style={s.textDescValue}>{route.params?.date}</Text>
                 </Text>
             </View>
             <TouchableOpacity style={s.bntVoltar} onPress={() => navigation.goBack()}>

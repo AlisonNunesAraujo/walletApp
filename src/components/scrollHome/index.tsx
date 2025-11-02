@@ -21,14 +21,18 @@ export default function ScrollHome() {
                         onPress={() => navigation.navigate("AddRegister")}
                         style={s.conteudoScroll}
                     >
-                        <Feather name="plus" size={25} color={"#4CAF50"} />
+                        <View style={s.iconWrap}>
+                            <Feather name="plus" size={20} color="#2563EB" />
+                        </View>
                         <Text style={s.text}>Adicionar Gastos ou Receitas</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => navigation.navigate("ViewRegister")}
                         style={s.conteudoScroll}
                     >
-                        <Feather name="eye" size={25} color={"#4CAF50"} />
+                        <View style={s.iconWrap}>
+                            <Feather name="eye" size={20} color="#2563EB" />
+                        </View>
                         <Text style={s.text}>Ver meus registros</Text>
                     </TouchableOpacity>
 
@@ -36,23 +40,27 @@ export default function ScrollHome() {
                         onPress={() => navigation.navigate("AccountFixed")}
                         style={s.conteudoScroll}
                     >
-                        <Feather name="plus" size={25} color={"#4CAF50"} />
+                        <View style={s.iconWrap}>
+                            <Feather name="bookmark" size={20} color="#2563EB" />
+                        </View>
                         <Text style={s.text}>Adicionar conta fixa</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => navigation.navigate("Metas")}
                         style={s.conteudoScroll}
                     >
-                        <Feather name="check-circle" size={25} color={"#4CAF50"} />
+                        <View style={s.iconWrap}>
+                            <Feather name="check-circle" size={20} color="#2563EB" />
+                        </View>
                         <Text style={s.text}>Adicionar metas</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         onPress={() => navigation.navigate("Dolar")}
                         style={s.conteudoScroll}
                     >
                         <Feather name="dollar-sign" size={25} color={"#4CAF50"} />
                         <Text style={s.text}>Cotaçao</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </ScrollView>
             </Animatable.View>
         </View>

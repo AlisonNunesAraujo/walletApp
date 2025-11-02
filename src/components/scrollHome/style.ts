@@ -3,9 +3,9 @@ import {StyleSheet} from 'react-native';
 export const s = StyleSheet.create({
    scroll: {
     width: "100%",
-    height: 100,
-    marginTop: 15,
-    marginLeft: 10,
+    height: 120,
+    marginTop: 12,
+    marginLeft: 6,
   },
   areaScrool: {
     width: "100%",
@@ -15,14 +15,32 @@ export const s = StyleSheet.create({
   },
 
   conteudoScroll: {
-    width: 90,
-    height: 80,
-    backgroundColor: "#f0f0f0",
-    borderRadius: 10,
+    width: 100,
+    height: 100,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
     margin: 8,
     alignItems: "center",
     justifyContent: "space-evenly",
-    marginRight: 20
+    marginRight: 16,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    // sombra
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  iconWrap: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#EEF2FF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
   },
   text: {
     fontSize: 12,

@@ -2,43 +2,56 @@ import { StyleSheet } from "react-native";
 
 export const s = StyleSheet.create({
   header: {
-    width: "100%",
-    height: 50,
-    backgroundColor: "#f0f0f0",
-    boxShadow: "0px 4px 4px rgba(9, 9, 9, 0.25)",
-    justifyContent: "space-between"
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    // sombra
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 4,
+    elevation: 2,
   },
-  viewInfo: {
-    alignItems: "center",
-    justifyContent: "space-between",
-    flexDirection: "row",
-
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  
-  text: {
-    fontFamily: "Arial",
+  greetingBlock: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+  },
+  greetingPrefix: {
+    fontFamily: 'Arial',
     fontSize: 18,
-    marginLeft: 20,
+    color: '#111827',
   },
-
-  textName: {
-    fontFamily: "Arial",
+  greetingName: {
+    fontFamily: 'Arial',
     fontSize: 18,
-    fontWeight: "700",
-    marginLeft: 5,
-    
+    fontWeight: '700',
+    color: '#111827',
   },
-
-
-  viewBntinfo: {
-    marginRight: 25,
-    alignItems: "center",
+  profileBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  textviewInfo: {
+  avatar: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: '#EEF2FF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+  profileText: {
+    marginLeft: 8,
     fontSize: 12,
-    fontFamily: "Arial",
-    fontWeight: "700",
+    fontFamily: 'Arial',
+    fontWeight: '700',
+    color: '#111827',
   },
-
-  
 });

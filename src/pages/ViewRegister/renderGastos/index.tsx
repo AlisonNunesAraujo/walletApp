@@ -21,7 +21,8 @@ export default function RenderGastos({ data }: { data: TypesGastos }) {
   return (
     <Animatebale.View animation="fadeInDown">
       <TouchableOpacity
-        style={s.areaRender}
+        style={s.card}
+        activeOpacity={0.8}
         onPress={() =>
           navigation.navigate("AreaDescGastos", {
             gastos: data.gastos,
@@ -29,45 +30,79 @@ export default function RenderGastos({ data }: { data: TypesGastos }) {
             date: data.date,
           })
         }
+        accessibilityRole="button"
+        accessibilityLabel="Ver detalhes do gasto"
       >
-        <Text style={s.textValor}>R$ {data.gastos}</Text>
-        <Text style={s.textValor}>{data.date}</Text>
-        <Text style={s.textVerMais}>Ver mais</Text>
-        <TouchableOpacity onPress={() => Deletar(data.uid)}>
-          <Feather color="red" size={20} name="trash" />
-        </TouchableOpacity>
+        <View style={s.row}>
+          <View style={s.left}>
+            <Text style={s.valor}>R$ {data.gastos}</Text>
+            <Text style={s.date}>{data.date}</Text>
+          </View>
+          <View style={s.actions}>
+            <TouchableOpacity
+              onPress={() => Deletar(data.uid)}
+              style={s.deleteBtn}
+              accessibilityRole="button"
+              accessibilityLabel="Excluir gasto"
+              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+            >
+              <Feather color="#EF4444" size={18} name="trash-2" />
+            </TouchableOpacity>
+          </View>
+        </View>
       </TouchableOpacity>
     </Animatebale.View>
   );
 }
 
 const s = StyleSheet.create({
-  areaRender: {
-    width: "100%",
-    height: 'auto',
-    backgroundColor: "#ccc",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 10,
-    borderRadius: 5,
-    gap: 10,
-    boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
+  card: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
+    elevation: 2,
   },
-  textValor: {
-    fontFamily: "Arial",
-    fontSize: 14,
-    padding: 2,
+  row: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-
-  textbnt: {
-    fontFamily: "Arial",
-    fontWeight: "700",
-    fontSize: 14,
+  left: {
+    gap: 2,
   },
-  textVerMais: {
-    fontSize: 14,
-    fontFamily: "Arial",
-    color: "red",
-    fontWeight: "bold",
+  valor: {
+    fontSize: 16,
+    fontFamily: 'Arial',
+    fontWeight: '700',
+    color: '#EF4444',
+  },
+  date: {
+    fontSize: 12,
+    fontFamily: 'Arial',
+    color: '#6B7280',
+  },
+  actions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  deleteBtn: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#FEF2F2',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#FECACA',
   },
 });

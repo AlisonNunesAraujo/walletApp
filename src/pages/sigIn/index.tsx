@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Pressable } from "react-native";
 import { ActivityIndicator } from "react-native";
 import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
@@ -18,12 +18,11 @@ export default function SigIn() {
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [showPass, setShowPass] = useState(false);
-  const passRef = useRef<TextInput>(null);
+
+
 
   const isEmailValid = useMemo(() => /.+@.+\..+/.test(email.trim()), [email]);
-  const canSubmit = isEmailValid && senha.trim().length >= 6 && !load;
-
+  
   async function Logar() {
     if (!isEmailValid) {
       showMessage({ message: "Informe um e-mail válido.", type: "warning" });
@@ -37,7 +36,7 @@ export default function SigIn() {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <Pressable onPress={() => Keyboard.dismiss()} style={{ flex: 1 }}>
       <SafeAreaView style={s.areaLogin}>
         <View style={s.form}>
           <Feather name="user" size={36} color="#2563EB" />
@@ -57,8 +56,8 @@ export default function SigIn() {
                   autoCapitalize="none"
                   autoCorrect={false}
                   keyboardType="email-address"
-                  returnKeyType="next"
-                  onSubmitEditing={() => passRef.current?.focus()}
+               
+                 
                 />
               </View>
 
@@ -66,25 +65,22 @@ export default function SigIn() {
               <View style={s.inputRow}>
                 <Feather name="lock" size={18} color="#6B7280" style={s.inputIcon} />
                 <TextInput
-                  ref={passRef}
+                 
                   placeholder="Sua senha"
                   value={senha}
                   onChangeText={setSenha}
-                  secureTextEntry={!showPass}
+                  secureTextEntry={true}
                   placeholderTextColor="#9CA3AF"
                   style={s.input}
                   autoCapitalize="none"
-                  autoCorrect={false}
-                  returnKeyType="go"
-                  onSubmitEditing={Logar}
+                  
+                
                 />
-                <TouchableOpacity onPress={() => setShowPass(v => !v)} style={s.eyeButton}>
-                  <Feather name={showPass ? "eye" : "eye-off"} size={18} color="#6B7280" />
-                </TouchableOpacity>
+                
               </View>
             </View>
 
-            <TouchableOpacity style={[s.primaryBtn, !canSubmit && s.btnDisabled]} onPress={Logar} disabled={!canSubmit}>
+            <TouchableOpacity style={s.primaryBtn} onPress={Logar}>
               {load ? (
                 <ActivityIndicator size={20} color="#FFFFFF" />
               ) : (
@@ -98,6 +94,6 @@ export default function SigIn() {
           </View>
         </View>
       </SafeAreaView>
-    </TouchableWithoutFeedback>
+    </Pressable>
   );
 }

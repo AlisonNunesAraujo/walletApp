@@ -9,7 +9,8 @@ export default function App() {
       <AuthProvider>
         <StatusBar backgroundColor= "#f0f0f0" barStyle={"dark-content"} />
         <Private />
-        <FlashMessage position={"center"}  />
+        {/* Evitar overlay central bloqueando toques: usar posição 'top' e floating */}
+        <FlashMessage position="top" floating={true} />
       </AuthProvider>
     </NavigationContainer>
 

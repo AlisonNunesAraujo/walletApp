@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  SafeAreaView,
   StyleSheet,
   StatusBar,
   FlatList,
@@ -19,6 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
 import * as Animatable from "react-native-animatable";
+import { SafeAreaView } from "react-native-safe-area-context";
 export default function ViewRegister() {
   const { user, receita, gastos, load, loading } = useContext(AuthContext);
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
@@ -43,6 +43,7 @@ export default function ViewRegister() {
                 </View>
               );
             }}
+            style={{ height: "100%" }}
           />
 
           <FlatList
@@ -115,7 +116,7 @@ const s = StyleSheet.create({
   areaFlat: {
     flexDirection: "row",
     width: "100%",
-    height: "40%",
+    height: "100%",
     justifyContent: "center",
     padding: 15,
     gap: 20,

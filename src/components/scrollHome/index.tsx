@@ -46,13 +46,13 @@ export default function ScrollHome() {
                         <Feather name="check-circle" size={25} color={"#4CAF50"} />
                         <Text style={s.text}>Adicionar metas</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         onPress={() => navigation.navigate("Dolar")}
                         style={s.conteudoScroll}
                     >
                         <Feather name="dollar-sign" size={25} color={"#4CAF50"} />
                         <Text style={s.text}>Cotaçao</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </ScrollView>
             </Animatable.View>
         </View>

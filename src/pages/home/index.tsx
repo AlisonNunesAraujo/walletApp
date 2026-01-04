@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   StatusBar,
   ScrollView,
-  SafeAreaView,
 } from "react-native";
 import { s } from "./style";
 import { useNavigation } from "@react-navigation/native";
@@ -15,7 +14,7 @@ import HeaderComponent from "../../components/Header";
 import * as Animatable from "react-native-animatable";
 import ScrollHome from "../../components/scrollHome";
 import CardSaldo from "../../components/cardSaldo";
-
+import { SafeAreaView } from "react-native-safe-area-context";
 import { GoogleGenAI } from "@google/genai";
 
 export default function Home() {
@@ -47,7 +46,7 @@ export default function Home() {
       <ScrollHome />
 
       <Animatable.View animation="fadeIn" style={s.areaView}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={s.areaBnts}
           onPress={() => navigation.navigate("Dolar")}
         >
@@ -55,7 +54,7 @@ export default function Home() {
           <Text style={s.textInfo}>
             Aqui voçe pode se informar sobre cotação em tempo real!
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity
           style={s.areaBnts}
           onPress={() => navigation.navigate("AccountFixed")}
@@ -67,12 +66,12 @@ export default function Home() {
         </TouchableOpacity>
       </Animatable.View>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={s.buttonIA}
         onPress={() => navigation.navigate("ChatIA")}
       >
         <Text>IA</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </SafeAreaView>
   );
 }

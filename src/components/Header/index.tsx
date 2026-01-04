@@ -3,7 +3,6 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  SafeAreaView,
   Modal as RnModal,
   FlatList,
 } from "react-native";
@@ -14,7 +13,7 @@ import { useContext } from "react";
 import { ParamList } from "../../routs/authfree";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-
+import { SafeAreaView } from "react-native-safe-area-context";
 import { s } from "./style";
 
 export default function HeaderComponent() {
@@ -23,28 +22,26 @@ export default function HeaderComponent() {
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
   return (
-    <SafeAreaView>
-      <View style={s.header}>
-        <View style={s.viewInfo}>
-          {nameUser.length > 0 ? (
-            nameUser.map((item, index) => (
-              <Text style={s.text} key={index}>
-                Olá {item.name}
-              </Text>
-            ))
-          ) : (
-            <Text style={s.text}>Olá</Text>
-          )}
+    <View style={s.header}>
+      <View style={s.viewInfo}>
+        {nameUser.length > 0 ? (
+          nameUser.map((item, index) => (
+            <Text style={s.text} key={index}>
+              Olá {item.name}
+            </Text>
+          ))
+        ) : (
+          <Text style={s.text}>Olá</Text>
+        )}
 
-          <TouchableOpacity
-            style={s.viewBntinfo}
-            onPress={() => navigation.navigate("Profille")}
-          >
-            <Feather name="user" color={"black"} size={16} />
-            <Text style={s.textviewInfo}>Perfil</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={s.viewBntinfo}
+          onPress={() => navigation.navigate("Profille")}
+        >
+          <Feather name="user" color={"black"} size={16} />
+          <Text style={s.textviewInfo}>Perfil</Text>
+        </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

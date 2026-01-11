@@ -1,61 +1,91 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from "react-native";
 
 export const s = StyleSheet.create({
-  areaLogin: {
+  container: {
     flex: 1,
-    backgroundColor: "white",
-  },
-
-  form: {
-    width: "100%",
     backgroundColor: "#1D393C",
+  },
+
+  content: {
+    flex: 1,
     justifyContent: "center",
+    padding: 24,
+  },
+
+  header: {
     alignItems: "center",
-    height: "100%",
-  },
-  Title: {
-    fontSize: 20,
-    fontFamily: "Arial",
-    margin: 20,
-    opacity: 0.7,
-    fontWeight: '700',
-    color: 'white'
-
-  },
-  areaInputs:{
-    width: "100%",
+    marginBottom: 32,
   },
 
-   label:{
-    marginLeft: "5%",
-    fontSize: 16,
-    fontFamily: "Arial",
-    color: 'white',
-    letterSpacing: 1.5
-  },
-
-  formInput: {
-    width: "90%",
-    height: 40,
-    boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
-    padding: 10,
-    marginBottom: 20,
-    marginLeft: "5%",
-    color: "white"
-  },
-
-  bnts: {
-    width: "40%",
-    height: 35,
-    backgroundColor: "white",
+  icon: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#2F565A",
+    alignItems: "center",
     justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 16,
+  },
+
+  title: {
+    fontSize: 22,
+    fontWeight: "700",
+    color: "#fff",
+    fontFamily: "Arial",
+  },
+
+  subtitle: {
+    fontSize: 14,
+    color: "#D1D1D1",
+    marginTop: 4,
+  },
+
+  card: {
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    padding: 20,
+
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 5,
+  },
+
+  input: {
+    height: 48,
+    borderWidth: 1,
+    borderColor: "#E5E5E5",
     borderRadius: 10,
+    paddingHorizontal: 14,
+    marginBottom: 16,
+    fontSize: 14,
+    color: "#111",
   },
 
-  textBnts: {
-    fontFamily: "Arial",
-    fontSize: 12,
+  primaryButton: {
+    height: 48,
+    backgroundColor: "#1D393C",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 8,
+  },
+
+  primaryText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+
+  secondaryButton: {
+    marginTop: 16,
+    alignItems: "center",
+  },
+
+  secondaryText: {
+    fontSize: 14,
+    color: "#1D393C",
+    fontWeight: "600",
   },
 });

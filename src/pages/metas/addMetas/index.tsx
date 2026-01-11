@@ -13,6 +13,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../services/firebase/firebaseConextion";
 import { AuthContext } from "../../../contextApi";
 import { TextInputMask } from 'react-native-masked-text'
+import { GoBack } from "../../../components/goBack";
 type dados = {
     data: {
         title: string;
@@ -60,6 +61,7 @@ export default function Item() {
 
     return (
         <View onTouchStart={Keyboard.dismiss} style={s.conteiner}>
+            <GoBack title="Adicionar Meta" />
             <View style={s.createMeta}>
                 <View style={s.formInput}>
                     <Text style={s.title}>Adicione um valor para sua meta!</Text>

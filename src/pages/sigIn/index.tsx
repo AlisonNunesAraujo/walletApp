@@ -6,80 +6,87 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   SafeAreaView,
-  StyleSheet,
+  ActivityIndicator,
 } from "react-native";
-import { ActivityIndicator } from "react-native";
 import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { AuthContext } from "../../contextApi";
-
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RoutAuthProp } from "../../routs/auth";
-import { useState } from "react";
 
 import { s } from "./style";
 
 export default function SigIn() {
-  const navigation = useNavigation<NativeStackNavigationProp<RoutAuthProp>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RoutAuthProp>>();
+
   const { Login, load } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
-  //  chama a função de login
-  async function Logar() {
+  function Logar() {
     Login({ email, senha });
   }
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <SafeAreaView style={s.areaLogin}>
-        <View style={s.form}>
-          <Feather name="user" size={30} color="white" />
-          <Text style={s.Title}>Entre na sua conta!</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeAreaView style={s.container}>
+        <View style={s.content}>
 
-          <View style={s.areaInputs}>
-            <Text style={s.label}>
-              Email:
+          {/* HEADER */}
+          <View style={s.header}>
+            <View style={s.icon}>
+              <Feather name="user" size={28} color="#fff" />
+            </View>
+            <Text style={s.title}>Bem-vindo!</Text>
+            <Text style={s.subtitle}>
+              Faça login para continuar
             </Text>
+          </View>
+
+          {/* FORM */}
+          <View style={s.card}>
             <TextInput
-              placeholder="E-Mail"
+              placeholder="E-mail"
               value={email}
               onChangeText={setEmail}
-              placeholderTextColor={"#ccc"}
-              style={s.formInput}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              placeholderTextColor="#999"
+              style={s.input}
             />
-            <Text style={s.label}>
-              Senha:
-            </Text>
+
             <TextInput
-              placeholder="Password"
+              placeholder="Senha"
               value={senha}
               onChangeText={setSenha}
               secureTextEntry
-              placeholderTextColor={"#ccc"}
-              style={s.formInput}
+              placeholderTextColor="#999"
+              style={s.input}
             />
+
+            <TouchableOpacity style={s.primaryButton} onPress={Logar}>
+              {load ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text style={s.primaryText}>Entrar</Text>
+              )}
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate("SigOut")}
+              style={s.secondaryButton}
+            >
+              <Text style={s.secondaryText}>
+                Criar uma conta
+              </Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity style={s.bnts} onPress={Logar}>
-            {load ? (
-              <ActivityIndicator size={20} color="black" />
-            ) : (
-              <Text style={s.textBnts}>Acessar</Text>
-            )}
-          </TouchableOpacity>
 
-          <TouchableOpacity
-            style={s.bnts}
-            onPress={() => navigation.navigate("SigOut")}
-          >
-            <Text style={s.textBnts}>Criar conta!</Text>
-          </TouchableOpacity>
         </View>
-
-        <View></View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );

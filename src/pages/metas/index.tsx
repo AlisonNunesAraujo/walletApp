@@ -1,15 +1,17 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Cards from "./components/cards";
 import { Feather } from "@expo/vector-icons";
-
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
+import { GoBack } from "../../components/goBack";
 export default function Metas() {
     const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
     return (
-        <View style={s.conteiner}>
+        <SafeAreaView style={s.conteiner}>
+            <GoBack title="Metas" />
             <Text style={s.title}>Qual é o seu objetivo de criar uma meta?</Text>
             <Cards
                 title="Investir"
@@ -35,7 +37,7 @@ export default function Metas() {
             >
                 <Text style={s.textBntAdicionar}>Adicionar outro!</Text>
             </TouchableOpacity>
-        </View>
+        </SafeAreaView>
     );
 }
 

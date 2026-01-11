@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  SafeAreaView,
   StyleSheet,
   StatusBar,
   TouchableWithoutFeedback,
@@ -19,8 +18,10 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
 import * as Animatable from "react-native-animatable";
 import { TextInputMask } from "react-native-masked-text";
-
+import { SafeAreaView } from "react-native-safe-area-context";
 import { s } from './style'
+
+import { GoBack } from "../../components/goBack";
 
 export default function AddRegister() {
   const { user, receita, gastos, AddReceita, AddGastos, load, loading } =
@@ -64,6 +65,7 @@ export default function AddRegister() {
 
     <SafeAreaView style={s.conteiner} onTouchStart={Keyboard.dismiss}>
       <StatusBar backgroundColor="white" barStyle={"dark-content"} />
+      <GoBack title="Adicionar registro" />
 
       <View style={s.areaAdd}>
         <Text style={s.title}>Adicionar um registro!</Text>

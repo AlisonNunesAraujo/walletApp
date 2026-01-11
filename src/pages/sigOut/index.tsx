@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -7,86 +7,89 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   SafeAreaView,
-  StyleSheet,
+  ActivityIndicator,
 } from "react-native";
-import { ActivityIndicator } from "react-native";
+import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
-import { useContext } from "react";
-import Feather from '@expo/vector-icons/Feather';
+
 import { AuthContext } from "../../contextApi";
-
-import { s } from './style'
-
-
+import { s } from "./style";
 
 export default function SigIn() {
   const navigation = useNavigation();
   const { CreateUser, load } = useContext(AuthContext);
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [name, setName] = useState("");
 
-  //  chamar a função de criar usuário
   function Create() {
     CreateUser({ email, senha, name });
   }
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <SafeAreaView style={s.areaLogin}>
-        <View style={s.form}>
-          <Feather name="user" size={30} color="white" />
-          <Text style={s.Title}>Criar sua conta!</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeAreaView style={s.container}>
+        <View style={s.content}>
 
-          <View style={s.areaInputs}>
-            <Text style={s.label}>Nome:</Text>
+          {/* HEADER */}
+          <View style={s.header}>
+            <View style={s.icon}>
+              <Feather name="user-plus" size={28} color="#fff" />
+            </View>
+            <Text style={s.title}>Criar conta</Text>
+            <Text style={s.subtitle}>
+              Preencha os dados para continuar
+            </Text>
+          </View>
+
+          {/* FORM */}
+          <View style={s.card}>
             <TextInput
               placeholder="Nome"
               value={name}
               onChangeText={setName}
-              placeholderTextColor={"#ccc"}
-              style={s.formInput}
+              placeholderTextColor="#999"
+              style={s.input}
             />
-            <Text style={s.label}>
-              Email:
-            </Text>
+
             <TextInput
-              placeholder="E-Mail"
+              placeholder="E-mail"
               value={email}
               onChangeText={setEmail}
-              placeholderTextColor={"#ccc"}
-              style={s.formInput}
+              autoCapitalize="none"
+              keyboardType="email-address"
+              placeholderTextColor="#999"
+              style={s.input}
             />
-            <Text style={s.label}>
-              Senha:
-            </Text>
+
             <TextInput
-              placeholder="Password"
+              placeholder="Senha"
               value={senha}
               onChangeText={setSenha}
               secureTextEntry
-              placeholderTextColor={"#ccc"}
-              style={s.formInput}
+              placeholderTextColor="#999"
+              style={s.input}
             />
+
+            <TouchableOpacity style={s.primaryButton} onPress={Create}>
+              {load ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text style={s.primaryText}>Criar conta</Text>
+              )}
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={s.secondaryButton}
+              onPress={() => navigation.goBack()}
+            >
+              <Text style={s.secondaryText}>Voltar para login</Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity style={s.bnts} onPress={Create}>
-            {load ? (
-              <ActivityIndicator size={20} color='black' />
-            ) : (
-              <Text style={s.textBnts}>Criar</Text>
-            )}
-          </TouchableOpacity>
 
-          <TouchableOpacity style={s.bnts} onPress={() => navigation.goBack()}>
-            <Text style={s.textBnts}>Voltar</Text>
-          </TouchableOpacity>
         </View>
-
-        <View></View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
 }
-
-

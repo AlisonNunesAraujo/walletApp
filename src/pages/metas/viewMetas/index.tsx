@@ -22,6 +22,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../../routs/authfree";
 import { AuthContext } from "../../../contextApi";
+import { GoBack } from "../../../components/goBack";
 
 type ListMetas = {
     title: string;
@@ -100,6 +101,7 @@ export default function ViewMetas() {
 
     return (
         <View style={s.conteiner}>
+            <GoBack title="Minhas Metas" />
             <View style={s.createMeta}>
                 <View style={s.viewIcone}>
                     <Feather name="dollar-sign" size={24} color="#4CAF50" />

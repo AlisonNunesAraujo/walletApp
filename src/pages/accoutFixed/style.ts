@@ -7,7 +7,7 @@ export const s = StyleSheet.create({
   },
   header: {
     width: "100%",
-    backgroundColor: "#ccc",
+    backgroundColor: "#fff",
     padding: 20,
   },
   Title: {
@@ -28,7 +28,7 @@ export const s = StyleSheet.create({
   areaRender: {
     width: "100%",
     height: "100%",
-    backgroundColor: "#ccc",
+    backgroundColor: "#fff",
   },
   modal: {
     alignItems: "center",
@@ -68,7 +68,7 @@ export const s = StyleSheet.create({
     marginLeft: 10,
     width: "100%",
     height: 200,
-    backgroundColor: "#ccc",
+    backgroundColor: "#fff",
   },
   grupoAccount: {
     width: 250,
@@ -111,6 +111,7 @@ export const s = StyleSheet.create({
     width: "100%",
     height: "20%",
     alignItems: "center",
+    backgroundColor: "#fff",
   },
   textListVazia: {
     fontFamily: "Arial",

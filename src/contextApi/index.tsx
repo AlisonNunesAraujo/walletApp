@@ -35,6 +35,7 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [nameUser, setNameUser] = useState<nome[]>([]);
   const [saldoReceita, setSaldoReceita] = useState([0.0]);
   const [saldoGastos, setSaldoGastos] = useState([0.0]);
+  const [verifiquedVencimento, setVerifiquedVencimento] = useState([]);
 
   useEffect(() => {
     // verificar se o usuário está logado
@@ -119,6 +120,7 @@ export function AuthProvider({ children }: ChildrenProp) {
           });
         });
         setAccount(lista);
+       
       });
     }
 

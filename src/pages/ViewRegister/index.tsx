@@ -19,6 +19,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
 import * as Animatable from "react-native-animatable";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { GoBack } from "../../components/goBack";
 export default function ViewRegister() {
   const { user, receita, gastos, load, loading } = useContext(AuthContext);
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
@@ -27,6 +28,7 @@ export default function ViewRegister() {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={s.conteiner}>
         <StatusBar backgroundColor={"white"} />
+        <GoBack title="Registros"/>
 
         <Animatable.View animation="fadeIn" style={s.areaFlat}>
           <FlatList

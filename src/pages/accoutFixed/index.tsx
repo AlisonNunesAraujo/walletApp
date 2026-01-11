@@ -14,8 +14,9 @@ import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
 import { showMessage } from "react-native-flash-message";
 import { TextInputMask } from 'react-native-masked-text'
-
+import { SafeAreaView } from "react-native-safe-area-context";;
 import { s } from './style'
+import { GoBack } from "../../components/goBack";
 
 
 export default function AccoutFixed() {
@@ -50,9 +51,12 @@ export default function AccoutFixed() {
     Keyboard.dismiss();
   }
 
+  
+
   return (
-    <View style={s.conteiner}>
+    <SafeAreaView style={s.conteiner}>
       <StatusBar backgroundColor={"white"} />
+      <GoBack title="Contas Fixas" />
       <View style={s.header}>
 
         <Text style={s.Title}>Voçe quer adicionar uma conta fixa?</Text>
@@ -66,11 +70,14 @@ export default function AccoutFixed() {
 
 
       <View style={s.areaRender}>
+      
         <FlatList
           horizontal
           style={s.flatList}
           data={account}
           renderItem={({ item }) => (
+            
+
             <View style={s.grupoAccount}>
               <Text style={s.text}>Conta: {item.nameAccount}
               </Text>
@@ -143,7 +150,7 @@ export default function AccoutFixed() {
           </TouchableOpacity>
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 }
 

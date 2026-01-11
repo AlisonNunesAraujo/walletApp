@@ -56,8 +56,7 @@ export function StackFree() {
       screenOptions={{
         headerTitleStyle: {
           fontSize: 16,
-        }
-
+        },
       }}
     >
       <Nav.Screen
@@ -85,42 +84,35 @@ export function StackFree() {
       <Nav.Screen
         name="AccountFixed"
         component={AccoutFixed}
-        options={{ title: "Contas fixas" }}
+        options={{ title: "Contas fixas", headerShown: false }}
       />
 
       <Nav.Screen
         name="ViewRegister"
         component={ViewRegister}
-        options={{ title: "Registros" }}
+        options={{ title: "Registros", headerShown: false }}
       />
       <Nav.Screen
         name="AddRegister"
         component={AddRegister}
-        options={{ title: "Criar um novo registro" }}
+        options={{ title: "Criar um novo registro", headerShown: false }}
       />
       <Nav.Screen
         name="Profille"
         component={Profille}
-        options={{ title: "Informações" }}
+        options={{ title: "Perfil", headerShown: false }}
       />
-      <Nav.Screen
-        name="Metas"
-        component={Metas}
-        options={{ title: "Metas" }}
-      />
-      <Nav.Screen
-        name="Item"
-        component={Item}
-      />
+      <Nav.Screen name="Metas" component={Metas} options={{ title: "Metas", headerShown: false }} />
+      <Nav.Screen name="Item" component={Item} options={{headerShown: false}} />
       <Nav.Screen
         name="AddMetasOutros"
         component={AddMetasOutros}
-        options={{ title: "Adicionar Metas" }}
+        options={{ title: "Adicionar Metas", headerShown: false }}
       />
       <Nav.Screen
         name="ViewMetas"
         component={ViewMetas}
-        options={{ title: "Minhas Metas" }}
+        options={{ title: "Minhas Metas", headerShown: false }}
       />
       <Nav.Screen
         name="InfoMetas"

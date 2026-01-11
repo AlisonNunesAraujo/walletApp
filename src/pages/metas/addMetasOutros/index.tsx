@@ -15,6 +15,7 @@ import { TextInputMask } from "react-native-masked-text";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../../routs/authfree";
+import { GoBack } from "../../../components/goBack";
 export default function AddMetasOutros() {
     const { user } = useContext(AuthContext);
     const [title, setTitle] = useState("");
@@ -57,6 +58,7 @@ export default function AddMetasOutros() {
 
     return (
         <View style={s.conteiner} onTouchStart={Keyboard.dismiss}>
+            <GoBack title="Adicionar Meta" />
             <Text style={s.title}>Adicionar a sua meta que tanto sonha!</Text>
             <TextInput
                 style={s.input}

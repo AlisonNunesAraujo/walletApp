@@ -1,81 +1,73 @@
 import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    SafeAreaView,
-    Modal,
-    Image,
-    TextInput,
-    Keyboard,
-    FlatList,
-    Alert,
+  View,
+  Text,
+  TouchableOpacity,
+  Alert,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import Feather from "@expo/vector-icons/Feather";
 import { AuthContext } from "../../contextApi";
-import { useContext, useState } from "react";
-import showMessage from "react-native-flash-message";
-
+import { useContext } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { s } from "./style";
+import { GoBack } from "../../components/goBack";
 
-export default function Profille() {
-    const { user, LogOut, AddName, nameUser } = useContext(AuthContext);
+export default function Profile() {
+  const { user, LogOut, nameUser } = useContext(AuthContext);
 
-    const [name, setName] = useState("");
-
-    // chamar a função de logout
-    async function Exit() {
-        Alert.alert(
-            "Deseja realmente sair?",
-            "",
-            [
-                {
-                    text: "Cancelar",
-                    style: "cancel",
-                },
-                {
-                    text: "Sair",
-                    style: "destructive",
-                    onPress: () => {
-                        LogOut();
-                    },
-                },
-            ],
-            { cancelable: true }
-        );
-    }
-
-    return (
-        <SafeAreaView>
-            <Animatable.View animation="fadeIn" style={s.header}>
-                <View style={s.Profile}>
-                    <View style={s.areaEmail}>
-                        {nameUser.map((item, index) => (
-                            <View key={index}>
-                                <Text style={s.textInfo}>Seu nome:</Text>
-                                <Text style={s.textEmail}>{item.name}</Text>
-                            </View>
-                        ))}
-
-                        <Text style={s.textInfo}>Seu E-mail:</Text>
-                        <Text style={s.textEmail}>{user.email}</Text>
-                    </View>
-
-                    <TouchableOpacity onPress={Exit} style={s.bntSair}>
-                        <Feather name="log-out" size={20} color="black" />
-                    </TouchableOpacity>
-
-                    <View style={s.infoSobre}>
-                        <Text style={s.Title}>Sobre o Aplicativo</Text>
-                        <Text style={s.modalText}>
-                            Voçe pode registrar despesas e receitas ao criar uma conta no
-                            Aplicaivo, caso deseje! Também pode conferir a cotação em tempo
-                            real, criar um lembrete de uma conta fixa do mês!
-                        </Text>
-                    </View>
-                </View>
-            </Animatable.View>
-        </SafeAreaView>
+  function Exit() {
+    Alert.alert(
+      "Sair da conta",
+      "Deseja realmente sair?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        { text: "Sair", style: "destructive", onPress: LogOut },
+      ]
     );
+  }
+
+  return (
+    <SafeAreaView style={s.container}>
+        <GoBack title="Perfil" />
+      <Animatable.View animation="fadeInUp" style={s.content}>
+        
+      
+        <View style={s.header}>
+          <Text style={s.headerTitle}>Meu Perfil</Text>
+        </View>
+
+      
+        <View style={s.card}>
+          {nameUser.map((item, index) => (
+            <View key={index} style={s.infoBlock}>
+              <Text style={s.label}>Nome</Text>
+              <Text style={s.value}>{item.name}</Text>
+            </View>
+          ))}
+
+          <View style={s.infoBlock}>
+            <Text style={s.label}>E-mail</Text>
+            <Text style={s.value}>{user.email}</Text>
+          </View>
+        </View>
+
+       
+        <View style={s.card}>
+          <Text style={s.title}>Sobre o aplicativo</Text>
+          <Text style={s.description}>
+            Você pode registrar despesas e receitas ao criar uma conta no
+            aplicativo. Também é possível conferir cotações em tempo real
+            e criar lembretes mensais.
+          </Text>
+        </View>
+
+        
+        <TouchableOpacity style={s.logoutButton} onPress={Exit}>
+          <Feather name="log-out" size={18} color="#fff" />
+          <Text style={s.logoutText}>Sair</Text>
+        </TouchableOpacity>
+
+      </Animatable.View>
+    </SafeAreaView>
+  );
 }

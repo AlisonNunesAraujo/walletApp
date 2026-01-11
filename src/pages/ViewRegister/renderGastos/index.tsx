@@ -45,7 +45,7 @@ const s = StyleSheet.create({
   areaRender: {
     width: "100%",
     height: 'auto',
-    backgroundColor: "#ccc",
+    backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 10,

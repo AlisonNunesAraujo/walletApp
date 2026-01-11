@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 export const s = StyleSheet.create({
     conteiner: {
         flex: 1,
-        backgroundColor: "#ccc",
+        backgroundColor: "#fff",
     },
     areaInformacao: {
         width: "100%",

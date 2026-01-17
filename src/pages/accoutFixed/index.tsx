@@ -55,7 +55,7 @@ export default function AccoutFixed() {
 
   return (
     <SafeAreaView style={s.conteiner}>
-      <StatusBar backgroundColor={"white"} />
+      
       <GoBack title="Contas Fixas" />
       <View style={s.header}>
 

@@ -14,6 +14,7 @@ import { db } from "../../../services/firebase/firebaseConextion";
 import { AuthContext } from "../../../contextApi";
 import { TextInputMask } from 'react-native-masked-text'
 import { GoBack } from "../../../components/goBack";
+import { SafeAreaView } from "react-native-safe-area-context";
 type dados = {
     data: {
         title: string;
@@ -60,7 +61,7 @@ export default function Item() {
 
 
     return (
-        <View onTouchStart={Keyboard.dismiss} style={s.conteiner}>
+        <SafeAreaView onTouchStart={Keyboard.dismiss} style={s.conteiner}>
             <GoBack title="Adicionar Meta" />
             <View style={s.createMeta}>
                 <View style={s.formInput}>
@@ -81,7 +82,7 @@ export default function Item() {
                     <Text>{route.params?.metas}</Text>
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 

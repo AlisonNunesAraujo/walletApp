@@ -23,7 +23,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../../routs/authfree";
 import { AuthContext } from "../../../contextApi";
 import { GoBack } from "../../../components/goBack";
-
+import { SafeAreaView } from "react-native-safe-area-context";
 type ListMetas = {
     title: string;
     valor: string;
@@ -100,7 +100,7 @@ export default function ViewMetas() {
     }
 
     return (
-        <View style={s.conteiner}>
+        <SafeAreaView style={s.conteiner}>
             <GoBack title="Minhas Metas" />
             <View style={s.createMeta}>
                 <View style={s.viewIcone}>
@@ -157,7 +157,7 @@ export default function ViewMetas() {
                     )}
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 

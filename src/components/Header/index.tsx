@@ -34,6 +34,9 @@ export default function HeaderComponent() {
           <Text style={s.text}>Olá</Text>
         )}
 
+       <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
+      
+
         <TouchableOpacity
           style={s.viewBntinfo}
           onPress={() => navigation.navigate("Profille")}
@@ -41,6 +44,7 @@ export default function HeaderComponent() {
           <Feather name="user" color={"black"} size={16} />
           <Text style={s.textviewInfo}>Perfil</Text>
         </TouchableOpacity>
+       </View>
       </View>
     </View>
   );

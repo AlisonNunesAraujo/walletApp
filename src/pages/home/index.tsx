@@ -18,6 +18,9 @@ import CardSaldo from "../../components/cardSaldo";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { GoogleGenAI } from "@google/genai";
 import { AuthContext } from "../../contextApi";
+
+
+
 export default function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
   const { account } = useContext(AuthContext);
@@ -146,6 +149,7 @@ export default function Home() {
                 fontSize: 14,
                 fontWeight: "500",
                 flex: 1,
+                fontFamily: "NunitoSemiBold",
               }}
             >
               Existem contas próximas do vencimento

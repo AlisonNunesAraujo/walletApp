@@ -8,7 +8,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <AuthProvider>
-        <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
+        <StatusBar backgroundColor={"white"} />
         <Private />
         <FlashMessage position={"center"} />
       </AuthProvider>

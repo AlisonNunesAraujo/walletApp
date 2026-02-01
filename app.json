@@ -17,6 +17,9 @@
       "bundleIdentifier": "com.alisonaraujo.Wallet",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
+      },
+      "runtimeVersion": {
+        "policy": "appVersion"
       }
     },
     "android": {
@@ -25,15 +28,16 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.alisonaraujo.Wallet",
-      "targetSdkVersion": 35
-    },
-    "web": {
-      "favicon": "./assets/appIcone.jpg"
+      "targetSdkVersion": 35,
+      "runtimeVersion": "1.0.0"
     },
     "extra": {
       "eas": {
         "projectId": "c62bd382-120c-468d-a728-0f616658f046"
       }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/c62bd382-120c-468d-a728-0f616658f046"
     }
   }
 }

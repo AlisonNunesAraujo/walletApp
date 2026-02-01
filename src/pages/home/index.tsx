@@ -167,12 +167,12 @@ export default function Home() {
         </TouchableOpacity>
       )}
 
-      {/* <TouchableOpacity
+       {/* <TouchableOpacity
         style={s.buttonIA}
         onPress={() => navigation.navigate("ChatIA")}
       >
         <Text>IA</Text>
-      </TouchableOpacity> */}
+      </TouchableOpacity>  */}
     </SafeAreaView>
   );
 }

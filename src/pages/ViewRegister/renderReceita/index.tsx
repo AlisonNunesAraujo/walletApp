@@ -1,25 +1,27 @@
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import { TypesReceita } from "../../../contextApi/types";
-import * as Animateble from "react-native-animatable";
 import { useContext } from "react";
 import { AuthContext } from "../../../contextApi";
 import Feather from "@expo/vector-icons/Feather";
-
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../../routs/authfree";
 import { useNavigation } from "@react-navigation/native";
+import { useTheme, type ThemeColors } from "../../../contextApi/theme";
 
 export default function RenderReceita({ data }: { data: TypesReceita }) {
   const { Deletar } = useContext(AuthContext);
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
 
-  // Função para deletar receita
+  // cores do tema para o fundo do card e textos
+  const { colors } = useTheme();
+  const s = getStyles(colors);
+
   function Delete(uid: string) {
     Deletar({ uid });
   }
 
   return (
-    <Animateble.View animation="fadeInDown">
+    <View>
       <TouchableOpacity
         style={s.areaRender}
         onPress={() =>
@@ -37,37 +39,43 @@ export default function RenderReceita({ data }: { data: TypesReceita }) {
           <Feather color="red" size={20} name="trash" />
         </TouchableOpacity>
       </TouchableOpacity>
-    </Animateble.View>
+    </View>
   );
 }
 
-const s = StyleSheet.create({
-  areaRender: {
-    width: "100%",
-    height: "auto",
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 10,
-    borderRadius: 5,
-    gap: 10,
-    boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
-  },
-
-  textValor: {
-    fontSize: 14,
-    fontFamily: "Arial,",
-    padding: 2,
-  },
-  textbnt: {
-    fontFamily: "Arial",
-    fontWeight: "700",
-    fontSize: 14,
-  },
-  textVerMais: {
-    fontSize: 14,
-    fontFamily: "Arial",
-    color: "red",
-    fontWeight: "bold",
-  },
-});
+const getStyles = (colors: ThemeColors) =>
+  StyleSheet.create({
+    areaRender: {
+      width: "100%",
+      backgroundColor: colors.card,
+      justifyContent: "center",
+      alignItems: "center",
+      marginBottom: 10,
+      borderRadius: 5,
+      gap: 10,
+      paddingVertical: 8,
+      shadowColor: "#080808",
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.15,
+      shadowRadius: 4,
+      elevation: 2,
+    },
+    textValor: {
+      fontSize: 14,
+      fontFamily: "Arial",
+      padding: 2,
+      color: colors.text,
+    },
+    textbnt: {
+      fontFamily: "Arial",
+      fontWeight: "700",
+      fontSize: 14,
+      color: colors.text,
+    },
+    textVerMais: {
+      fontSize: 14,
+      fontFamily: "Arial",
+      color: "red",
+      fontWeight: "bold",
+    },
+  });

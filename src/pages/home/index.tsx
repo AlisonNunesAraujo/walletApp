@@ -1,178 +1,192 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StatusBar,
-  ScrollView,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { s } from "./style";
+import { View, Text, TouchableOpacity, ScrollView, Dimensions } from "react-native";
+import { getStyles } from "./style";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
 import HeaderComponent from "../../components/Header";
-import * as Animatable from "react-native-animatable";
 import ScrollHome from "../../components/scrollHome";
 import CardSaldo from "../../components/cardSaldo";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { GoogleGenAI } from "@google/genai";
 import { AuthContext } from "../../contextApi";
+import { useTheme } from "../../contextApi/theme";
+import { BarChart } from "react-native-gifted-charts";
+
+const SCREEN_WIDTH = Dimensions.get("window").width;
+const MESES = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+
 export default function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
-  const { account } = useContext(AuthContext);
-  const [daysLeft, setDaysLeft] = useState();
+  const { account, receita, gastos } = useContext(AuthContext);
+  const [daysLeft, setDaysLeft] = useState<string[]>([]);
   const [verifiquedVencimento, setVerifiquedVencimento] = useState(false);
 
-  const ai = new GoogleGenAI({
-    apiKey: "AIzaSyCveaBX494NX4tYaWkwMjxC0lRpIVr9L6A",
-  });
-
-  async function main() {
-    try {
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: "Explain how AI works in a few words",
-      });
-      alert("deu certo");
-      console.log(response.text);
-    } catch (err) {
-      console.log(err);
-      alert("erro");
-    }
-  }
-
- 
+  const { colors } = useTheme();
+  const s = getStyles(colors);
 
   useEffect(() => {
-    const diasParaAviso = 3; 
+    if (!Array.isArray(account)) return;
+    const hoje = new Date();
+    const proximas: string[] = [];
 
-    const verificarVencimentosProximos = () => {
-      const hoje = new Date();
-      const contasProximas: string[] = [];
-
-      if (Array.isArray(account)) {
-        account.forEach((item) => {
-          // Supondo que item.vencimento está no formato "dd/mm/yyyy"
-          const [dia, mes, ano] = item.vencimento.split("/");
-          const dataVencimento = new Date(
-            Number(ano),
-            Number(mes) - 1,
-            Number(dia)
-          );
-
-          // Calcula a diferença em dias
-          const diffTime = dataVencimento.getTime() - hoje.getTime();
-          const diffDias = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-          if (diffDias > 0 && diffDias <= diasParaAviso) {
-            contasProximas.push(
-              `${item.nameAccount} (vence em ${diffDias} dia${
-                diffDias > 1 ? "s" : ""
-              })`
-            );
-          }
-        });
+    account.forEach((item) => {
+      const [dia, mes, ano] = item.vencimento.split("/");
+      const venc = new Date(Number(ano), Number(mes) - 1, Number(dia));
+      const diffDias = Math.ceil((venc.getTime() - hoje.getTime()) / (1000 * 60 * 60 * 24));
+      if (diffDias > 0 && diffDias <= 3) {
+        proximas.push(`${item.nameAccount} (${diffDias}d)`);
       }
+    });
 
-      if (contasProximas.length > 0) {
-        // alert(`Atenção! As seguintes contas estão próximas do vencimento:\n${contasProximas.join("\n")}`);
-        setVerifiquedVencimento(true);
-      }
-      setDaysLeft(contasProximas);
-    };
-
-    verificarVencimentosProximos();
+    setDaysLeft(proximas);
+    setVerifiquedVencimento(proximas.length > 0);
   }, [account]);
+
+  const parseDate = (d: string) => {
+    if (!d) return new Date(0);
+    const [day, month, year] = d.split("/");
+    return new Date(Number(year), Number(month) - 1, Number(day));
+  };
+
+  const barData = React.useMemo(() => {
+    const recMap: Record<string, number> = {};
+    const gasMap: Record<string, number> = {};
+
+    (receita ?? []).forEach((r) => {
+      if (!r.date) return;
+      const [, m, y] = r.date.split("/");
+      const key = `${m}/${y}`;
+      recMap[key] = (recMap[key] ?? 0) + (Number(r.receita) || 0);
+    });
+
+    (gastos ?? []).forEach((g) => {
+      if (!g.date) return;
+      const [, m, y] = g.date.split("/");
+      const key = `${m}/${y}`;
+      gasMap[key] = (gasMap[key] ?? 0) + (Number(g.gastos) || 0);
+    });
+
+    const allKeys = Array.from(new Set([...Object.keys(recMap), ...Object.keys(gasMap)])).sort(
+      (a, b) => {
+        const [ma, ya] = a.split("/").map(Number);
+        const [mb, yb] = b.split("/").map(Number);
+        return ya !== yb ? ya - yb : ma - mb;
+      }
+    );
+
+    const ultimos = allKeys.slice(-4);
+    const data: { value: number; label?: string; frontColor: string; spacing?: number; labelTextStyle?: object }[] = [];
+
+    ultimos.forEach((key) => {
+      const [mes] = key.split("/").map(Number);
+      const nomeMes = MESES[mes - 1];
+
+      data.push({
+        value: recMap[key] ?? 0,
+        label: nomeMes,
+        frontColor: "#00cc73",
+        spacing: 4,
+        labelTextStyle: { color: colors.textSecondary, fontSize: 10 },
+      });
+
+      data.push({
+        value: gasMap[key] ?? 0,
+        frontColor: "#E53935",
+        spacing: 20,
+      });
+    });
+
+    return data;
+  }, [receita, gastos, colors.textSecondary]);
+
+  const temDadosGrafico = barData.length > 0;
+
+  const ultimasTransacoes = [
+    ...(receita ?? []).map((r) => ({
+      tipo: "receita" as const,
+      valor: Number(r.receita) || 0,
+      desc: r.desc && String(r.desc) !== "undefined" ? String(r.desc) : "Receita",
+      date: r.date,
+    })),
+    ...(gastos ?? []).map((g) => ({
+      tipo: "gasto" as const,
+      valor: Number(g.gastos) || 0,
+      desc: g.desc || "Gasto",
+      date: g.date,
+    })),
+  ]
+    .sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime())
+    .slice(0, 5);
+
+  const fmt = (n: number) =>
+    Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(n);
 
   return (
     <SafeAreaView style={s.conteiner}>
       <HeaderComponent />
-      <CardSaldo />
-      <ScrollHome />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <CardSaldo />
+        <ScrollHome />
 
-      <Animatable.View animation="fadeIn" style={s.areaView}>
-        {/* <TouchableOpacity
-          style={s.areaBnts}
-          onPress={() => navigation.navigate("Dolar")}
-        >
-          <Text style={s.textTitle}>Verificar a cotaçao atual</Text>
-          <Text style={s.textInfo}>
-            Aqui voçe pode se informar sobre cotação em tempo real!
-          </Text>
-        </TouchableOpacity> */}
-        <TouchableOpacity
-          style={s.areaBnts}
-          onPress={() => navigation.navigate("AccountFixed")}
-        >
-          <Text style={s.textTitle}>Criar uma conta fixa! 'lembrete'</Text>
-          <Text style={s.textInfo}>
-            Voçe pode criar uma conta fixa do mês, exp: Conta de luz!
-          </Text>
-        </TouchableOpacity>
-      </Animatable.View>
-
-      {verifiquedVencimento && (
-        <TouchableOpacity
-        onPress={() => navigation.navigate("AccountFixed")}
-          style={{
-            marginBottom: 100,
-            marginTop: 20,
-            paddingVertical: 14,
-            paddingHorizontal: 16,
-            width: "90%",
-            alignSelf: "center",
-            borderRadius: 12,
-            backgroundColor: "#F5E9FB",
-            shadowColor: "#000",
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.08,
-            shadowRadius: 6,
-            elevation: 2,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <Ionicons name="time-outline" size={20} color="#820AD1" />
-
-            <Text
-              style={{
-                marginLeft: 10,
-                color: "#2D2D2D",
-                fontSize: 14,
-                fontWeight: "500",
-                flex: 1,
-              }}
-            >
-              Existem contas próximas do vencimento
-            </Text>
-
-            <Ionicons name="chevron-forward" size={18} color="#820AD1" />
+        {ultimasTransacoes.length > 0 && (
+          <View style={s.section}>
+            <Text style={s.sectionTitle}>Últimas transações</Text>
+            {ultimasTransacoes.map((item, index) => (
+              <View key={index} style={s.transacaoRow}>
+                <View style={s.transacaoLeft}>
+                  <Text style={s.transacaoDesc}>{item.desc}</Text>
+                  <Text style={s.transacaoDate}>{item.date}</Text>
+                </View>
+                <Text style={[s.transacaoValor, { color: item.tipo === "receita" ? "#00aa55" : "#cc3300" }]}>
+                  {item.tipo === "receita" ? "+" : "-"} {fmt(item.valor)}
+                </Text>
+              </View>
+            ))}
           </View>
+        )}
 
-          <Text
-            style={{
-              marginTop: 8,
-              color: "#6E6E6E",
-              fontSize: 13,
-              marginLeft: 30,
-            }}
+        <View style={s.areaView}>
+          <TouchableOpacity
+            style={s.areaBnts}
+            onPress={() => navigation.navigate("AccountFixed")}
           >
-            Sua conta: {daysLeft.join(", ")}
-          </Text>
-        </TouchableOpacity>
-      )}
+            <Text style={s.textTitle}>Contas fixas</Text>
+            <Text style={s.textInfo}>Adicione lembretes mensais como conta de luz, internet, etc.</Text>
+          </TouchableOpacity>
+        </View>
 
-       {/* <TouchableOpacity
-        style={s.buttonIA}
-        onPress={() => navigation.navigate("ChatIA")}
-      >
-        <Text>IA</Text>
-      </TouchableOpacity>  */}
+        {verifiquedVencimento && (
+          <View style={s.vencimentoAviso}>
+            <Text style={s.vencimentoTitulo}>Vencimento próximo</Text>
+            <Text style={s.vencimentoTexto}>{daysLeft.join("  •  ")}</Text>
+          </View>
+        )}
+
+        {temDadosGrafico && (
+          <View style={[s.section, { marginBottom: 24 }]}>
+            <Text style={s.sectionTitle}>Receitas vs Gastos</Text>
+            <View style={s.legendaRow}>
+              <View style={[s.legendaDot, { backgroundColor: "#00cc73" }]} />
+              <Text style={s.legendaText}>Receita</Text>
+              <View style={[s.legendaDot, { backgroundColor: "#E53935", marginLeft: 12 }]} />
+              <Text style={s.legendaText}>Gasto</Text>
+            </View>
+            <BarChart
+              data={barData}
+              width={SCREEN_WIDTH * 0.82}
+              barWidth={22}
+              barBorderRadius={4}
+              rulesColor={colors.border}
+              rulesType="solid"
+              yAxisTextStyle={{ color: colors.textSecondary, fontSize: 10 }}
+              yAxisColor={colors.border}
+              xAxisColor={colors.border}
+              backgroundColor={colors.card}
+              isAnimated
+            />
+          </View>
+        )}
+      </ScrollView>
     </SafeAreaView>
   );
 }

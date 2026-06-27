@@ -1,42 +1,45 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
+import { type ThemeColors } from '../../contextApi/theme';
 
-export const s = StyleSheet.create({
+export const getStyles = (colors: ThemeColors) =>
+  StyleSheet.create({
     conteiner: {
-        flex: 1,
-        backgroundColor: "#fff",
+      flex: 1,
+      backgroundColor: colors.background,
     },
     areaInformacao: {
-        width: "100%",
-        height: "auto",
-        padding: 20,
-        overflow: "hidden",
+      width: "100%",
+      padding: 20,
+      overflow: "hidden",
     },
     textReceita: {
-        fontSize: 15,
-        fontFamily: "Arial",
-        fontWeight: "700",
+      fontSize: 15,
+      fontFamily: "Arial",
+      fontWeight: "700",
+      color: colors.text,
     },
     textValorReceita: {
-        color: "black",
-        fontWeight: "bold",
-        fontFamily: "Arial",
+      color: colors.text,
+      fontWeight: "bold",
+      fontFamily: "Arial",
     },
     textDesc: {
-        marginTop: 12,
-        fontSize: 12,
+      marginTop: 12,
+      fontSize: 12,
+      color: colors.textSecondary,
     },
     bntVoltar: {
-        width: "40%",
-        backgroundColor: "blue",
-        justifyContent: "center",
-        alignItems: "center",
-        marginLeft: 20,
-        padding: 10,
-        borderRadius: 5,
+      width: "40%",
+      backgroundColor: "#1565C0",
+      justifyContent: "center",
+      alignItems: "center",
+      marginLeft: 20,
+      padding: 10,
+      borderRadius: 5,
     },
     textbntvoltar: {
-        color: "white",
-        fontFamily: "Arial",
-        fontSize: 12,
+      color: "white",
+      fontFamily: "Arial",
+      fontSize: 12,
     },
-});
+  });

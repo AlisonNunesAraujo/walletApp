@@ -4,9 +4,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
   StatusBar,
-  TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
 import { showMessage } from "react-native-flash-message";
@@ -16,29 +14,24 @@ import { ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamList } from "../../routs/authfree";
-import * as Animatable from "react-native-animatable";
 import { TextInputMask } from "react-native-masked-text";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { s } from './style'
-
+import { getStyles } from './style';
 import { GoBack } from "../../components/goBack";
+import { useTheme } from "../../contextApi/theme";
 
 export default function AddRegister() {
-  const { user, receita, gastos, AddReceita, AddGastos, load, loading } =
-    useContext(AuthContext);
+  const { AddReceita, AddGastos, load, loading } = useContext(AuthContext);
   const [addValor, setAddValor] = useState("");
-  const [addDesc, setAdddesc] = useState("")
+  const [addDesc, setAdddesc] = useState("");
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
+  const { colors } = useTheme();
+  const s = getStyles(colors);
 
-  // Função para adicionar receita
   async function AddvalorReceita() {
     if (addValor === "") {
-      showMessage({
-        message: "Digite algo!",
-        duration: 2000,
-        type: "danger",
-      });
+      showMessage({ message: "Digite algo!", duration: 2000, type: "danger" });
       return;
     }
     AddReceita({ addValor, addDesc });
@@ -46,14 +39,9 @@ export default function AddRegister() {
     setAdddesc("");
   }
 
-  // Função para adicionar gastos
   async function AddvalorGastos() {
     if (addValor === "") {
-      showMessage({
-        message: "Digite algo!",
-        duration: 1000,
-        type: "danger",
-      });
+      showMessage({ message: "Digite algo!", duration: 1000, type: "danger" });
       return;
     }
     AddGastos({ addValor, addDesc });
@@ -62,7 +50,6 @@ export default function AddRegister() {
   }
 
   return (
-
     <SafeAreaView style={s.conteiner} onTouchStart={Keyboard.dismiss}>
       <StatusBar backgroundColor="white" barStyle={"dark-content"} />
       <GoBack title="Adicionar registro" />
@@ -79,7 +66,7 @@ export default function AddRegister() {
         />
 
         <TextInput
-          placeholder="Descrição"
+          placeholder="Descrição"
           value={addDesc}
           onChangeText={setAdddesc}
           style={s.inputAdd}
@@ -102,8 +89,8 @@ export default function AddRegister() {
             )}
           </TouchableOpacity>
         </View>
-
       </View>
+
       <TouchableOpacity
         onPress={() => navigation.navigate("ViewRegister")}
         style={s.buttonVoltar}
@@ -112,12 +99,10 @@ export default function AddRegister() {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
-        style={s.buttonVoltar}
+        style={[s.buttonVoltar, { marginTop: 10 }]}
       >
         <Text style={s.textButtonVoltar}>Voltar para Home</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
 }
-
-

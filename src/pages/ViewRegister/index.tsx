@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   View,
   Text,
@@ -14,15 +13,16 @@ import RenderReceita from "./renderReceita";
 import RenderGastos from "./renderGastos";
 import HeaderListGastos from "./HeaderListGastos";
 import HeaderListReceita from "./HeaderListReceita";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { ParamList } from "../../routs/authfree";
-import * as Animatable from "react-native-animatable";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { GoBack } from "../../components/goBack";
+import { useTheme, type ThemeColors } from "../../contextApi/theme";
+
 export default function ViewRegister() {
-  const { user, receita, gastos, load, loading } = useContext(AuthContext);
-  const navigation = useNavigation<NativeStackNavigationProp<ParamList>>();
+  const { receita, gastos } = useContext(AuthContext);
+
+  // cores do tema atual para aplicar no fundo e nos textos
+  const { colors } = useTheme();
+  const s = getStyles(colors);
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -30,21 +30,19 @@ export default function ViewRegister() {
         <StatusBar backgroundColor={"white"} />
         <GoBack title="Registros"/>
 
-        <Animatable.View animation="fadeIn" style={s.areaFlat}>
+        <View style={s.areaFlat}>
           <FlatList
             ListHeaderComponent={<HeaderListReceita />}
             showsVerticalScrollIndicator={false}
             data={receita}
             renderItem={({ item }) => <RenderReceita data={item} />}
-            ListEmptyComponent={() => {
-              return (
-                <View style={s.infoListaVazia}>
-                  <Text style={s.textListVazia}>
-                    Suas receitas apareceram aqui
-                  </Text>
-                </View>
-              );
-            }}
+            ListEmptyComponent={() => (
+              <View style={s.infoListaVazia}>
+                <Text style={s.textListVazia}>
+                  Suas receitas apareceram aqui
+                </Text>
+              </View>
+            )}
             style={{ height: "100%" }}
           />
 
@@ -53,113 +51,41 @@ export default function ViewRegister() {
             showsVerticalScrollIndicator={false}
             data={gastos}
             renderItem={({ item }) => <RenderGastos data={item} />}
-            ListEmptyComponent={() => {
-              return (
-                <View style={s.infoListaVazia}>
-                  <Text style={s.textListVazia}>
-                    Seus gastos apareceram aqui!
-                  </Text>
-                </View>
-              );
-            }}
+            ListEmptyComponent={() => (
+              <View style={s.infoListaVazia}>
+                <Text style={s.textListVazia}>
+                  Seus gastos apareceram aqui!
+                </Text>
+              </View>
+            )}
           />
-        </Animatable.View>
+        </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
 }
 
-const s = StyleSheet.create({
-  conteiner: {
-    flex: 1,
-    backgroundColor: "#fff4ff",
-    alignItems: "center",
-  },
-
-  areaAdd: {
-    width: "90%",
-    marginTop: 20,
-    backgroundColor: "#ccc",
-    padding: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 5,
-    boxShadow: "0px 4px 4px rgba(8, 8, 8, 0.25)",
-  },
-
-  inputAdd: {
-    width: "90%",
-    height: 50,
-    padding: 13,
-    borderRadius: 5,
-    boxShadow: "1px 3px 3px 0px rgba(8, 8, 8, 0.25)",
-  },
-
-  areaBntAdd: {
-    width: "100%",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    flexDirection: "row",
-    margin: 10,
-  },
-  bnt: {
-    width: "30%",
-    backgroundColor: "white",
-    padding: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 5,
-  },
-
-  textbntAdd: {
-    fontSize: 15,
-    fontFamily: "Arial",
-  },
-  areaFlat: {
-    flexDirection: "row",
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    padding: 15,
-    gap: 20,
-  },
-  areaDolar: {
-    width: "80%",
-    height: 45,
-    backgroundColor: "blue",
-    borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 5,
-  },
-  textBntDolar: {
-    fontFamily: "Arial",
-    color: "white",
-    fontSize: 17,
-    fontWeight: "900",
-  },
-  bntisActive: {
-    width: "40%",
-    marginTop: 20,
-    padding: 10,
-    borderRadius: 6,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  textbntOcultarActive: {
-    fontFamily: "Arial",
-    color: "white",
-    fontWeight: "700",
-  },
-  textbntocultarList: {
-    fontWeight: "700",
-    fontFamily: "Arial",
-    color: "white",
-  },
-  infoListaVazia: {
-    alignItems: "center",
-  },
-  textListVazia: {
-    fontFamily: "Arial",
-  },
-});
+// função em vez de objeto estático para suportar o tema dinâmico
+const getStyles = (colors: ThemeColors) =>
+  StyleSheet.create({
+    conteiner: {
+      flex: 1,
+      backgroundColor: colors.background,
+      alignItems: "center",
+    },
+    areaFlat: {
+      flexDirection: "row",
+      width: "100%",
+      height: "100%",
+      justifyContent: "center",
+      padding: 15,
+      gap: 20,
+    },
+    infoListaVazia: {
+      alignItems: "center",
+    },
+    textListVazia: {
+      fontFamily: "Arial",
+      color: colors.textSecondary,
+    },
+  });

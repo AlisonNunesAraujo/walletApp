@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { auth } from "../services/firebase/firebaseConextion";
 import {
   createUserWithEmailAndPassword,
@@ -11,22 +11,15 @@ import { signOut } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 import { format } from "date-fns";
-import { States } from "./types";
-import { ChildrenProp } from "./types";
-import { stateUser } from "./types";
-import { TypesReceita } from "./types";
-import { TypesGastos } from "./types";
+import { States, ChildrenProp, stateUser, TypesReceita, TypesGastos } from "./types";
 import { DeletarProp, listAccount, nome } from "./types";
-import { useNavigation } from "@react-navigation/native";
 import { Alert } from "react-native";
+
 export const AuthContext = createContext({} as States);
 
 export function AuthProvider({ children }: ChildrenProp) {
-  const [user, setUser] = useState<stateUser>({
-    email: "",
-    uid: "",
-  });
-  const navigation = useNavigation();
+  const [user, setUser] = useState<stateUser>({ email: "", uid: "" });
+  const [refreshKey, setRefreshKey] = useState(0);
   const [receita, setReceita] = useState<TypesReceita[]>([]);
   const [gastos, setGastos] = useState<TypesGastos[]>([]);
   const [load, setLoading] = useState(false);
@@ -35,401 +28,209 @@ export function AuthProvider({ children }: ChildrenProp) {
   const [nameUser, setNameUser] = useState<nome[]>([]);
   const [saldoReceita, setSaldoReceita] = useState([0.0]);
   const [saldoGastos, setSaldoGastos] = useState([0.0]);
-  const [verifiquedVencimento, setVerifiquedVencimento] = useState([]);
 
+  // carregar usuário do AsyncStorage apenas uma vez no mount
   useEffect(() => {
-    // verificar se o usuário está logado
     async function ViewUser() {
       try {
         const response = await AsyncStorage.getItem("@userAppwallet");
-        if (response) {
-          setUser(JSON.parse(response));
-        }
+        if (response) setUser(JSON.parse(response));
       } catch {
-        showMessage({
-          message: "Algo deu errado!",
-        });
+        showMessage({ message: "Algo deu errado!" });
       }
     }
-
     ViewUser();
+  }, []);
 
-    // buscar os dados das receitas do usuário logado
+  // buscar dados do Firebase quando uid ou refreshKey mudar
+  useEffect(() => {
+    if (!user.uid) return;
+
     async function buscarDados() {
-      const ref = collection(db, "receita");
-
-      const receitaQuery = query(ref, where("uid", "==", user.uid));
-
-      getDocs(receitaQuery).then((snapshot) => {
-        let lista: TypesReceita[] = [];
-
-        snapshot.forEach((doc) => {
-          lista.push({
-            receita: doc.data().valor,
-            desc: doc.data().descricao,
-            uid: doc.id,
-            date: doc.data().date,
-          });
+      const q = query(collection(db, "receita"), where("uid", "==", user.uid));
+      getDocs(q).then((snapshot) => {
+        const lista: TypesReceita[] = [];
+        snapshot.forEach((d) => {
+          lista.push({ receita: d.data().valor, desc: d.data().descricao, uid: d.id, date: d.data().date });
         });
         setReceita(lista);
+        setSaldoReceita([lista.reduce((acc, item) => acc + (Number(item.receita) || 0), 0)]);
+      });
+    }
 
-        const saldo = lista.reduce((acc, item) => acc + item.receita, 0);
-        setSaldoReceita([saldo]);
+    async function buscarGastos() {
+      const q = query(collection(db, "gastos"), where("uid", "==", user.uid));
+      getDocs(q).then((snapshot) => {
+        const lista: TypesGastos[] = [];
+        snapshot.forEach((d) => {
+          lista.push({ gastos: d.data().valor, desc: d.data().descricao, uid: d.id, date: d.data().date });
+        });
+        setGastos(lista);
+        setSaldoGastos([lista.reduce((acc, item) => acc + (Number(item.gastos) || 0), 0)]);
+      });
+    }
+
+    async function buscarAccount() {
+      const q = query(collection(db, "Account"), where("uid", "==", user.uid));
+      getDocs(q).then((snapshot) => {
+        const lista: listAccount[] = [];
+        snapshot.forEach((d) => {
+          lista.push({ nameAccount: d.data().nameAccount, valor: d.data().valor, vencimento: d.data().vencimento, uid: d.id });
+        });
+        setAccount(lista);
+      });
+    }
+
+    async function buscarNome() {
+      const q = query(collection(db, "users"), where("uid", "==", user.uid));
+      getDocs(q).then((snapshot) => {
+        const lista: nome[] = [];
+        snapshot.forEach((d) => lista.push({ name: d.data().name, uid: d.id }));
+        setNameUser(lista);
       });
     }
 
     buscarDados();
+    buscarGastos();
+    buscarAccount();
+    buscarNome();
+  }, [user.uid, refreshKey]);
 
-    // buscar os dados dos gastos do usuário logado
-    async function RendleGastos() {
-      const ref = collection(db, "gastos");
-      const gastosQuery = query(ref, where("uid", "==", user.uid));
-      getDocs(gastosQuery).then((snapshot) => {
-        let lista: TypesGastos[] = [];
-
-        snapshot.forEach((doc) => {
-          lista.push({
-            gastos: doc.data().valor,
-            desc: doc.data().descricao,
-            uid: doc.id,
-            date: doc.data().date,
-          });
-        });
-        setGastos(lista);
-        const saldo = lista.reduce((acc, item) => acc + item.gastos, 0);
-        setSaldoGastos([saldo]);
-        // console.log(saldo);
-      });
-    }
-
-    RendleGastos();
-
-    // buscar os dados da conta do usuário logado
-    async function BuscarAccount() {
-      const ref = collection(db, "Account");
-      const queryAccount = query(ref, where("uid", "==", user.uid));
-      getDocs(queryAccount).then((snapshot) => {
-        let lista: listAccount[] = [];
-
-        snapshot.forEach((doc) => {
-          lista.push({
-            nameAccount: doc.data().nameAccount,
-            valor: doc.data().valor,
-            vencimento: doc.data().vencimento,
-            uid: doc.id,
-          });
-        });
-        setAccount(lista);
-       
-      });
-    }
-
-    BuscarAccount();
-
-    // buscar o nome do usuário logado
-    async function GetName() {
-      const ref = collection(db, "users");
-
-      const queryName = query(ref, where("uid", "==", user.uid));
-
-      getDocs(queryName).then((snapshot) => {
-        let getName: nome[] = [];
-
-        snapshot.forEach((doc) => {
-          getName.push({
-            name: doc.data().name,
-            uid: doc.id,
-          });
-        });
-        setNameUser(getName);
-      });
-    }
-
-    GetName();
-  }, [Deletar, deleteAccountfixed]);
-
-  // criar uma conta de usuário
-  async function CreateUser({
-    email,
-    senha,
-    name,
-  }: {
-    email: string;
-    senha: string;
-    name: string;
-  }) {
+  async function CreateUser({ email, senha, name }: { email: string; senha: string; name: string }) {
     setLoading(true);
     try {
       const data = await createUserWithEmailAndPassword(auth, email, senha);
-
-      const ref = addDoc(collection(db, "users"), {
-        name: name,
-        uid: data.user.uid,
-      });
-
-      setUser({
-        email: data.user.email,
-        uid: data.user.uid,
-      });
-
-      const dados = {
-        email: data.user.email,
-        uid: data.user.uid,
-      };
-
-      showMessage({
-        message: "Bem vindo!",
-        duration: 2000,
-        type: "success",
-      });
-      setLoading(false);
-
-      await AsyncStorage.setItem("@userAppwallet", JSON.stringify(dados));
+      await addDoc(collection(db, "users"), { name, uid: data.user.uid });
+      setUser({ email: data.user.email, uid: data.user.uid });
+      await AsyncStorage.setItem("@userAppwallet", JSON.stringify({ email: data.user.email, uid: data.user.uid }));
+      showMessage({ message: "Bem vindo!", duration: 2000, type: "success" });
     } catch {
-      showMessage({
-        message: "Algo deu errado!",
-      });
+      showMessage({ message: "Algo deu errado!" });
+    } finally {
       setLoading(false);
     }
   }
 
-  // fazer login com email e senha
   async function Login({ email, senha }: { email: string; senha: string }) {
     setLoading(true);
     try {
       const data = await signInWithEmailAndPassword(auth, email, senha);
-      setUser({
-        email: data.user.email,
-        uid: data.user.uid,
-      });
-      const dados = {
-        email: data.user.email,
-        uid: data.user.uid,
-      };
-      setLoading(false);
-      await AsyncStorage.setItem("@userAppwallet", JSON.stringify(dados));
-      showMessage({
-        message: "Bem vindo!",
-        type: "success",
-      });
+      setUser({ email: data.user.email, uid: data.user.uid });
+      await AsyncStorage.setItem("@userAppwallet", JSON.stringify({ email: data.user.email, uid: data.user.uid }));
+      showMessage({ message: "Bem vindo!", type: "success" });
     } catch {
-      showMessage({
-        message: "Algo deu errado!",
-        type: "danger",
-      });
+      showMessage({ message: "Algo deu errado!", type: "danger" });
+    } finally {
       setLoading(false);
     }
   }
 
-  // deletar receita
   async function Deletar({ uid }: DeletarProp) {
     setLoading(true);
-    const data = doc(db, "receita", uid);
-
-    await deleteDoc(data)
+    await deleteDoc(doc(db, "receita", uid))
       .then(() => {
-        showMessage({
-          message: "Deletado com sucesso!",
-          type: "success",
-        });
-        setLoading(false);
+        showMessage({ message: "Deletado com sucesso!", type: "success" });
+        setRefreshKey((k) => k + 1);
       })
-
-      .catch(() => {
-        showMessage({
-          message: "Algo deu errado!",
-        });
-        setLoading(false);
-      });
+      .catch(() => showMessage({ message: "Algo deu errado!" }))
+      .finally(() => setLoading(false));
   }
 
-  // deletar gastos
   async function DeletarGastos({ uid }: DeletarProp) {
-    const data = doc(db, "gastos", uid);
-
-    await deleteDoc(data)
+    await deleteDoc(doc(db, "gastos", uid))
       .then(() => {
-        showMessage({
-          message: "Deletado com sucesso!",
-          type: "success",
-        });
+        showMessage({ message: "Deletado com sucesso!", type: "success" });
+        setRefreshKey((k) => k + 1);
       })
-      .catch((err) => {
-        showMessage({
-          message: "Algo deu errado!",
-        });
-      });
+      .catch(() => showMessage({ message: "Algo deu errado!" }));
   }
 
-  // adicionar receita
-  async function AddReceita({
-    addValor,
-    addDesc,
-  }: {
-    addValor: string | number;
-    addDesc: string;
-  }) {
+  async function AddReceita({ addValor, addDesc }: { addValor: string | number; addDesc: string }) {
     setLoading(true);
-
     const valorNumerico = parseFloat(
-      String(addValor)
-        .replace("R$", "")
-        .replace(/\./g, "")
-        .replace(",", ".")
-        .trim()
+      String(addValor).replace("R$", "").replace(/\./g, "").replace(",", ".").trim()
     );
-
     try {
-      const data = await addDoc(collection(db, "receita"), {
+      await addDoc(collection(db, "receita"), {
         uid: user.uid,
         valor: valorNumerico,
         descricao: addDesc,
         date: format(new Date(), "dd/MM/yyyy"),
       });
-
-      showMessage({
-        message: "Adicionado com sucesso!",
-        type: "success",
-      });
-      setLoading(false);
+      showMessage({ message: "Adicionado com sucesso!", type: "success" });
+      setRefreshKey((k) => k + 1);
     } catch {
-      showMessage({
-        message: "Algo deu errado!",
-      });
+      showMessage({ message: "Algo deu errado!" });
+    } finally {
       setLoading(false);
     }
   }
 
-  // adicionar gastos
-  async function AddGastos({
-    addValor,
-    addDesc,
-  }: {
-    addValor: string | number;
-    addDesc: string;
-  }) {
+  async function AddGastos({ addValor, addDesc }: { addValor: string | number; addDesc: string }) {
     setLoad(true);
-
     const valorNumerico = parseFloat(
-      String(addValor)
-        .replace("R$", "")
-        .replace(/\./g, "")
-        .replace(",", ".")
-        .trim()
+      String(addValor).replace("R$", "").replace(/\./g, "").replace(",", ".").trim()
     );
-
     try {
-      const data = await addDoc(collection(db, "gastos"), {
+      await addDoc(collection(db, "gastos"), {
         uid: user.uid,
         valor: valorNumerico,
         descricao: addDesc,
         date: format(new Date(), "dd/MM/yyyy"),
       });
-
-      showMessage({
-        message: "Adicionado com sucesso!",
-        type: "success",
-      });
-      setLoad(false);
+      showMessage({ message: "Adicionado com sucesso!", type: "success" });
+      setRefreshKey((k) => k + 1);
     } catch {
-      showMessage({
-        message: "Algo deu errado!",
-      });
+      showMessage({ message: "Algo deu errado!" });
+    } finally {
       setLoad(false);
     }
   }
 
-  // adicionar conta fixa
-  async function addAccount({
-    nameAccount,
-    valor,
-    vencimento,
-  }: {
-    nameAccount: string;
-    valor: string;
-    vencimento: string;
-  }) {
-    const data = await addDoc(collection(db, "Account"), {
-      nameAccount: nameAccount,
-      valor: valor,
-      vencimento: vencimento,
-      uid: user.uid,
-    });
+  async function addAccount({ nameAccount, valor, vencimento }: { nameAccount: string; valor: string; vencimento: string }) {
+    await addDoc(collection(db, "Account"), { nameAccount, valor, vencimento, uid: user.uid });
+    setRefreshKey((k) => k + 1);
   }
 
-  // deletar conta fixa
   async function deleteAccountfixed({ uid }: { uid: string }) {
-    const data = doc(db, "Account", uid);
-
-    await deleteDoc(data)
+    await deleteDoc(doc(db, "Account", uid))
       .then(() => {
-        showMessage({
-          message: "Deletado com sucesso!",
-        });
+        showMessage({ message: "Deletado com sucesso!" });
+        setRefreshKey((k) => k + 1);
       })
-      .catch(() => {
-        showMessage({
-          message: "Algo deu errado!",
-        });
-      });
+      .catch(() => showMessage({ message: "Algo deu errado!" }));
   }
 
-  // fazer logout
   async function LogOut() {
     AsyncStorage.removeItem("@userAppwallet");
     await signOut(auth)
       .then(() => {
         setUser({ email: "", uid: "" });
-
-        showMessage({
-          message: "Volte sempre!",
-        });
+        showMessage({ message: "Volte sempre!" });
       })
-      .catch(() => {
-        alert("erro");
-      });
+      .catch(() => alert("erro"));
   }
 
-  // adicionar nome do usuário
   async function AddName({ name }: { name: string }) {
     try {
-      const data = await addDoc(collection(db, "users"), {
-        uid: user.uid,
-        name: name,
-      });
-      showMessage({
-        message: "Adicionado com sucesso!",
-        type: "success",
-      });
+      await addDoc(collection(db, "users"), { uid: user.uid, name });
+      showMessage({ message: "Adicionado com sucesso!", type: "success" });
     } catch {
       Alert.alert("Algo deu errado!");
     }
   }
 
   const logado = !!user?.email && !!user?.uid;
+
   return (
     <AuthContext.Provider
       value={{
-        user,
-        logado,
-        CreateUser,
-        Login,
-        receita,
-        gastos,
-        Deletar,
-        DeletarGastos,
-        LogOut,
-        AddReceita,
-        AddGastos,
-        load,
-        loading,
-        addAccount,
-        account,
-        deleteAccountfixed,
-        AddName,
-        nameUser,
-        saldoGastos,
-        saldoReceita,
+        user, logado, CreateUser, Login,
+        receita, gastos, Deletar, DeletarGastos,
+        LogOut, AddReceita, AddGastos,
+        load, loading, addAccount, account,
+        deleteAccountfixed, AddName, nameUser,
+        saldoGastos, saldoReceita,
       }}
     >
       {children}

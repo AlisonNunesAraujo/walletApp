@@ -63,6 +63,7 @@ export default function AddRegister() {
           onChangeText={setAddValor}
           style={s.inputAdd}
           placeholder="Valor"
+          placeholderTextColor={colors.textSecondary}
         />
 
         <TextInput
@@ -70,12 +71,13 @@ export default function AddRegister() {
           value={addDesc}
           onChangeText={setAdddesc}
           style={s.inputAdd}
+          placeholderTextColor={colors.textSecondary}
         />
 
         <View style={s.areaBntAdd}>
           <TouchableOpacity style={s.bnt} onPress={AddvalorReceita}>
             {load ? (
-              <ActivityIndicator size={20} color="black" />
+              <ActivityIndicator size={20} color={colors.text} />
             ) : (
               <Text style={s.textbntAdd}>Receita</Text>
             )}
@@ -83,7 +85,7 @@ export default function AddRegister() {
 
           <TouchableOpacity style={s.bnt} onPress={AddvalorGastos}>
             {loading ? (
-              <ActivityIndicator size={20} color="black" />
+              <ActivityIndicator size={20} color={colors.text} />
             ) : (
               <Text style={s.textbntAdd}>Gastos</Text>
             )}

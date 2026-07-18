@@ -1,17 +1,17 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// ─── Tokens de cor ────────────────────────────────────────────────────────────
-// Cada propriedade representa um papel semântico (ex: "background", "text"),
-// não um valor específico de cor. Assim trocamos o tema sem mudar os componentes.
+const STORAGE_KEY = "@themeAppWallet";
 
 export type ThemeColors = {
-  background: string;   // fundo geral das telas
-  card: string;         // fundo de cards e seções
-  text: string;         // texto principal
-  textSecondary: string;// texto auxiliar / labels
-  border: string;       // linhas divisórias
-  primary: string;      // cor de destaque do app (verde)
-  inputBg: string;      // fundo de inputs
+  background: string;
+  card: string;
+  text: string;
+  textSecondary: string;
+  border: string;
+  primary: string;
+  inputBg: string;
+  primarySurface: string; // fundo de blocos com destaque: verde vivo no claro, verde escuro no dark
 };
 
 const light: ThemeColors = {
@@ -22,6 +22,7 @@ const light: ThemeColors = {
   border: "#eeeeee",
   primary: "#00cc73",
   inputBg: "#f0f0f0",
+  primarySurface: "#00cc73",
 };
 
 const dark: ThemeColors = {
@@ -30,19 +31,16 @@ const dark: ThemeColors = {
   text: "#f0f0f0",
   textSecondary: "#aaaaaa",
   border: "#2a2a2a",
-  primary: "#00cc73",  // verde mantido em ambos os temas
+  primary: "#00cc73",
   inputBg: "#2a2a2a",
+  primarySurface: "#0d3322", // verde escuro e suave, sem agredir os olhos
 };
-
-// ─── Tipos do contexto ────────────────────────────────────────────────────────
 
 type ThemeContextType = {
-  isDark: boolean;          // true = tema escuro ativo
-  colors: ThemeColors;      // objeto de cores do tema atual
-  toggleTheme: () => void;  // alterna entre claro e escuro
+  isDark: boolean;
+  colors: ThemeColors;
+  toggleTheme: () => void;
 };
-
-// ─── Criação do contexto ──────────────────────────────────────────────────────
 
 export const ThemeContext = createContext<ThemeContextType>({
   isDark: false,
@@ -50,19 +48,25 @@ export const ThemeContext = createContext<ThemeContextType>({
   toggleTheme: () => {},
 });
 
-// ─── Provider ─────────────────────────────────────────────────────────────────
-// Envolve o app inteiro e distribui o tema para todos os filhos via contexto.
-
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Estado que controla qual tema está ativo
   const [isDark, setIsDark] = useState(false);
 
-  // Alterna entre claro e escuro
+  // Carrega a preferência salva quando o app abre
+  useEffect(() => {
+    AsyncStorage.getItem(STORAGE_KEY).then((value) => {
+      if (value === "dark") setIsDark(true);
+    });
+  }, []);
+
+  // Alterna o tema e persiste a escolha para a próxima abertura do app
   function toggleTheme() {
-    setIsDark((prev) => !prev);
+    setIsDark((prev) => {
+      const next = !prev;
+      AsyncStorage.setItem(STORAGE_KEY, next ? "dark" : "light");
+      return next;
+    });
   }
 
-  // Seleciona o objeto de cores conforme o tema ativo
   const colors = isDark ? dark : light;
 
   return (
@@ -71,10 +75,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     </ThemeContext.Provider>
   );
 }
-
-// ─── Hook utilitário ──────────────────────────────────────────────────────────
-// Uso: const { colors, isDark, toggleTheme } = useTheme();
-// Evita importar ThemeContext diretamente em cada componente.
 
 export function useTheme() {
   return useContext(ThemeContext);

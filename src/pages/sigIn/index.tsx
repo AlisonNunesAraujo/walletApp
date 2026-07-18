@@ -6,6 +6,9 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ActivityIndicator,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Feather from "@expo/vector-icons/Feather";
@@ -32,62 +35,67 @@ export default function SigIn() {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView style={s.container}>
-        <View style={s.content}>
+    <SafeAreaView style={s.container}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={s.content}>
 
-          {/* HEADER */}
-          <View style={s.header}>
-            <View style={s.icon}>
-              <Feather name="user" size={28} color="#fff" />
+              <View style={s.header}>
+                <View style={s.icon}>
+                  <Feather name="user" size={28} color="#fff" />
+                </View>
+                <Text style={s.title}>Bem-vindo!</Text>
+                <Text style={s.subtitle}>Faça login para continuar</Text>
+              </View>
+
+              <View style={s.card}>
+                <TextInput
+                  placeholder="E-mail"
+                  value={email}
+                  onChangeText={setEmail}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  placeholderTextColor="#999"
+                  style={s.input}
+                />
+
+                <TextInput
+                  placeholder="Senha"
+                  value={senha}
+                  onChangeText={setSenha}
+                  secureTextEntry
+                  placeholderTextColor="#999"
+                  style={s.input}
+                />
+
+                <TouchableOpacity style={s.primaryButton} onPress={Logar}>
+                  {load ? (
+                    <ActivityIndicator color="#fff" />
+                  ) : (
+                    <Text style={s.primaryText}>Entrar</Text>
+                  )}
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("SigOut")}
+                  style={s.secondaryButton}
+                >
+                  <Text style={s.secondaryText}>Criar uma conta</Text>
+                </TouchableOpacity>
+              </View>
+
             </View>
-            <Text style={s.title}>Bem-vindo!</Text>
-            <Text style={s.subtitle}>
-              Faça login para continuar
-            </Text>
-          </View>
-
-          {/* FORM */}
-          <View style={s.card}>
-            <TextInput
-              placeholder="E-mail"
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              placeholderTextColor="#999"
-              style={s.input}
-            />
-
-            <TextInput
-              placeholder="Senha"
-              value={senha}
-              onChangeText={setSenha}
-              secureTextEntry
-              placeholderTextColor="#999"
-              style={s.input}
-            />
-
-            <TouchableOpacity style={s.primaryButton} onPress={Logar}>
-              {load ? (
-                <ActivityIndicator color="#fff" />
-              ) : (
-                <Text style={s.primaryText}>Entrar</Text>
-              )}
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => navigation.navigate("SigOut")}
-              style={s.secondaryButton}
-            >
-              <Text style={s.secondaryText}>
-                Criar uma conta
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-        </View>
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
+          </ScrollView>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }

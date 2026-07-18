@@ -7,6 +7,9 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ActivityIndicator,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Feather from "@expo/vector-icons/Feather";
@@ -28,68 +31,75 @@ export default function SigIn() {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView style={s.container}>
-        <View style={s.content}>
+    <SafeAreaView style={s.container}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={s.content}>
 
-          {/* HEADER */}
-          <View style={s.header}>
-            <View style={s.icon}>
-              <Feather name="user-plus" size={28} color="#fff" />
+              <View style={s.header}>
+                <View style={s.icon}>
+                  <Feather name="user-plus" size={28} color="#fff" />
+                </View>
+                <Text style={s.title}>Criar conta</Text>
+                <Text style={s.subtitle}>Preencha os dados para continuar</Text>
+              </View>
+
+              <View style={s.card}>
+                <TextInput
+                  placeholder="Nome"
+                  value={name}
+                  onChangeText={setName}
+                  placeholderTextColor="#999"
+                  style={s.input}
+                />
+
+                <TextInput
+                  placeholder="E-mail"
+                  value={email}
+                  onChangeText={setEmail}
+                  autoCapitalize="none"
+                  keyboardType="email-address"
+                  placeholderTextColor="#999"
+                  style={s.input}
+                />
+
+                <TextInput
+                  placeholder="Senha"
+                  value={senha}
+                  onChangeText={setSenha}
+                  secureTextEntry
+                  placeholderTextColor="#999"
+                  style={s.input}
+                />
+
+                <TouchableOpacity style={s.primaryButton} onPress={Create}>
+                  {load ? (
+                    <ActivityIndicator color="#fff" />
+                  ) : (
+                    <Text style={s.primaryText}>Criar conta</Text>
+                  )}
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={s.secondaryButton}
+                  onPress={() => navigation.goBack()}
+                >
+                  <Text style={s.secondaryText}>Voltar para login</Text>
+                </TouchableOpacity>
+              </View>
+
             </View>
-            <Text style={s.title}>Criar conta</Text>
-            <Text style={s.subtitle}>
-              Preencha os dados para continuar
-            </Text>
-          </View>
-
-          {/* FORM */}
-          <View style={s.card}>
-            <TextInput
-              placeholder="Nome"
-              value={name}
-              onChangeText={setName}
-              placeholderTextColor="#999"
-              style={s.input}
-            />
-
-            <TextInput
-              placeholder="E-mail"
-              value={email}
-              onChangeText={setEmail}
-              autoCapitalize="none"
-              keyboardType="email-address"
-              placeholderTextColor="#999"
-              style={s.input}
-            />
-
-            <TextInput
-              placeholder="Senha"
-              value={senha}
-              onChangeText={setSenha}
-              secureTextEntry
-              placeholderTextColor="#999"
-              style={s.input}
-            />
-
-            <TouchableOpacity style={s.primaryButton} onPress={Create}>
-              {load ? (
-                <ActivityIndicator color="#fff" />
-              ) : (
-                <Text style={s.primaryText}>Criar conta</Text>
-              )}
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={s.secondaryButton}
-              onPress={() => navigation.goBack()}
-            >
-              <Text style={s.secondaryText}>Voltar para login</Text>
-            </TouchableOpacity>
-          </View>
-
-        </View>
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
+          </ScrollView>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }

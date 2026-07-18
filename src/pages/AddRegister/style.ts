@@ -11,7 +11,7 @@ export const getStyles = (colors: ThemeColors) =>
     areaAdd: {
       width: "90%",
       marginTop: 20,
-      backgroundColor: colors.primary,
+      backgroundColor: colors.primarySurface,
       padding: 10,
       justifyContent: "center",
       alignItems: "center",
@@ -35,6 +35,7 @@ export const getStyles = (colors: ThemeColors) =>
       borderRadius: 5,
       marginBottom: 20,
       backgroundColor: colors.inputBg,
+      color: colors.text,
       shadowColor: "#7a7777",
       shadowOffset: { width: 1, height: 3 },
       shadowOpacity: 0.25,
@@ -50,11 +51,13 @@ export const getStyles = (colors: ThemeColors) =>
     },
     bnt: {
       width: "30%",
-      height: 30,
-      backgroundColor: colors.card,
+      height: 34,
+      backgroundColor: colors.inputBg,
       alignItems: "center",
       justifyContent: "center",
       borderRadius: 5,
+      borderWidth: 1,
+      borderColor: colors.border,
     },
     textbntAdd: {
       fontSize: 14,
@@ -64,7 +67,7 @@ export const getStyles = (colors: ThemeColors) =>
     buttonVoltar: {
       width: "90%",
       height: 40,
-      backgroundColor: colors.primary,
+      backgroundColor: colors.primarySurface,
       borderRadius: 5,
       alignItems: "center",
       justifyContent: "center",

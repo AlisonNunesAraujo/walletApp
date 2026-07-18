@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, Text, TouchableOpacity, ScrollView, Dimensions } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { getStyles } from "./style";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -10,9 +10,8 @@ import CardSaldo from "../../components/cardSaldo";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AuthContext } from "../../contextApi";
 import { useTheme } from "../../contextApi/theme";
-import { BarChart } from "react-native-gifted-charts";
+import BarChartSimple from "../../components/barChart";
 
-const SCREEN_WIDTH = Dimensions.get("window").width;
 const MESES = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
 
 export default function Home() {
@@ -74,30 +73,15 @@ export default function Home() {
       }
     );
 
-    const ultimos = allKeys.slice(-4);
-    const data: { value: number; label?: string; frontColor: string; spacing?: number; labelTextStyle?: object }[] = [];
-
-    ultimos.forEach((key) => {
+    return allKeys.slice(-4).map((key) => {
       const [mes] = key.split("/").map(Number);
-      const nomeMes = MESES[mes - 1];
-
-      data.push({
-        value: recMap[key] ?? 0,
-        label: nomeMes,
-        frontColor: "#00cc73",
-        spacing: 4,
-        labelTextStyle: { color: colors.textSecondary, fontSize: 10 },
-      });
-
-      data.push({
-        value: gasMap[key] ?? 0,
-        frontColor: "#E53935",
-        spacing: 20,
-      });
+      return {
+        month: MESES[mes - 1],
+        receita: recMap[key] ?? 0,
+        gasto: gasMap[key] ?? 0,
+      };
     });
-
-    return data;
-  }, [receita, gastos, colors.textSecondary]);
+  }, [receita, gastos]);
 
   const temDadosGrafico = barData.length > 0;
 
@@ -171,19 +155,7 @@ export default function Home() {
               <View style={[s.legendaDot, { backgroundColor: "#E53935", marginLeft: 12 }]} />
               <Text style={s.legendaText}>Gasto</Text>
             </View>
-            <BarChart
-              data={barData}
-              width={SCREEN_WIDTH * 0.82}
-              barWidth={22}
-              barBorderRadius={4}
-              rulesColor={colors.border}
-              rulesType="solid"
-              yAxisTextStyle={{ color: colors.textSecondary, fontSize: 10 }}
-              yAxisColor={colors.border}
-              xAxisColor={colors.border}
-              backgroundColor={colors.card}
-              isAnimated
-            />
+            <BarChartSimple data={barData} colors={colors} />
           </View>
         )}
       </ScrollView>
